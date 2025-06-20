@@ -293,19 +293,21 @@
     }
     
     .hero-title {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
         font-weight: 700;
         text-shadow: 2px 4px 12px rgba(0,0,0,0.7);
+        line-height: 1.2;
     }
     
     .hero-description {
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
-        max-width: 800px;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        max-width: 700px;
         margin-left: auto;
         margin-right: auto;
         text-shadow: 1px 2px 8px rgba(0,0,0,0.6);
+        line-height: 1.5;
     }
     
     .hero-buttons {
@@ -337,6 +339,21 @@
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
     
+    /* Marquee effect for long titles */
+    .hero-title.long-title {
+        animation: marqueeTitle 15s linear infinite;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        max-width: 800px;
+    }
+    
+    @keyframes marqueeTitle {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+    
+    /* Responsive hero text */
     @media screen and (max-width: 992px) {
         .blog-detail-image {
             height: 300px;
@@ -347,7 +364,11 @@
         }
         
         .hero-title {
-            font-size: 2.5rem;
+            font-size: 2rem;
+        }
+        
+        .hero-description {
+            font-size: 1rem;
         }
     }
     
@@ -361,11 +382,45 @@
         }
         
         .hero-title {
-            font-size: 2rem;
+            font-size: 1.75rem;
         }
         
         .hero-description {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
+            max-width: 90%;
+        }
+        
+        .hero-badge {
+            font-size: 0.8rem;
+            padding: 6px 12px;
+        }
+        
+        .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .hero-btn {
+            padding: 0.875rem 1.75rem;
+            font-size: 0.9rem;
+            min-width: 200px;
+        }
+    }
+    
+    @media screen and (max-width: 480px) {
+        .hero-title {
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .hero-description {
+            font-size: 0.9rem;
+        }
+        
+        .hero-btn {
+            min-width: 180px;
+            font-size: 0.85rem;
         }
     }
 </style>
@@ -376,11 +431,11 @@
     <!-- Hero Section -->
     <section class="hero-section fade-in-section">
         <div class="hero-slider">
-            <div class="hero-slide active" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/'|add:post.image %}') center/cover no-repeat;"></div>
+            <div class="hero-slide active" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static 'images/'|add:post.image %}') center/cover no-repeat;"></div>
         </div>
         <div class="hero-content">
             <div class="hero-badge">{{ post.category }}</div>
-            <h1 class="hero-title fade-in-text">{{ post.title }}</h1>
+            <h1 class="hero-title fade-in-text" id="heroTitle">{{ post.title }}</h1>
             <p class="hero-description fade-in-text">{{ post.excerpt }}</p>
             <div class="meta-info fade-in-text">
                 <span><i class="far fa-calendar"></i> {{ post.date }}</span>
@@ -486,6 +541,19 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if title is too long and apply marquee effect
+    const heroTitle = document.getElementById('heroTitle');
+    if (heroTitle) {
+        const titleLength = heroTitle.textContent.length;
+        // Apply marquee if title is longer than 50 characters on mobile or 70 on desktop
+        const isMobile = window.innerWidth <= 768;
+        const maxLength = isMobile ? 40 : 60;
+        
+        if (titleLength > maxLength) {
+            heroTitle.classList.add('long-title');
+        }
+    }
+    
     // Fade in elements when they come into view
     const fadeElements = document.querySelectorAll('.fade-in-text');
     
@@ -505,6 +573,21 @@ document.addEventListener('DOMContentLoaded', function() {
         element.style.transform = 'translateY(20px)';
         element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
         observer.observe(element);
+    });
+    
+    // Recalculate marquee on window resize
+    window.addEventListener('resize', function() {
+        if (heroTitle) {
+            const titleLength = heroTitle.textContent.length;
+            const isMobile = window.innerWidth <= 768;
+            const maxLength = isMobile ? 40 : 60;
+            
+            if (titleLength > maxLength) {
+                heroTitle.classList.add('long-title');
+            } else {
+                heroTitle.classList.remove('long-title');
+            }
+        }
     });
 });
 </script>

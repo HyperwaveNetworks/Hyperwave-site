@@ -339,6 +339,7 @@
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
     
+    /* Responsive Hero Text */
     @media screen and (max-width: 992px) {
         .blog-detail-image {
             height: 300px;
@@ -348,12 +349,12 @@
             font-size: 28px;
         }
         
-        .hero-title {
-            font-size: 3rem;
+        .hero-content h1 {
+            font-size: 3rem !important;
         }
         
-        .hero-description {
-            font-size: 1.3rem;
+        .hero-content p {
+            font-size: 1.3rem !important;
         }
     }
     
@@ -366,23 +367,69 @@
             padding: 25px;
         }
         
-        .hero-title {
-            font-size: 2.5rem;
+        .hero-section {
+            height: 50vh !important;
+            min-height: 350px !important;
         }
         
-        .hero-description {
-            font-size: 1.2rem;
+        .hero-content h1 {
+            font-size: 2.5rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem !important;
+            margin-bottom: 1.25rem !important;
+        }
+        
+        .hero-badge {
+            font-size: 0.9rem !important;
+            padding: 8px 16px !important;
+            margin-bottom: 15px !important;
+        }
+        
+        .meta-info {
+            font-size: 0.9rem !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+        
+        .hero-buttons {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 0.75rem !important;
+        }
+        
+        .hero-buttons .btn {
+            padding: 0.75rem 1.5rem !important;
+            font-size: 0.9rem !important;
+            min-width: 200px !important;
         }
     }
     
     @media screen and (max-width: 480px) {
-        .hero-title {
-            font-size: 2rem;
+        .hero-content h1 {
+            font-size: 2rem !important;
+            line-height: 1.3 !important;
         }
         
-        .hero-description {
-            font-size: 1.1rem;
-            max-width: 95%;
+        .hero-content p {
+            font-size: 1.1rem !important;
+            max-width: 95% !important;
+        }
+        
+        .hero-badge {
+            font-size: 0.8rem !important;
+            padding: 6px 12px !important;
+        }
+        
+        .meta-info {
+            font-size: 0.85rem !important;
+        }
+        
+        .hero-buttons .btn {
+            min-width: 180px !important;
+            font-size: 0.85rem !important;
         }
     }
 </style>
@@ -391,20 +438,70 @@
 {% block content %}
 <div class="site-wrapper">
     <!-- Hero Section -->
-    <section class="hero-section fade-in-section">
-        <div class="hero-slider">
-            <div class="hero-slide active" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/'|add:post.image %}') center/cover no-repeat;"></div>
+    <section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+        <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+            <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static 'images/'|add:post.image %}') center/cover no-repeat; opacity: 1; transition: opacity 1.5s ease-in-out;"></div>
+            <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static 'images/tech insights.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out;"></div>
+            <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static 'images/network infrastructure.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out;"></div>
         </div>
-        <div class="hero-content">
-            <div class="hero-badge">{{ post.category }}</div>
-            <h1 class="hero-title fade-in-text">{{ post.title }}</h1>
-            <p class="hero-description fade-in-text">{{ post.excerpt }}</p>
-            <div class="meta-info fade-in-text">
-                <span><i class="far fa-calendar"></i> {{ post.date }}</span>
-                <span><i class="far fa-user"></i> {{ post.author }}</span>
+        <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div class="hero-texts-wrapper" style="position: relative; min-height: 160px; width: 100%;">
+                <div class="hero-text-slide active" style="transition: opacity 1.5s, transform 1.5s; opacity: 1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 10px 20px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 1rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 20px; backdrop-filter: blur(5px);">{{ post.category }}</div>
+                    <h1 class="fade-in-text" style="font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7); line-height: 1.2;">{{ post.title }}</h1>
+                    <p class="fade-in-text" style="font-size: 1.4rem; margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6); line-height: 1.5;">{{ post.excerpt }}</p>
+                    <div class="meta-info fade-in-text" style="display: flex; align-items: center; justify-content: center; gap: 20px; font-size: 1rem; opacity: 0.9;">
+                        <span style="display: flex; align-items: center;"><i class="far fa-calendar" style="margin-right: 8px; color: var(--primary-color);"></i> {{ post.date }}</span>
+                        <span style="display: flex; align-items: center;"><i class="far fa-user" style="margin-right: 8px; color: var(--primary-color);"></i> {{ post.author }}</span>
+                    </div>
+                </div>
+                <div class="hero-text-slide" style="transition: opacity 1.5s, transform 1.5s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 10px 20px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 1rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 20px; backdrop-filter: blur(5px);">TECH INSIGHTS</div>
+                    <h1 class="fade-in-text" style="font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7); line-height: 1.2;">Expert Technology Insights</h1>
+                    <p class="fade-in-text" style="font-size: 1.4rem; margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6); line-height: 1.5;">Stay ahead with expert analysis and practical insights from Kenya's leading ICT professionals.</p>
+                </div>
+                <div class="hero-text-slide" style="transition: opacity 1.5s, transform 1.5s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 10px 20px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 1rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 20px; backdrop-filter: blur(5px);">SOLUTIONS</div>
+                    <h1 class="fade-in-text" style="font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7); line-height: 1.2;">Business Transformation</h1>
+                    <p class="fade-in-text" style="font-size: 1.4rem; margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6); line-height: 1.5;">Discover how modern technology solutions are driving business success across Kenya.</p>
+                </div>
+            </div>
+            <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; position: relative; z-index: 3; flex-wrap: wrap;">
+                <a href="{% url 'blog' %}" class="btn" style="background: var(--secondary-color); color: white; padding: 0.875rem 1.75rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; font-size: 0.95rem;">More Articles</a>
+                <a href="{% url 'contact' %}" class="btn" style="background: transparent; color: white; padding: 0.875rem 1.75rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; font-size: 0.95rem;">Get Expert Advice</a>
             </div>
         </div>
     </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.hero-slide');
+        const textSlides = document.querySelectorAll('.hero-text-slide');
+        let currentSlide = 0;
+        function showSlide(idx) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = (i === idx) ? '1' : '0';
+            });
+            textSlides.forEach((txt, i) => {
+                if (i === idx) {
+                    txt.classList.add('active');
+                    txt.style.opacity = '1';
+                    txt.style.transform = 'translateY(0)';
+                } else {
+                    txt.classList.remove('active');
+                    txt.style.opacity = '0';
+                    txt.style.transform = 'translateY(30px)';
+                }
+            });
+        }
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        showSlide(0);
+        setInterval(nextSlide, 5000);
+    });
+    </script>
 
     <section class="section">
         <div class="container">

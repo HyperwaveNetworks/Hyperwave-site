@@ -1,0 +1,329 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog - Hyperwave Networks{% endblock %}
+
+{% block nav_blog_active %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+    .blog-post {
+        margin-bottom: 40px;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .blog-post:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .blog-image {
+        height: 240px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .blog-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+    
+    .blog-post:hover .blog-image img {
+        transform: scale(1.05);
+    }
+    
+    .blog-category {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 20px;
+        font-weight: 500;
+        z-index: 2;
+    }
+    
+    .blog-content {
+        padding: 25px;
+    }
+    
+    .blog-meta {
+        display: flex;
+        color: var(--gray-color);
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    .blog-meta span {
+        margin-right: 20px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .blog-meta i {
+        margin-right: 5px;
+        color: var(--primary-color);
+    }
+    
+    .blog-title {
+        font-size: 22px;
+        line-height: 1.4;
+        margin-bottom: 15px;
+        color: var(--secondary-color);
+    }
+    
+    .blog-title a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .blog-title a:hover {
+        color: var(--primary-color);
+    }
+    
+    .blog-excerpt {
+        color: var(--gray-color);
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+    
+    .read-more {
+        display: inline-flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .read-more i {
+        margin-left: 5px;
+        transition: transform 0.3s ease;
+    }
+    
+    .read-more:hover {
+        color: var(--secondary-color);
+    }
+    
+    .read-more:hover i {
+        transform: translateX(3px);
+    }
+    
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .blog-sidebar {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 30px;
+    }
+    
+    .sidebar-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f0f0f0;
+        color: var(--secondary-color);
+    }
+    
+    .category-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .category-list li {
+        margin-bottom: 10px;
+        border-bottom: 1px dashed #f0f0f0;
+        padding-bottom: 10px;
+    }
+    
+    .category-list li:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    
+    .category-list a {
+        color: var(--gray-color);
+        text-decoration: none;
+        display: flex;
+        justify-content: space-between;
+        transition: color 0.3s ease;
+    }
+    
+    .category-list a:hover {
+        color: var(--primary-color);
+    }
+    
+    .category-list .count {
+        background-color: var(--primary-color);
+        color: #fff;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+    }
+    
+    @media screen and (max-width: 992px) {
+        .blog-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="site-wrapper">
+    <!-- Hero Section -->
+    <section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+        <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+            <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/tech insights.jpg' %}') center/cover no-repeat; opacity: 1; transition: opacity 1.5s ease-in-out;"></div>
+            <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/network infrastructure.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out;"></div>
+            <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/security systems.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out;"></div>
+        </div>
+        <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div class="hero-texts-wrapper" style="position: relative; min-height: 160px; width: 100%;">
+                <div class="hero-text-slide active" style="transition: opacity 1.5s, transform 1.5s; opacity: 1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 8px 16px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 0.9rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 20px; backdrop-filter: blur(5px);">INSIGHTS & UPDATES</div>
+                    <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7);">Technology Insights</h1>
+                    <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6);">Stay informed with the latest trends, expert analysis, and practical insights from Kenya's leading ICT experts.</p>
+                </div>
+                <div class="hero-text-slide" style="transition: opacity 1.5s, transform 1.5s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 8px 16px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 0.9rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 20px; backdrop-filter: blur(5px);">NETWORK SOLUTIONS</div>
+                    <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7);">Infrastructure Excellence</h1>
+                    <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6);">Discover how modern network infrastructure is transforming businesses and enabling digital growth.</p>
+                </div>
+                <div class="hero-text-slide" style="transition: opacity 1.5s, transform 1.5s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 8px 16px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 0.9rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 20px; backdrop-filter: blur(5px);">SECURITY INSIGHTS</div>
+                    <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7);">Security Best Practices</h1>
+                    <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6);">Learn about the latest security trends and best practices to protect your business in the digital age.</p>
+                </div>
+            </div>
+            <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; position: relative; z-index: 3;">
+                <a href="#blog-posts" class="btn" style="background: var(--secondary-color); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Read Blog</a>
+                <a href="{% url 'contact' %}" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.hero-slide');
+        const textSlides = document.querySelectorAll('.hero-text-slide');
+        let currentSlide = 0;
+        function showSlide(idx) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = (i === idx) ? '1' : '0';
+            });
+            textSlides.forEach((txt, i) => {
+                if (i === idx) {
+                    txt.classList.add('active');
+                    txt.style.opacity = '1';
+                    txt.style.transform = 'translateY(0)';
+                } else {
+                    txt.classList.remove('active');
+                    txt.style.opacity = '0';
+                    txt.style.transform = 'translateY(30px)';
+                }
+            });
+        }
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        showSlide(0);
+        setInterval(nextSlide, 5000);
+    });
+    </script>
+
+    <!-- Blog Section -->
+    <section class="section">
+        <div class="container">
+            <div class="blog-container" style="display: flex; gap: 30px;">
+                <div class="blog-main" style="flex: 3;">
+                    <div class="section-title" style="text-align: left; margin-bottom: 30px;">
+                        <h2>Latest Technology Insights</h2>
+                        <p>Stay ahead with expert insights on network infrastructure, cybersecurity, and business technology solutions from Kenya's leading ICT experts</p>
+                    </div>
+                    
+                    <div class="blog-grid">
+                        {% for post in posts %}
+                        <div class="blog-post">
+                            <div class="blog-image">
+                                <div class="blog-category">{{ post.category }}</div>
+                                {% if post.image|slice:":4" == "http" %}
+                                    <img src="{{ post.image }}" alt="{{ post.title }}">
+                                {% else %}
+                                <img src="{% static 'images/'|add:post.image %}" alt="{{ post.title }}">
+                                {% endif %}
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span><i class="far fa-calendar"></i> {{ post.date }}</span>
+                                    <span><i class="far fa-user"></i> {{ post.author }}</span>
+                                </div>
+                                <h3 class="blog-title"><a href="{% url 'blog' %}?id={{ post.id }}">{{ post.title }}</a></h3>
+                                <p class="blog-excerpt">{{ post.excerpt }}</p>
+                                <a href="{% url 'blog' %}?id={{ post.id }}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="blog-sidebar" style="flex: 1;">
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-title">Categories</h3>
+                        <ul class="category-list">
+                            <li><a href="#">Internet Solutions <span class="count">3</span></a></li>
+                            <li><a href="#">Security Systems <span class="count">2</span></a></li>
+                            <li><a href="#">Network Infrastructure <span class="count">1</span></a></li>
+                            <li><a href="#">Power Solutions <span class="count">1</span></a></li>
+                            <li><a href="#">Managed IT Services <span class="count">2</span></a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-widget" style="margin-top: 30px;">
+                        <h3 class="sidebar-title">Need Assistance?</h3>
+                        <p style="color: var(--gray-color); margin-bottom: 20px;">Have questions about our services or need expert advice? Our team is here to help.</p>
+                        <a href="{% url 'contact' %}" class="btn" style="width: 100%; text-align: center;">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section" style="background-color: var(--primary-color); color: #fff; padding: 50px 0;">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <h2 style="margin-bottom: 15px;">Subscribe to Our Newsletter</h2>
+                <p style="margin-bottom: 25px;">Stay updated with our latest articles, industry insights, and special offers</p>
+                <form class="newsletter-form" style="display: flex; margin-top: 20px;">
+                    <input type="email" placeholder="Your email address" required style="flex: 1; border-radius: 4px 0 0 4px; border: none; padding: 12px 15px;">
+                    <button type="submit" style="background-color: var(--secondary-color); color: #fff; border: none; border-radius: 0 4px 4px 0; padding: 0 20px; cursor: pointer;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %} 

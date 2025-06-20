@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Server Error - Hyperwave Networks{% endblock %}
+
+{% block content %}
+<div class="site-wrapper">
+    <section class="error-section" style="padding: 100px 0; background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; text-align: center; min-height: 60vh;">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div style="font-size: 8rem; font-weight: 700; margin-bottom: 2rem; opacity: 0.3;">500</div>
+                <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">Server Error</h1>
+                <p style="font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9;">
+                    We're experiencing technical difficulties. Our team has been notified and is working to resolve this issue.
+                </p>
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="{% url 'home' %}" class="btn" style="background: white; color: #dc3545; padding: 1.2rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                        <i class="fas fa-home" style="margin-right: 0.5rem;"></i>
+                        Go Home
+                    </a>
+                    <a href="{% url 'contact' %}" class="btn" style="background: transparent; color: white; padding: 1.2rem 2.5rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                        <i class="fas fa-phone" style="margin-right: 0.5rem;"></i>
+                        Call +254 731 567993
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Information Section -->
+    <section style="padding: 80px 0; background: #f8f9fa;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Need Immediate Assistance?</h2>
+                <p style="color: #666;">Contact us directly through any of these channels:</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto;">
+                <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-phone" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Call Us</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Speak with our support team directly</p>
+                    <a href="tel:+254731567993" class="btn" style="background: var(--primary-color); color: white; padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">+254 731 567993</a>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #25D366, #128C7E); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fab fa-whatsapp" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">WhatsApp</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Chat with us instantly</p>
+                    <a href="https://wa.me/254731567993" target="_blank" class="btn" style="background: #25D366; color: white; padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">Chat Now</a>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--secondary-color), #ff6b6b); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-envelope" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Email</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Send us a detailed message</p>
+                    <a href="mailto:Info@hyperwave.co.ke" class="btn" style="background: var(--secondary-color); color: white; padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">Send Email</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+    .error-section h1 {
+        font-size: 2.5rem !important;
+    }
+    
+    .error-section div[style*="font-size: 8rem"] {
+        font-size: 5rem !important;
+    }
+}
+</style>
+{% endblock %} 

@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Services - Hyperwave Networks{% endblock %}
+
+{% block nav_services_active %}active{% endblock %}
+
+<style>
+.service-card {
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.service-sublinks ul li a {
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 10px !important;
+}
+
+.service-sublinks ul li a:hover {
+    color: var(--primary-color) !important;
+    padding-left: 12px !important;
+}
+
+.service-sublinks ul li a::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+.service-sublinks ul li a:hover::before {
+    transform: translateX(2px);
+}
+</style>
+
+{% block content %}
+<section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+    <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+        <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/internet solution service page.jpg' %}') center/cover no-repeat; opacity: 1; transition: opacity 1.5s ease-in-out;"></div>
+        <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/network infrastrcture.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out;"></div>
+        <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/security systems.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out;"></div>
+    </div>
+    <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="hero-texts-wrapper" style="position: relative; min-height: 160px; width: 100%;">
+            <div class="hero-text-slide active" style="transition: opacity 1.5s, transform 1.5s; opacity: 1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7);">Comprehensive Network Solutions</h1>
+                <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6);">We design, install, and support high-performance networks for businesses of all sizes across Kenya.</p>
+            </div>
+            <div class="hero-text-slide" style="transition: opacity 1.5s, transform 1.5s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7);">Enterprise-Grade Infrastructure</h1>
+                <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6);">From structured cabling to advanced wireless solutions, we deliver reliable infrastructure for your growth.</p>
+            </div>
+            <div class="hero-text-slide" style="transition: opacity 1.5s, transform 1.5s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7);">24/7 Support & Maintenance</h1>
+                <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6);">Our dedicated team ensures your network is always up and running, with expert support around the clock.</p>
+            </div>
+        </div>
+        <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; position: relative; z-index: 3;">
+            <a href="{% url 'contact' %}" class="btn" style="background: var(--secondary-color); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get a Quote</a>
+            <a href="#services" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">See Services</a>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const textSlides = document.querySelectorAll('.hero-text-slide');
+    let currentSlide = 0;
+    function showSlide(idx) {
+        slides.forEach((slide, i) => {
+            slide.style.opacity = (i === idx) ? '1' : '0';
+        });
+        textSlides.forEach((txt, i) => {
+            if (i === idx) {
+                txt.classList.add('active');
+                txt.style.opacity = '1';
+                txt.style.transform = 'translateY(0)';
+            } else {
+                txt.classList.remove('active');
+                txt.style.opacity = '0';
+                txt.style.transform = 'translateY(30px)';
+            }
+        });
+    }
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+    showSlide(0);
+    setInterval(nextSlide, 5000);
+});
+</script>
+
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>What We Offer</h2>
+            <p>At Hyperwave Networks, we provide end-to-end IT and networking solutions to help your business thrive in the digital age.</p>
+        </div>
+        
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <img src="{% static 'images/'|add:service.icon %}" alt="{{ service.title }}">
+                <div class="service-content">
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                    <a href="{% url 'service_detail' service.slug %}" class="btn" style="margin-top: 15px;">Learn More</a>
+                    
+                    <div class="service-sublinks" style="margin-top: 15px; text-align: left;">
+                        {% if service.slug == 'internet-solutions' %}
+                            <h4 style="font-size: 0.9rem; margin-bottom: 8px; color: var(--primary-color);">Explore Our Internet Services:</h4>
+                            <ul style="list-style: none; padding-left: 5px; margin: 0;">
+                                <li><a href="{% url 'service_detail' service.slug %}#residential" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Residential Packages</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#business" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Business Solutions</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#fiber" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Fiber Optic Connectivity</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#wireless" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Wireless Broadband</a></li>
+                            </ul>
+                        {% elif service.slug == 'security-systems' %}
+                            <h4 style="font-size: 0.9rem; margin-bottom: 8px; color: var(--primary-color);">Explore Our Security Solutions:</h4>
+                            <ul style="list-style: none; padding-left: 5px; margin: 0;">
+                                <li><a href="{% url 'service_detail' service.slug %}#surveillance" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">CCTV & Surveillance</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#access" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Access Control Systems</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#perimeter" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Perimeter Protection</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#cyber" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Cybersecurity Solutions</a></li>
+                            </ul>
+                        {% elif service.slug == 'network-infrastructure' %}
+                            <h4 style="font-size: 0.9rem; margin-bottom: 8px; color: var(--primary-color);">Explore Our Network Solutions:</h4>
+                            <ul style="list-style: none; padding-left: 5px; margin: 0;">
+                                <li><a href="{% url 'service_detail' service.slug %}#structured" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Structured Cabling</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#wireless-networks" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Wireless Networks</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#voip" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">VoIP Solutions</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#datacenter" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Data Center Infrastructure</a></li>
+                            </ul>
+                        {% elif service.slug == 'power-solutions' %}
+                            <h4 style="font-size: 0.9rem; margin-bottom: 8px; color: var(--primary-color);">Explore Our Power Solutions:</h4>
+                            <ul style="list-style: none; padding-left: 5px; margin: 0;">
+                                <li><a href="{% url 'service_detail' service.slug %}#solar" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Solar Power Systems</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#ups" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">UPS Battery Backups</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#generators" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Generator Solutions</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#hybrid" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Hybrid Power Systems</a></li>
+                            </ul>
+                        {% elif service.slug == 'managed-it' %}
+                            <h4 style="font-size: 0.9rem; margin-bottom: 8px; color: var(--primary-color);">Explore Our IT Services:</h4>
+                            <ul style="list-style: none; padding-left: 5px; margin: 0;">
+                                <li><a href="{% url 'service_detail' service.slug %}#monitoring" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">24/7 Monitoring & Support</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#cloud" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Cloud Services</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#procurement" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Hardware & Software</a></li>
+                                <li><a href="{% url 'service_detail' service.slug %}#security" style="color: var(--gray-color); font-size: 0.85rem; text-decoration: none; display: block; padding: 3px 0 3px 15px; position: relative;">Cybersecurity Management</a></li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Service Process</h2>
+            <p>How we work with you to deliver exceptional technology solutions.</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>1. Consultation</h3>
+                    <p>We begin with a thorough consultation to understand your business needs, challenges, and objectives.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>2. Assessment</h3>
+                    <p>Our experts conduct a comprehensive assessment of your current infrastructure and technology landscape.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>3. Solution Design</h3>
+                    <p>We design a tailored solution that meets your specific requirements and aligns with your business goals.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>4. Implementation</h3>
+                    <p>Our team handles the seamless implementation of your solution with minimal disruption to your operations.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>5. Support & Maintenance</h3>
+                    <p>We provide ongoing support and maintenance to ensure your systems continue to perform optimally.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>6. Continuous Improvement</h3>
+                    <p>We regularly review and optimize your solutions to adapt to changing business needs and emerging technologies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Why Choose Hyperwave Networks?</h2>
+                <p>When you partner with Hyperwave Networks, you gain more than just a service provider—you gain a dedicated technology partner committed to your success.</p>
+                
+                <ul style="list-style-type: none; padding: 0; margin-top: 20px;">
+                    <li style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 5px; font-size: 20px;">✓ Expert Team</h3>
+                        <p>Our certified professionals bring years of industry experience to every project.</p>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 5px; font-size: 20px;">✓ Tailored Solutions</h3>
+                        <p>We don't believe in one-size-fits-all. Each solution is customized to your specific needs.</p>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 5px; font-size: 20px;">✓ Cutting-Edge Technology</h3>
+                        <p>We leverage the latest technologies to deliver innovative solutions that give you a competitive edge.</p>
+                    </li>
+                    <li>
+                        <h3 style="margin-bottom: 5px; font-size: 20px;">✓ Responsive Support</h3>
+                        <p>Our 24/7 support team ensures any issues are resolved quickly and efficiently.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="about-image">
+                <img src="{% static 'images/home3.jpg' %}" alt="Hyperwave Networks Services">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 60px 0;">
+    <div class="container">
+        <h2 style="margin-bottom: 20px;">Ready to Transform Your IT Infrastructure?</h2>
+        <p style="margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">Contact us today to schedule a consultation and discover how our services can help your business thrive.</p>
+        <a href="{% url 'contact' %}" class="btn" style="background-color: var(--white-color); color: var(--primary-color);">Request a Consultation</a>
+    </div>
+</section>
+{% endblock %} 

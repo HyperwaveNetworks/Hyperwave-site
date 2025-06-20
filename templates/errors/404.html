@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Page Not Found - Hyperwave Networks{% endblock %}
+
+{% block content %}
+<div class="site-wrapper">
+    <section class="error-section" style="padding: 100px 0; background: linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%); color: white; text-align: center; min-height: 60vh;">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div style="font-size: 8rem; font-weight: 700; margin-bottom: 2rem; opacity: 0.3;">404</div>
+                <h1 style="font-size: 3rem; margin-bottom: 1.5rem;">Page Not Found</h1>
+                <p style="font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9;">
+                    Sorry, the page you're looking for doesn't exist or has been moved.
+                </p>
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="{% url 'home' %}" class="btn" style="background: white; color: var(--primary-color); padding: 1.2rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                        <i class="fas fa-home" style="margin-right: 0.5rem;"></i>
+                        Go Home
+                    </a>
+                    <a href="{% url 'services' %}" class="btn" style="background: transparent; color: white; padding: 1.2rem 2.5rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                        <i class="fas fa-services" style="margin-right: 0.5rem;"></i>
+                        Our Services
+                    </a>
+                    <a href="{% url 'contact' %}" class="btn" style="background: var(--secondary-color); color: white; padding: 1.2rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                        <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Quick Links Section -->
+    <section style="padding: 80px 0; background: #f8f9fa;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Popular Pages</h2>
+                <p style="color: #666;">Here are some pages you might be looking for:</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-wifi" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Internet Solutions</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Fiber and wireless internet connectivity for businesses and homes.</p>
+                    <a href="{% url 'service_detail' 'internet-solutions' %}" class="btn" style="background: var(--primary-color); color: white; padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">Learn More</a>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--secondary-color), #ff6b6b); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Security Systems</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">CCTV, access control, and comprehensive security solutions.</p>
+                    <a href="{% url 'service_detail' 'security-systems' %}" class="btn" style="background: var(--primary-color); color: white; padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">Learn More</a>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-network-wired" style="font-size: 1.5rem; color: white;"></i>
+                    </div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Network Infrastructure</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">Complete network design, installation, and management services.</p>
+                    <a href="{% url 'service_detail' 'network-infrastructure' %}" class="btn" style="background: var(--primary-color); color: white; padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none;">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+    .error-section h1 {
+        font-size: 2.5rem !important;
+    }
+    
+    .error-section div[style*="font-size: 8rem"] {
+        font-size: 5rem !important;
+    }
+}
+</style>
+{% endblock %} 

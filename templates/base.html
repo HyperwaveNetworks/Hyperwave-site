@@ -1,0 +1,1141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}Hyperwave Networks - Leading Internet Solutions & Network Infrastructure in Kenya{% endblock %}</title>
+    <meta name="description" content="{% block description %}Leading provider of internet solutions, network infrastructure, security systems and ICT consultancy in Kenya. Serving Nairobi and beyond with fiber internet, wireless connectivity, CCTV installation and managed IT services.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}internet solutions Kenya, network infrastructure Nairobi, CCTV installation, fiber internet, wireless internet, ICT consultancy, managed IT services, security systems, hyperwave networks{% endblock %}">
+    <meta name="author" content="Hyperwave Networks">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Hyperwave Networks - Leading Internet Solutions in Kenya{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Professional internet solutions, network infrastructure, and security systems for businesses across Kenya. Expert ICT consultancy and managed services.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}{% endblock %}">
+    <meta property="og:site_name" content="Hyperwave Networks">
+    <meta property="og:locale" content="en_KE">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="{% block twitter_title %}Hyperwave Networks - Internet Solutions Kenya{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Leading provider of internet solutions, network infrastructure, and security systems in Kenya{% endblock %}">
+    <meta property="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/logo.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/logo.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}">
+    
+    <!-- DNS Prefetch for Performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//kit.fontawesome.com">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"></noscript>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Hyperwave Networks",
+        "description": "Leading provider of internet solutions, network infrastructure, and security systems in Kenya",
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+254-731-567993",
+            "contactType": "customer service",
+            "availableLanguage": ["en", "sw"],
+            "areaServed": "KE"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Shopping Mall, Kincar Utawala",
+            "addressLocality": "Nairobi",
+            "addressCountry": "Kenya"
+        },
+        "sameAs": [
+            "https://www.facebook.com/hyperwavetech",
+            "https://www.instagram.com/hyperwavenetworks/",
+            "https://wa.me/254731567993"
+        ],
+        "service": [
+            {
+                "@type": "Service",
+                "name": "Internet Solutions",
+                "description": "Fiber and wireless internet connectivity for businesses and homes"
+            },
+            {
+                "@type": "Service", 
+                "name": "Network Infrastructure",
+                "description": "Complete network design, installation, and management services"
+            },
+            {
+                "@type": "Service",
+                "name": "Security Systems", 
+                "description": "CCTV installation, access control, and comprehensive security solutions"
+            },
+            {
+                "@type": "Service",
+                "name": "ICT Consultancy",
+                "description": "Professional ICT consulting and managed IT services"
+            }
+        ]
+    }
+    </script>
+    
+    {% block extra_head %}{% endblock %}
+    <style>
+        /* Dropdown menu styles */
+        .nav-links li {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            width: 240px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-radius: 0 0 4px 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 0;
+            margin-top: 0;
+            border-top: 3px solid #91d7f5;
+        }
+        
+        .dropdown-menu:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #91d7f5;
+        }
+        
+        .nav-links li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            display: block;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-menu li a {
+            display: block;
+            padding: 12px 15px;
+            color: #1c2957;
+            font-weight: 400;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-menu li a:hover {
+            background-color: #f8f9fa;
+            border-left: 3px solid #91d7f5;
+            color: #1c2957;
+            padding-left: 20px;
+        }
+        
+        .dropdown-menu li a:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 1px;
+            background-color: #91d7f5;
+            transition: width 0.3s ease;
+        }
+        
+        .dropdown-menu li a:hover:before {
+            width: 100%;
+        }
+        
+        .has-dropdown > a:after {
+            content: "\f107";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-left: 6px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            color: #91d7f5;
+        }
+        
+        .has-dropdown:hover > a:after {
+            transform: rotate(180deg);
+        }
+        
+        /* Mobile nav adjustments */
+        @media screen and (max-width: 768px) {
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                margin-top: 0;
+                box-shadow: none;
+                border-top: none;
+                border-radius: 0;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background-color: #f8f9fa;
+            }
+            
+            .has-dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-menu:before {
+                display: none;
+            }
+            
+            .dropdown-menu li a {
+                padding-left: 30px;
+            }
+            
+            .dropdown-menu li a:hover {
+                padding-left: 35px;
+            }
+        }
+
+        /* Core Values Section */
+        .core-values-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #1c2957 0%, #2b4890 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .value-icon i {
+            font-size: 2.2rem;
+            color: var(--secondary-color);
+        }
+
+        .value-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: var(--white-color);
+        }
+
+        .value-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .core-values-section .section-heading {
+            margin-bottom: 2.5rem;
+        }
+
+        .core-values-section .section-heading h2 {
+            color: var(--white-color);
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .core-values-section .section-heading p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: none;
+            color: var(--white-color);
+            padding-top: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer > .container {
+            background: var(--primary-color);
+            max-width: 1100px;
+            margin: 0 auto 0 auto;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 8px 32px rgba(28,41,87,0.10);
+            padding: 2.5rem 2rem 0.5rem 2rem;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: nowrap;
+        }
+        .footer-col {
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 260px;
+            font-size: 0.97rem;
+            padding: 0 0.5rem;
+        }
+        .footer-col h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            padding-bottom: 0.7rem;
+            position: relative;
+        }
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 32px;
+            height: 2px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+        .footer-col p, .footer-col ul.main-links li, .footer-col ul.contact-info li {
+            font-size: 0.97rem;
+            margin-bottom: 0.7rem;
+        }
+        .footer-col ul.main-links li a, .footer-col ul.contact-info li a {
+            font-size: 0.97rem;
+        }
+        .footer-col ul.main-links {
+            margin-bottom: 0.5rem;
+        }
+        .footer-col ul.contact-info li i {
+            width: 22px;
+            height: 22px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+        .social-links a {
+            width: 32px;
+            height: 32px;
+            font-size: 0.95rem;
+        }
+        .footer-bottom {
+            background: var(--primary-color);
+            border-radius: 0 0 16px 16px;
+            max-width: 1100px;
+            margin: 0 auto 0 auto;
+            padding: 1rem 2rem 1rem 2rem;
+        }
+        .copyright {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.92rem;
+        }
+        .copyright p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 0.9rem;
+            transform-style: preserve-3d;
+        }
+        .copyright p i {
+            color: var(--secondary-color);
+            margin: 0 0.3rem;
+        }
+        .copyright p a {
+            color: var(--white-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .copyright p a:hover {
+            color: var(--secondary-color);
+        }
+        @media (max-width: 1200px) {
+            .footer-content {
+                gap: 1.2rem;
+            }
+            .footer-col {
+                max-width: 200px;
+            }
+        }
+        @media (max-width: 992px) {
+            .footer-content {
+                gap: 0.7rem;
+            }
+            .footer-col {
+                max-width: 160px;
+                font-size: 0.93rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.5rem;
+            }
+            .footer-col {
+                max-width: 100%;
+                padding: 0;
+                text-align: center;
+            }
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 10px;
+        }
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+        .company-name {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        @media (max-width: 768px) {
+            .company-name {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="page-content">
+        <div class="site-wrapper">
+        <!-- Top Bar with Contact Info and Social Media Links -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="top-contact-info">
+                        <a href="tel:+254731567993"><i class="fas fa-phone"></i> +254 731 567993</a>
+                        <a href="mailto:Info@hyperwave.co.ke"><i class="fas fa-envelope"></i> Info@hyperwave.co.ke</a>
+                    </div>
+                    <div class="top-social-links">
+                        <a href="https://www.facebook.com/hyperwavetech" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/hyperwavenetworks/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/254731567993" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <header>
+            <div class="container">
+                <nav class="navbar">
+                    <div class="logo">
+                        <a href="{% url 'home' %}" class="logo-link">
+                            <img src="{% static 'images/logo.png' %}" alt="Hyperwave Networks Logo">
+                            <span class="company-name">Hyperwave Networks</span>
+                        </a>
+                    </div>
+                    <div class="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <ul class="nav-links">
+                        <li><a href="{% url 'home' %}" class="{% block nav_home_active %}{% endblock %}">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="{% block nav_about_active %}{% endblock %}">About</a></li>
+                        <li class="has-dropdown">
+                            <a href="{% url 'services' %}" class="{% block nav_services_active %}{% endblock %}">Services</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'service_detail' 'internet-solutions' %}"><i class="fas fa-wifi"></i> Internet Solutions</a></li>
+                                <li><a href="{% url 'service_detail' 'security-systems' %}"><i class="fas fa-shield-alt"></i> Security Systems</a></li>
+                                <li><a href="{% url 'service_detail' 'network-infrastructure' %}"><i class="fas fa-network-wired"></i> Network Infrastructure</a></li>
+                                <li><a href="{% url 'service_detail' 'power-solutions' %}"><i class="fas fa-bolt"></i> Power Solutions</a></li>
+                                <li><a href="{% url 'service_detail' 'managed-it' %}"><i class="fas fa-server"></i> Managed IT Services</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'products' %}" class="{% block nav_products_active %}{% endblock %}">Products</a></li>
+                        <li><a href="{% url 'blog' %}" class="{% block nav_blog_active %}{% endblock %}">Blog</a></li>
+                        <li><a href="{% url 'contact' %}" class="{% block nav_contact_active %}{% endblock %}">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        </div>
+
+        <!-- Chatbot Button -->
+        <div class="chat-bot-container">
+            <button id="chatbot-toggle" class="chatbot-btn" title="Chat with our AI assistant">
+                <i class="fas fa-comments"></i>
+            </button>
+            <div id="chatbot-window" class="chatbot-window">
+                <div class="chatbot-header">
+                    <h3>Hyperwave Assistant</h3>
+                    <button id="chatbot-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="chatbot-messages" class="chatbot-messages">
+                    <div class="bot-message">Hi there! How can I help you today?</div>
+                </div>
+                <div class="chatbot-input">
+                    <input type="text" id="user-message" placeholder="Type your message...">
+                    <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modern Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-col">
+                        <h3>About Us</h3>
+                        <p>Hyperwave Networks is a leading provider of innovative networking solutions, delivering reliable internet services and cutting-edge technology solutions across Kenya.</p>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/hyperwavetech" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/hyperwavenetworks/" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://wa.me/254731567993" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h3>Quick Links</h3>
+                        <ul class="main-links">
+                            <li><a href="{% url 'home' %}"><i class="fas fa-chevron-right"></i>Home</a></li>
+                            <li><a href="{% url 'about' %}"><i class="fas fa-chevron-right"></i>About Us</a></li>
+                            <li><a href="{% url 'services' %}"><i class="fas fa-chevron-right"></i>Services</a></li>
+                            <li><a href="{% url 'products' %}"><i class="fas fa-chevron-right"></i>Products</a></li>
+                            <li><a href="{% url 'blog' %}"><i class="fas fa-chevron-right"></i>Blog</a></li>
+                            <li><a href="{% url 'contact' %}"><i class="fas fa-chevron-right"></i>Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h3>Our Services</h3>
+                        <ul class="main-links">
+                            <li><a href="{% url 'service_detail' 'internet-solutions' %}"><i class="fas fa-chevron-right"></i>Internet Solutions</a></li>
+                            <li><a href="{% url 'service_detail' 'network-infrastructure' %}"><i class="fas fa-chevron-right"></i>Network Infrastructure</a></li>
+                            <li><a href="{% url 'service_detail' 'security-systems' %}"><i class="fas fa-chevron-right"></i>Security Systems</a></li>
+                            <li><a href="{% url 'service_detail' 'ict-consultancy' %}"><i class="fas fa-chevron-right"></i>ICT Consultancy</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h3>Contact Info</h3>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Nairobi, Kenya</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:+254731567993">+254 731 567993</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:Info@hyperwave.co.ke">Info@hyperwave.co.ke</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                <span>Mon - Sat: 8:00 AM - 6:00 PM</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="copyright">
+                        <p>&copy; {% now "Y" %} Hyperwave Networks. All Rights Reserved.</p>
+                        <p>Designed by Harry Designs <a href="https://wa.me/254700440330" target="_blank" style="color: #25D366;"><i class="fab fa-whatsapp"></i></a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/mobile-menu.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+    <script>
+        // Hero background images configuration
+        const heroBackgrounds = {
+            'services': [
+                '{% static "images/internet solution service page.jpg" %}',
+                '{% static "images/network infrastrcture.jpg" %}',
+                '{% static "images/security systems.jpg" %}',
+                '{% static "images/power solutions.jpg" %}',
+                '{% static "images/it services.jpg" %}'
+            ],
+            'products': [
+                '{% static "images/High speed internet.jpg" %}',
+                '{% static "images/network.jpg" %}',
+                '{% static "images/Public wifi hotspot.png" %}',
+                '{% static "images/vision.jpg" %}'
+            ],
+            'blog': [
+                '{% static "images/home1.jpg" %}',
+                '{% static "images/home2.jpg" %}',
+                '{% static "images/home3.jpg" %}',
+                '{% static "images/empowering digital transformation.jpg" %}'
+            ],
+            'contact': [
+                '{% static "images/Nairobi.jpg" %}',
+                '{% static "images/about us 1.jpg" %}',
+                '{% static "images/about us 2.jpg" %}',
+                '{% static "images/mission.jpg" %}'
+            ],
+            'about': [
+                '{% static "images/empowering digital transformation.jpg" %}',
+                '{% static "images/vision.jpg" %}',
+                '{% static "images/mission.jpg" %}',
+                '{% static "images/Data Center Infrastructure.jpg" %}',
+                '{% static "images/Professional Rack Setup & Server Room Design.jpg" %}',
+                '{% static "images/Coporate offices Service page.jpg" %}'
+            ]
+        };
+
+        // Function to get random background
+        function getRandomBackground(pageType) {
+            const backgrounds = heroBackgrounds[pageType];
+            if (!backgrounds) return null;
+            return backgrounds[Math.floor(Math.random() * backgrounds.length)];
+        }
+
+        // Set hero background based on current page
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroSection = document.querySelector('.hero-section, .hero-about');
+            if (!heroSection) return;
+
+            // Determine current page type
+            const path = window.location.pathname;
+            let pageType = null;
+
+            if (path.includes('/services/')) pageType = 'services';
+            else if (path.includes('/products/')) pageType = 'products';
+            else if (path.includes('/blog/')) pageType = 'blog';
+            else if (path.includes('/contact/')) pageType = 'contact';
+            else if (path.includes('/about/')) pageType = 'about';
+
+            if (pageType) {
+                const backgroundImage = getRandomBackground(pageType);
+                if (backgroundImage) {
+                    // Add transition styles
+                    heroSection.style.transition = 'background-image 1.5s ease-in-out, opacity 1.5s ease-in-out';
+                    heroSection.style.opacity = '0';
+                    
+                    // Set initial background with consistent opacity overlay
+                    heroSection.style.backgroundImage = `linear-gradient(rgba(28, 41, 87, 0.85), rgba(28, 41, 87, 0.85)), url('${backgroundImage}')`;
+                    heroSection.style.backgroundSize = 'cover';
+                    heroSection.style.backgroundPosition = 'center';
+                    heroSection.style.backgroundRepeat = 'no-repeat';
+                    
+                    // Fade in
+                    setTimeout(() => {
+                        heroSection.style.opacity = '1';
+                    }, 100);
+
+                    // Add hover effect
+                    heroSection.addEventListener('mouseenter', function() {
+                        this.style.backgroundImage = `linear-gradient(rgba(28, 41, 87, 0.75), rgba(28, 41, 87, 0.75)), url('${backgroundImage}')`;
+                    });
+
+                    heroSection.addEventListener('mouseleave', function() {
+                        this.style.backgroundImage = `linear-gradient(rgba(28, 41, 87, 0.85), rgba(28, 41, 87, 0.85)), url('${backgroundImage}')`;
+                    });
+                }
+            }
+        });
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Toggle mobile menu
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    document.body.classList.toggle('menu-open');
+                    
+                    // Change icon based on menu state
+                    const icon = this.querySelector('i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (navLinks.classList.contains('active') && 
+                    !navLinks.contains(e.target) && 
+                    !mobileMenuToggle.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Handle dropdowns on mobile
+            const dropdownLinks = document.querySelectorAll('.has-dropdown > a');
+            
+            dropdownLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Only handle on mobile view
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const parent = this.parentElement;
+                        parent.classList.toggle('active');
+                    }
+                });
+            });
+            
+            // Reset dropdown state on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    document.querySelectorAll('.has-dropdown').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Also reset the menu if it was open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                        
+                        const icon = mobileMenuToggle.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+        
+        // Enhanced intelligent chatbot functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotClose = document.getElementById('chatbot-close');
+            const sendMessage = document.getElementById('send-message');
+            const userMessage = document.getElementById('user-message');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            
+            // Comprehensive knowledge base about Hyperwave Networks
+            const knowledgeBase = {
+                // Company Information
+                company: {
+                    name: "Hyperwave Networks",
+                    location: "Shopping Mall, Kincar Utawala, Nairobi, Kenya",
+                    phone: "+254 731 567993",
+                    email: "Info@hyperwave.co.ke",
+                    hours: "Monday - Friday: 9:00 AM - 6:00 PM",
+                    description: "Leading provider of innovative networking solutions, delivering reliable internet services and cutting-edge technology solutions across Kenya"
+                },
+                
+                // Services
+                services: {
+                    internet: {
+                        name: "Internet Solutions",
+                        description: "High-speed fiber optic internet, WiFi hotspots, and reliable connectivity solutions",
+                        features: ["Fiber optic internet", "WiFi hotspot setup", "Network optimization", "24/7 support"],
+                        pricing: "Starting from KSh 1,500/month for basic packages"
+                    },
+                    network: {
+                        name: "Network Infrastructure",
+                        description: "Complete network design, installation, and management services",
+                        features: ["Network design & planning", "Structured cabling", "Server room setup", "Network monitoring"],
+                        benefits: "Reliable, scalable network infrastructure for businesses of all sizes"
+                    },
+                    security: {
+                        name: "Security Systems",
+                        description: "Comprehensive security solutions including CCTV, access control, and perimeter protection",
+                        features: ["CCTV surveillance", "Access control systems", "Biometric systems", "Electric fencing", "Intrusion detection"],
+                        applications: "Offices, residential, schools, hospitals, and commercial properties"
+                    },
+                    power: {
+                        name: "Power Solutions",
+                        description: "Backup power systems and energy solutions for uninterrupted operations",
+                        features: ["UPS systems", "Solar power installations", "Generator systems", "Hybrid power solutions"],
+                        benefits: "Ensures continuous operation during power outages"
+                    },
+                    managedIT: {
+                        name: "Managed IT Services",
+                        description: "Complete IT support including monitoring, cloud services, and custom development",
+                        features: ["24/7 IT monitoring", "VPN & network security", "Cloud services", "Custom software development", "Web development", "Graphic design"],
+                        support: "Round-the-clock professional IT support"
+                    }
+                },
+                
+                // Industries served
+                industries: ["Healthcare", "Education", "Finance", "Manufacturing", "Retail", "Hospitality", "Government", "SMEs"],
+                
+                // Common pricing
+                pricing: {
+                    internet: "Basic internet packages start from KSh 1,500/month",
+                    security: "CCTV systems start from KSh 50,000 for basic setups",
+                    consultation: "Free initial consultation and site survey"
+                }
+            };
+            
+            // Enhanced response engine
+            function generateResponse(userInput) {
+                const input = userInput.toLowerCase();
+                
+                // Greeting responses
+                if (input.match(/\b(hi|hello|hey|good morning|good afternoon|good evening)\b/)) {
+                    return "Hello! 👋 Welcome to Hyperwave Networks. I'm here to help you with information about our internet, security, power, and IT solutions. What would you like to know?";
+                }
+                
+                // Company information
+                if (input.match(/\b(about|company|who are you|what is hyperwave)\b/)) {
+                    return `Hyperwave Networks is a leading provider of innovative networking solutions in Kenya. We specialize in:
+                    
+📡 Internet Solutions & Connectivity
+🔒 Security Systems (CCTV, Access Control)
+⚡ Power Solutions (UPS, Solar, Generators)
+🖥️ Managed IT Services
+🏗️ Network Infrastructure
+
+We're located at Shopping Mall, Kincar Utawala, Nairobi. How can we help transform your technology infrastructure?`;
+                }
+                
+                // Location and contact
+                if (input.match(/\b(location|address|where|office|visit)\b/)) {
+                    return `📍 Our office is located at:
+Shopping Mall, Kincar Utawala, Nairobi, Kenya
+
+📞 Phone: +254 731 567993
+📧 Email: Info@hyperwave.co.ke
+🕒 Hours: Monday - Friday, 9:00 AM - 6:00 PM
+
+Feel free to visit us or give us a call for a consultation!`;
+                }
+                
+                // Internet services
+                if (input.match(/\b(internet|wifi|fiber|broadband|connectivity|speed)\b/)) {
+                    return `🌐 Our Internet Solutions include:
+
+• High-speed fiber optic internet (up to 1Gbps)
+• WiFi hotspot setup and management
+• Corporate internet packages
+• Network optimization
+• 24/7 technical support
+
+📊 Packages start from KSh 1,500/month for basic plans.
+
+Would you like specific pricing for your location or business requirements?`;
+                }
+                
+                // Security systems
+                if (input.match(/\b(security|cctv|camera|surveillance|access control|biometric|alarm)\b/)) {
+                    return `🔒 Our Security Solutions include:
+
+• CCTV surveillance systems (IP & Analog)
+• Access control & biometric systems
+• Electric fencing & perimeter security
+• Intrusion detection systems
+• Remote monitoring capabilities
+
+🏢 Perfect for: Offices, homes, schools, hospitals, warehouses
+
+💰 Basic CCTV systems start from KSh 50,000
+
+Need a security assessment for your property?`;
+                }
+                
+                // Power solutions
+                if (input.match(/\b(power|ups|solar|generator|backup|battery|electricity)\b/)) {
+                    return `⚡ Our Power Solutions include:
+
+• UPS systems (1KVA to 1000KVA)
+• Solar power installations
+• Diesel & petrol generators
+• Hybrid power systems
+• Power distribution infrastructure
+
+✅ Benefits:
+- Uninterrupted operations during outages
+- Reduced electricity costs with solar
+- 24/7 power monitoring
+- Professional installation & maintenance
+
+Want a free energy audit for your facility?`;
+                }
+                
+                // Managed IT services
+                if (input.match(/\b(it services|managed it|software|web development|cloud|support)\b/)) {
+                    return `💻 Our Managed IT Services include:
+
+• 24/7 IT monitoring & support
+• VPN & network security
+• Cloud services & data management
+• Custom software development
+• Web development & e-commerce
+• Graphic design & branding
+
+🎯 Perfect for businesses wanting:
+- Professional IT support
+- Custom software solutions
+- Modern web presence
+- Secure cloud infrastructure
+
+Need an IT assessment for your business?`;
+                }
+                
+                // Network infrastructure
+                if (input.match(/\b(network|infrastructure|cabling|server|rack)\b/)) {
+                    return `🏗️ Our Network Infrastructure services:
+
+• Structured cable management
+• Server room design & setup
+• Professional rack installation
+• Fiber optic layout & installation
+• Network monitoring & management
+• Private network configurations
+
+🔧 We handle everything from planning to maintenance, ensuring your network is reliable, scalable, and future-ready.
+
+Planning a new office or upgrading your network?`;
+                }
+                
+                // Pricing inquiries
+                if (input.match(/\b(price|cost|pricing|quote|budget|how much)\b/)) {
+                    return `💰 Our competitive pricing:
+
+📡 Internet: Starting from KSh 1,500/month
+🔒 Security Systems: From KSh 50,000
+⚡ Power Solutions: Custom quotes based on requirements
+💻 IT Services: Flexible monthly packages
+
+🆓 We offer FREE:
+- Initial consultation
+- Site surveys
+- Custom quotes
+
+Would you like a detailed quote for any specific service?`;
+                }
+                
+                // Industries and clients
+                if (input.match(/\b(industries|clients|who do you serve|businesses)\b/)) {
+                    return `🏢 We serve diverse industries:
+
+• Healthcare facilities
+• Educational institutions
+• Financial services
+• Manufacturing companies
+• Retail businesses
+• Hospitality sector
+• Government agencies
+• Small & medium enterprises
+
+From startups to large corporations, we provide scalable solutions tailored to your industry needs.
+
+What industry are you in? I can share specific solutions for your sector.`;
+                }
+                
+                // Installation and timeline
+                if (input.match(/\b(installation|install|timeline|how long|when)\b/)) {
+                    return `⏱️ Installation Timeline:
+
+📡 Internet Setup: 2-5 business days
+🔒 Security Systems: 3-7 days (depending on scope)
+⚡ Power Solutions: 5-10 days
+🏗️ Network Infrastructure: 1-3 weeks
+
+🔧 Our process:
+1. Free consultation & site survey
+2. Custom solution design
+3. Professional installation
+4. Testing & training
+5. Ongoing support
+
+Ready to get started? Let's schedule your free consultation!`;
+                }
+                
+                // Support and maintenance
+                if (input.match(/\b(support|maintenance|help|problem|issue|repair)\b/)) {
+                    return `🛠️ Our Support & Maintenance:
+
+• 24/7 emergency support
+• Regular maintenance schedules
+• Remote monitoring & diagnostics
+• On-site technical support
+• Preventive maintenance programs
+• Equipment warranty coverage
+
+📞 For immediate support: +254 731 567993
+
+We guarantee quick response times and professional service to keep your systems running smoothly!`;
+                }
+                
+                // Contact and next steps
+                if (input.match(/\b(contact|call|email|speak|talk|consultation)\b/)) {
+                    return `📞 Ready to connect? Here's how:
+
+🔥 BEST OPTION: Call us at +254 731 567993
+📧 Email: Info@hyperwave.co.ke
+💬 WhatsApp: https://wa.me/254731567993
+🏢 Visit: Shopping Mall, Kincar Utawala, Nairobi
+
+🆓 FREE CONSULTATION: We'll assess your needs and provide custom recommendations.
+
+Which service interests you most? I can connect you with our specialists!`;
+                }
+                
+                // Thank you and farewell
+                if (input.match(/\b(thanks|thank you|bye|goodbye)\b/)) {
+                    return `Thank you for your interest in Hyperwave Networks! 🙏
+
+Don't forget:
+📞 Call +254 731 567993 for immediate assistance
+🆓 Free consultations available
+⚡ Quick response times guaranteed
+
+We're here whenever you're ready to upgrade your technology infrastructure. Have a great day! 🌟`;
+                }
+                
+                // Default intelligent response
+                return `I understand you're asking about "${userInput}". 
+
+🤔 Let me help you find the right solution! Hyperwave Networks specializes in:
+
+📡 Internet & Connectivity Solutions
+🔒 Security Systems & Surveillance  
+⚡ Power & Backup Solutions
+💻 Managed IT Services
+🏗️ Network Infrastructure
+
+Could you be more specific about what you need? Or would you like me to explain any of these services in detail?
+
+📞 For immediate assistance: +254 731 567993`;
+            }
+            
+            // Toggle chatbot window
+            chatbotToggle.addEventListener('click', function() {
+                chatbotWindow.classList.toggle('active');
+                if (chatbotWindow.classList.contains('active')) {
+                    userMessage.focus();
+                }
+            });
+            
+            // Close chatbot window
+            chatbotClose.addEventListener('click', function() {
+                chatbotWindow.classList.remove('active');
+            });
+            
+            // Handle send message
+            function sendUserMessage() {
+                const message = userMessage.value.trim();
+                if (message) {
+                    // Add user message
+                    const userDiv = document.createElement('div');
+                    userDiv.className = 'user-message';
+                    userDiv.textContent = message;
+                    chatbotMessages.appendChild(userDiv);
+                    
+                    // Clear input
+                    userMessage.value = '';
+                    
+                    // Generate intelligent response
+                    setTimeout(function() {
+                        const botDiv = document.createElement('div');
+                        botDiv.className = 'bot-message';
+                        botDiv.innerHTML = generateResponse(message).replace(/\n/g, '<br>');
+                        
+                        chatbotMessages.appendChild(botDiv);
+                        
+                        // Scroll to bottom
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    }, 800);
+                }
+                
+                // Scroll to bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            // Send message on button click
+            sendMessage.addEventListener('click', sendUserMessage);
+            
+            // Send message on Enter key
+            userMessage.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendUserMessage();
+                }
+            });
+            
+            // Add typing indicator functionality
+            let typingTimeout;
+            userMessage.addEventListener('input', function() {
+                clearTimeout(typingTimeout);
+                // You could add a "typing" indicator here if desired
+                typingTimeout = setTimeout(() => {
+                    // Clear typing indicator
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html> 

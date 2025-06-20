@@ -1,0 +1,2010 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Hyperwave Networks{% endblock %}
+
+{% block nav_home_active %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero section animations */
+    .hero-section {
+        position: relative;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .hero-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        background-size: cover;
+        background-position: center;
+        transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+        transform: scale(1.05);
+    }
+
+    .hero-slide::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.06);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .hero-slide.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: var(--white-color);
+        padding: 20px;
+    }
+
+    .hero-content {
+        max-width: 1000px;
+        opacity: 0;
+        transform: translateY(30px) perspective(500px) rotateX(5deg);
+        animation: fadeInUp3D 1.2s forwards 0.5s;
+        backface-visibility: hidden;
+    }
+
+    .hero-slide-content {
+        transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        width: 100%;
+    }
+    
+    .hero-slide-content[style*="display: none"] {
+        opacity: 0;
+        transform: translateY(20px);
+        position: absolute;
+    }
+    
+    .hero-slide-content[style*="display: block"] {
+        opacity: 1;
+        transform: translateY(0);
+        position: relative;
+        animation: fadeInContent 1s forwards;
+    }
+    
+    .hero-slide-content h1 {
+        animation: slideInFromBottom 0.8s ease-out forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    
+    .hero-slide-content p {
+        animation: slideInFromBottom 0.8s ease-out 0.3s forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    
+    @keyframes fadeInContent {
+        from {
+            opacity: 0.5;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideInFromBottom {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-buttons {
+        animation: fadeInButtons 0.8s ease-out 0.6s forwards;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    
+    @keyframes fadeInButtons {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .hero-buttons .hero-btn.primary {
+        animation: buttonPop 0.5s ease-out 0.9s forwards;
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    
+    .hero-buttons .hero-btn.secondary {
+        animation: buttonPop 0.5s ease-out 1.1s forwards;
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    
+    @keyframes buttonPop {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .hero-content h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        color: var(--white-color);
+        text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .hero-content h1::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+        opacity: 0.9;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+        perspective: 1000px;
+    }
+
+    .hero-btn {
+        display: inline-block;
+        padding: 1.2rem 2.8rem;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border-radius: 50px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transform-style: preserve-3d;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+
+    .hero-btn.primary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white-color);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-btn.secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white-color);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-btn:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-btn.primary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-btn.secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-btn:active {
+        transform: translateY(-2px) scale(0.98);
+    }
+
+    .hero-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+
+    .hero-btn:hover::before {
+        transform: translateX(100%);
+    }
+
+    .hero-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .hero-btn:hover::after {
+        opacity: 1;
+    }
+
+    .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+        animation: bounce 2s infinite;
+        z-index: 2;
+    }
+
+    .scroll-indicator i {
+        font-size: 2.2rem;
+        color: var(--white-color);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .scroll-indicator:hover i {
+        transform: scale(1.2);
+        color: var(--secondary-color);
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0) translateX(-50%);
+        }
+        40% {
+            transform: translateY(-20px) translateX(-50%);
+        }
+        60% {
+            transform: translateY(-10px) translateX(-50%);
+        }
+    }
+
+    @keyframes fadeInUp3D {
+        from {
+            opacity: 0;
+            transform: translateY(50px) perspective(500px) rotateX(5deg);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) perspective(500px) rotateX(0);
+        }
+    }
+
+    /* Services Quick Connect */
+    .services-quick-connect {
+        padding: 1.5rem 0 6rem 0;
+        background-color: #f8f9fa;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .services-quick-connect .container {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .services-container {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1rem;
+        position: relative;
+        z-index: 2;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        max-width: 98vw;
+        margin: 0 auto;
+        align-items: stretch;
+    }
+
+    .service-box {
+        background: var(--white-color);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        min-height: 370px;
+        opacity: 0;
+        transform: translateY(30px) perspective(1000px) rotateX(5deg);
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        flex: 1;
+        min-width: 0;
+        margin: 0 0.25rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .service-box.animated {
+        animation: fadeInUp3D 0.8s forwards;
+    }
+
+    .service-box:hover {
+        transform: translateY(-15px) scale(1.03);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-icon {
+        width: 100%;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        position: relative;
+        overflow: hidden;
+        perspective: 1000px;
+    }
+
+    .service-icon i {
+        font-size: 3rem;
+        position: relative;
+        z-index: 2;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-box:hover .service-icon i {
+        transform: scale(1.3) translateY(-10px);
+    }
+
+    .service-icon:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, var(--secondary-color) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .service-box:hover .service-icon:after {
+        opacity: 0.3;
+    }
+
+    .service-icon::before {
+        content: '';
+        position: absolute;
+        width: 140%;
+        height: 140%;
+        top: -20%;
+        left: -20%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: transform 0.6s ease;
+        transform: translateX(-100%) rotate(45deg);
+    }
+
+    .service-box:hover .service-icon::before {
+        transform: translateX(100%) rotate(45deg);
+    }
+
+    .service-content {
+        padding: 1.5rem 1rem;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+
+    .service-content h3 {
+        color: var(--primary-color);
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+
+    .service-box:hover .service-content h3 {
+        transform: translateY(-5px);
+        color: var(--secondary-color);
+    }
+
+    .service-content p {
+        color: var(--gray-color);
+        margin-bottom: 1.2rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .service-btn {
+        display: inline-block;
+        padding: 0.6rem 1.2rem;
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 2px solid var(--secondary-color);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        margin-top: auto;
+        align-self: center;
+    }
+
+    .service-btn:hover {
+        background-color: transparent;
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: width 0.4s ease;
+        z-index: -1;
+    }
+
+    .service-btn:hover::before {
+        width: 100%;
+    }
+
+    .section-heading {
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .section-heading h2 {
+        font-size: 2.8rem;
+        color: var(--primary-color);
+        margin-bottom: 1.2rem;
+        position: relative;
+        display: inline-block;
+        font-weight: 700;
+    }
+
+    .section-heading h2:after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 4px;
+        background: var(--secondary-color);
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+
+    .section-heading p {
+        max-width: 700px;
+        margin: 1.5rem auto 0;
+        color: var(--gray-color);
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
+
+    /* Core Values Section */
+    .core-values-section {
+        padding: 3rem 0;
+        background: linear-gradient(135deg, #1c2957 0%, #2b4890 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .value-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 2rem 1.5rem;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .value-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .value-icon i {
+        font-size: 2.2rem;
+        color: var(--secondary-color);
+    }
+
+    .value-card h3 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: var(--white-color);
+    }
+
+    .value-card p {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    .core-values-section .section-heading {
+        margin-bottom: 2.5rem;
+    }
+
+    .core-values-section .section-heading h2 {
+        color: var(--white-color);
+        font-size: 2.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .core-values-section .section-heading p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1rem;
+    }
+
+    /* About Section */
+    .about-section {
+        padding: 3rem 0;
+        background-color: var(--white-color);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .about-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    .about-content {
+        opacity: 0;
+        transform: translateX(-50px) perspective(1000px);
+    }
+
+    .about-content.animated {
+        animation: fadeInRight3D 1s forwards;
+    }
+
+    .about-content h2 {
+        font-size: 2.2rem;
+        margin-bottom: 1.2rem;
+        line-height: 1.2;
+        position: relative;
+        padding-bottom: 12px;
+        font-weight: 700;
+    }
+
+    .about-content h2:after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        background: var(--secondary-color);
+        bottom: 0;
+        left: 0;
+        border-radius: 2px;
+    }
+
+    .about-content p {
+        color: var(--gray-color);
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .about-content .btn {
+        margin-top: 1rem;
+        padding: 0.8rem 1.8rem;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 20px rgba(56, 58, 118, 0.15);
+    }
+
+    .about-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        transition: all 0.5s ease;
+        transform-style: preserve-3d;
+        transform: perspective(1000px) rotateY(-5deg);
+    }
+
+    .about-shape-1 {
+        width: 100%;
+        height: 100%;
+        border: 3px solid var(--secondary-color);
+        top: 15px;
+        left: 15px;
+        opacity: 0.6;
+        transform: translateZ(-20px);
+    }
+
+    .about-shape-2 {
+        width: 50px;
+        height: 50px;
+        top: -25px;
+        left: -25px;
+    }
+
+    .about-shape-3 {
+        width: 35px;
+        height: 35px;
+        bottom: -15px;
+        right: 25px;
+    }
+
+    .about-image-container {
+        position: relative;
+        opacity: 0;
+        transform: translateX(50px) perspective(1000px);
+        perspective: 1000px;
+    }
+
+    .about-image-container.animated {
+        animation: fadeInLeft3D 1s forwards;
+    }
+
+    .about-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: -20px;
+        left: -20px;
+        z-index: -1;
+        transform-style: preserve-3d;
+    }
+
+    .about-shape {
+        position: absolute;
+        border-radius: 15px;
+        transition: all 0.5s ease;
+    }
+
+    .about-shape-1 {
+        width: 100%;
+        height: 100%;
+        border: 4px solid var(--secondary-color);
+        top: 20px;
+        left: 20px;
+        opacity: 0.6;
+        transform: translateZ(-20px);
+    }
+
+    .about-shape-2 {
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary-color);
+        top: -30px;
+        left: -30px;
+        transform: translateZ(20px);
+    }
+
+    .about-shape-3 {
+        width: 40px;
+        height: 40px;
+        background-color: var(--secondary-color);
+        bottom: -20px;
+        right: 30px;
+        transform: translateZ(40px);
+    }
+
+    .about-image-container:hover .about-shape-1 {
+        transform: translateZ(-30px) translateX(5px) translateY(5px);
+    }
+
+    .about-image-container:hover .about-shape-2 {
+        transform: translateZ(30px) translateX(-10px) translateY(-10px) rotate(10deg);
+    }
+
+    .about-image-container:hover .about-shape-3 {
+        transform: translateZ(50px) translateX(10px) translateY(10px) rotate(-10deg);
+    }
+
+    @keyframes fadeInRight3D {
+        from {
+            opacity: 0;
+            transform: translateX(-50px) perspective(1000px) rotateY(10deg);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0) perspective(1000px) rotateY(0);
+        }
+    }
+
+    @keyframes fadeInLeft3D {
+        from {
+            opacity: 0;
+            transform: translateX(50px) perspective(1000px) rotateY(-10deg);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0) perspective(1000px) rotateY(-5deg);
+        }
+    }
+
+    /* Services Preview Section */
+    .services-preview-section {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .services-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .preview-card {
+        background: var(--white-color);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+        transition: all 0.4s ease;
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    .preview-card.animated {
+        animation: fadeInUp 0.7s forwards;
+    }
+
+    .preview-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(56, 58, 118, 0.15);
+    }
+
+    .preview-image {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .preview-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .preview-card:hover .preview-image img {
+        transform: scale(1.1);
+    }
+
+    .preview-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(56, 58, 118, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .preview-card:hover .preview-overlay {
+        opacity: 1;
+    }
+
+    .preview-link {
+        width: 50px;
+        height: 50px;
+        background: var(--secondary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        transform: scale(0);
+        transition: all 0.4s ease;
+    }
+
+    .preview-card:hover .preview-link {
+        transform: scale(1);
+    }
+
+    .preview-content {
+        padding: 2rem;
+        position: relative;
+    }
+
+    .preview-icon {
+        position: absolute;
+        top: -25px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white-color);
+        font-size: 1.2rem;
+        box-shadow: 0 5px 15px rgba(56, 58, 118, 0.3);
+    }
+
+    .preview-content h3 {
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .preview-content p {
+        color: var(--gray-color);
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .preview-btn {
+        display: inline-block;
+        position: relative;
+        color: var(--primary-color);
+        font-weight: 600;
+        text-decoration: none;
+        padding-bottom: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .preview-btn::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--secondary-color);
+        transition: width 0.3s ease;
+    }
+
+    .preview-btn:hover {
+        color: var(--secondary-color);
+    }
+
+    .preview-btn:hover::after {
+        width: 100%;
+    }
+
+    .services-all-btn {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background: var(--primary-color);
+        color: var(--white-color);
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary-color);
+        margin-top: 1rem;
+    }
+
+    .services-all-btn:hover {
+        background: transparent;
+        color: var(--primary-color);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(56, 58, 118, 0.2);
+    }
+
+    .text-center {
+        text-align: center;
+    }
+    
+    /* Residential Packages Section */
+    .packages-section {
+        padding: 2rem 0;
+        background-color: #f5f7fa;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .packages-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        position: relative;
+        z-index: 2;
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+
+    .package-card {
+        background: var(--white-color);
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .speed-circle {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1.5rem;
+        position: relative;
+    }
+
+    .circle-bg {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: #f0f3f9;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .circle-progress {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: conic-gradient(var(--secondary-color) var(--progress), transparent 0deg);
+        mask: radial-gradient(transparent 65%, black 66%);
+        -webkit-mask: radial-gradient(transparent 65%, black 66%);
+    }
+
+    .circle-rotate {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px dashed var(--secondary-color);
+        border-radius: 50%;
+        animation: rotateCircle 10s linear infinite;
+    }
+
+    @keyframes rotateCircle {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .circle-inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 75%;
+        height: 75%;
+        background: var(--white-color);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .speed-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        line-height: 1;
+        margin-bottom: 0.2rem;
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    .speed-value.animated {
+        animation: countUp 2s forwards;
+    }
+
+    @keyframes countUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .speed-unit {
+        font-size: 0.8rem;
+        color: var(--gray-color);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .package-name {
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+
+    .package-price {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        color: var(--white-color);
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin: 0.5rem 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-list {
+        margin: 1rem 0;
+        padding: 0 1rem;
+        list-style: none;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .feature-list li {
+        padding: 0.4rem 0;
+        color: var(--gray-color);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        text-align: left;
+    }
+
+    .feature-list li:last-child {
+        border-bottom: none;
+    }
+
+    .feature-list li i {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    .package-btn {
+        display: inline-block;
+        padding: 0.6rem 1.2rem;
+        background: var(--primary-color);
+        color: var(--white-color);
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary-color);
+        font-size: 0.85rem;
+        margin-top: 1rem;
+        align-self: center;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .packages-grid {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 800px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .packages-grid {
+            grid-template-columns: 1fr;
+            max-width: 400px;
+        }
+    }
+
+    /* Call to Action Section */
+    .cta-section {
+        padding: 2.5rem 0;
+        background: linear-gradient(135deg, #1c2957 0%, #2b4890 100%);
+        color: var(--white-color);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="3" fill="%23ffffff" opacity="0.1"/></svg>');
+        background-size: 80px 80px;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
+    .cta-heading {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        color: var(--white-color);
+        font-weight: 800;
+        text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: inline-block;
+        transform: perspective(1000px);
+        animation: floatText 6s ease-in-out infinite;
+    }
+
+    .cta-heading::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+    }
+
+    .cta-text {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+        line-height: 1.6;
+    }
+
+    .cta-btn {
+        display: inline-block;
+        padding: 0.9rem 2.2rem;
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        font-weight: 700;
+        font-size: 1rem;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 2px solid var(--secondary-color);
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        margin-top: 0.5rem;
+    }
+
+    .cta-btn:hover {
+        background: transparent;
+        color: var(--white-color);
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: all 0.5s ease;
+    }
+
+    .cta-btn:hover::before {
+        left: 100%;
+    }
+
+    @keyframes floatText {
+        0%, 100% {
+            transform: translateY(0) perspective(1000px);
+        }
+        50% {
+            transform: translateY(-10px) perspective(1000px);
+        }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes fadeInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes backgroundMove {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 100px 100px;
+        }
+    }
+    
+    /* Responsive Styles */
+    @media screen and (max-width: 1200px) {
+        .hero-content h1 {
+            font-size: 3.5rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+        }
+        
+        .section-heading h2 {
+            font-size: 2.5rem;
+        }
+        
+        .services-container, .packages-grid {
+            flex-wrap: wrap;
+        }
+        
+        .service-box, .package-card {
+            flex: 0 0 calc(50% - 1rem);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-heading {
+            font-size: 3rem;
+        }
+    }
+    
+    @media screen and (max-width: 992px) {
+        .hero-section {
+            height: 80vh;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            flex-direction: row;
+            gap: 1rem;
+        }
+        
+        .hero-btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+        
+        .about-container {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .about-image-container {
+            order: -1;
+        }
+        
+        .about-image {
+            height: 350px;
+        }
+        
+        .service-box, .package-card {
+            flex: 0 0 calc(50% - 1rem);
+        }
+        
+        .services-preview-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .preview-card:last-child {
+            grid-column: span 2;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+    }
+    
+    @media screen and (max-width: 768px) {
+        .hero-section {
+            height: 70vh;
+        }
+        
+        .hero-content h1 {
+            font-size: 2.5rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.1rem;
+            max-width: 100%;
+        }
+        
+        .hero-buttons {
+            flex-direction: column;
+            gap: 1rem;
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        .services-container, .packages-grid {
+            flex-direction: column;
+        }
+        
+        .service-box, .package-card {
+            flex: 0 0 100%;
+            margin-bottom: 1.5rem;
+        }
+        
+        .values-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .services-preview-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .preview-card:last-child {
+            grid-column: span 1;
+            max-width: 100%;
+        }
+        
+        .section-heading h2 {
+            font-size: 2.2rem;
+        }
+        
+        .cta-heading {
+            font-size: 2.5rem;
+        }
+        
+        .cta-text {
+            font-size: 1.1rem;
+        }
+        
+        .cta-btn {
+            padding: 1.1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+    }
+    
+    @media screen and (max-width: 576px) {
+        .hero-section {
+            height: 80vh;
+        }
+        
+        .hero-content h1 {
+            font-size: 2rem;
+        }
+        
+        .hero-content p {
+            font-size: 1rem;
+        }
+        
+        .hero-buttons {
+            width: 100%;
+        }
+        
+        .section {
+            padding: 50px 0;
+        }
+        
+        .section-heading h2 {
+            font-size: 1.8rem;
+        }
+        
+        .section-heading p {
+            font-size: 1rem;
+        }
+        
+        .cta-heading {
+            font-size: 2rem;
+        }
+        
+        .cta-btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 250px;
+        }
+        
+        .about-content h2 {
+            font-size: 2rem;
+        }
+        
+        .preview-image {
+            height: 180px;
+        }
+    }
+
+    body, .site-wrapper {
+        background: #fff;
+        background-image: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="site-wrapper">
+<!-- Modern Hero Section -->
+<section class="hero-section">
+    <div class="hero-slide" style="background-image: url({% static 'images/network.jpg' %});"></div>
+    <div class="hero-slide" style="background-image: url({% static 'images/home1.jpg' %});"></div>
+    <div class="hero-slide" style="background-image: url({% static 'images/home3.jpg' %});"></div>
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <div class="hero-slide-content" data-slide="0">
+                <h1>Next-Gen Network Solutions</h1>
+                <p>Empowering businesses and homes with cutting-edge ICT and security systems in Utawala and across Nairobi</p>
+            </div>
+            <div class="hero-slide-content" data-slide="1" style="display: none;">
+                <h1>Secure Your Digital Future</h1>
+                <p>Comprehensive security and network infrastructure solutions to protect your business and accelerate growth</p>
+            </div>
+            <div class="hero-slide-content" data-slide="2" style="display: none;">
+                <h1>Seamless Connectivity</h1>
+                <p>Experience the difference with our high-speed fiber and wireless internet solutions for homes and businesses</p>
+            </div>
+            <div class="hero-buttons animate-buttons">
+                <a href="{% url 'services' %}" class="hero-btn primary">Explore Services</a>
+                <a href="{% url 'contact' %}" class="hero-btn secondary">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- Modern Quick Connect Section -->
+<section id="quick-connect" class="services-quick-connect">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Connect With Our Solutions</h2>
+            <p>Discover how our premium services can transform your connectivity and security needs</p>
+        </div>
+        
+        <div class="services-container">
+            <div class="service-box" data-delay="0">
+                <div class="service-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Internet Solutions</h3>
+                    <p>High-speed fiber and wireless connections for reliable connectivity at home or business</p>
+                    <a href="{% url 'service_detail' 'internet-solutions' %}" class="service-btn">Get Connected</a>
+                </div>
+            </div>
+            
+            <div class="service-box" data-delay="150">
+                <div class="service-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Security Systems</h3>
+                    <p>Comprehensive CCTV, access control, and perimeter protection for complete security</p>
+                    <a href="{% url 'service_detail' 'security-systems' %}" class="service-btn">Secure Now</a>
+                </div>
+            </div>
+            
+            <div class="service-box" data-delay="300">
+                <div class="service-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Network Infrastructure</h3>
+                    <p>Professional structured cabling and network infrastructure for optimal performance</p>
+                    <a href="{% url 'service_detail' 'network-infrastructure' %}" class="service-btn">Build Network</a>
+                </div>
+            </div>
+            
+            <div class="service-box" data-delay="450">
+                <div class="service-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Power Solutions</h3>
+                    <p>Reliable UPS, solar, and generator backup systems for uninterrupted operations</p>
+                    <a href="{% url 'service_detail' 'power-solutions' %}" class="service-btn">Power Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Core Values Section -->
+<section class="core-values-section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Our Core Values</h2>
+            <p>The principles that guide everything we do</p>
+        </div>
+        
+        <div class="values-grid">
+            <div class="value-card" data-delay="0">
+                <div class="value-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Excellence</h3>
+                <p>We strive for excellence in every project, delivering superior quality and exceptional service to exceed our clients' expectations.</p>
+            </div>
+            
+            <div class="value-card" data-delay="150">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Integrity</h3>
+                <p>We conduct our business with the highest standards of honesty, transparency, and ethical behavior.</p>
+            </div>
+            
+            <div class="value-card" data-delay="300">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Innovation</h3>
+                <p>We embrace cutting-edge technology and creative solutions to stay ahead in the ever-evolving digital landscape.</p>
+            </div>
+            
+            <div class="value-card" data-delay="450">
+                <div class="value-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Customer Focus</h3>
+                <p>We put our customers first, understanding their needs and delivering personalized solutions that drive their success.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modern About Section -->
+<section id="about-intro" class="about-section">
+    <div class="container">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>Empowering Digital Transformation</h2>
+                <p>At Hyperwave Networks, we believe that reliable connectivity and robust security are the foundation of modern business. Founded in 2020, we've quickly become a trusted ICT partner in Utawala and across Nairobi.</p>
+                <p>Our mission is to provide innovative solutions that empower organizations to achieve their digital transformation goals through our expertise in network infrastructure, internet solutions, security systems, and managed services.</p>
+                <a href="{% url 'about' %}" class="btn" style="white-space: nowrap; text-align: center; display: inline-block; min-width: 200px;">Discover Our Story</a>
+            </div>
+            <div class="about-image-container">
+                <div class="about-shapes">
+                    <div class="about-shape about-shape-1"></div>
+                    <div class="about-shape about-shape-2"></div>
+                    <div class="about-shape about-shape-3"></div>
+                </div>
+                <img src="{% static 'images/empowering digital transformation.jpg' %}" alt="Hyperwave Networks Team" class="about-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Services Preview Section -->
+<section id="services-preview" class="services-preview-section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Our Core Services</h2>
+            <p>Comprehensive ICT and security solutions designed to boost your business performance</p>
+        </div>
+        
+        <div class="services-preview-grid">
+            <div class="preview-card" data-delay="0">
+                <div class="preview-image">
+                    <img src="{% static 'images/home1.jpg' %}" alt="Internet Solutions">
+                    <div class="preview-overlay">
+                        <a href="{% url 'service_detail' 'internet-solutions' %}" class="preview-link">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="preview-content">
+                    <div class="preview-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>Internet Solutions</h3>
+                    <p>High-speed fiber and wireless connectivity for homes and businesses with dedicated support.</p>
+                    <a href="{% url 'service_detail' 'internet-solutions' %}" class="preview-btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="preview-card" data-delay="150">
+                <div class="preview-image">
+                    <img src="{% static 'images/security systems.jpg' %}" alt="Security Systems">
+                    <div class="preview-overlay">
+                        <a href="{% url 'service_detail' 'security-systems' %}" class="preview-link">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="preview-content">
+                    <div class="preview-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Systems</h3>
+                    <p>Comprehensive security solutions including CCTV, access control, and perimeter protection.</p>
+                    <a href="{% url 'service_detail' 'security-systems' %}" class="preview-btn">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="preview-card" data-delay="300">
+                <div class="preview-image">
+                    <img src="{% static 'images/network infrastrcture.jpg' %}" alt="Network Infrastructure">
+                    <div class="preview-overlay">
+                        <a href="{% url 'service_detail' 'network-infrastructure' %}" class="preview-link">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="preview-content">
+                    <div class="preview-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Network Infrastructure</h3>
+                    <p>Robust and scalable network foundations including structured cabling and Wi-Fi systems.</p>
+                    <a href="{% url 'service_detail' 'network-infrastructure' %}" class="preview-btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{% url 'services' %}" class="services-all-btn">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Residential Internet Section -->
+<section id="packages" class="packages-section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Residential Internet Packages</h2>
+            <p>Experience lightning-fast internet with our tailored packages</p>
+        </div>
+        
+        <div class="packages-grid">
+            {% for package in internet_packages %}
+            <div class="package-card" data-speed="{{ package.speed|default_if_none:''|cut:' Mbps' }}">
+                <div class="speed-circle">
+                    <div class="circle-bg">
+                        <div class="circle-progress" style="--progress: 50%;"></div>
+                        <div class="circle-rotate"></div>
+                    </div>
+                    <div class="circle-inner">
+                        <div class="speed-value">{{ package.speed|default_if_none:'0'|cut:' Mbps' }}</div>
+                        <div class="speed-unit">Mbps</div>
+                    </div>
+                </div>
+                <h3 class="package-name">{{ package.name }}</h3>
+                <div class="package-price">{{ package.price }}</div>
+                <ul class="feature-list">
+                    {% for feature in package.features %}
+                    <li><i class="fas fa-check-circle"></i>{{ feature }}</li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'contact' %}" class="package-btn">Get Started</a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center" style="margin-top: 2rem;">
+            <p class="package-note">* Business packages with higher bandwidth and SLA guarantees are available upon request.</p>
+            <a href="{% url 'service_detail' 'internet-solutions' %}" class="services-all-btn">View All Internet Solutions</a>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Call to Action -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-heading">Ready to Transform Your Network?</h2>
+            <p class="cta-text">Contact us today to schedule a consultation and discover how Hyperwave Networks can help your business thrive in the digital age.</p>
+            <p class="cta-text" style="font-size: 0.9rem; max-width: 800px; margin: 0 auto 30px; opacity: 0.9;">We are available across Nairobi County for ISP wholesale services: Ziwani, Race Course, Kariokor, Ngara, Park Road, Pangani, Muthaiga, Roasters, Allsops, Babadogo, Riverside, Astrol, Shooters, Utawala Quickmart, Benedicta, Fagilia, Capital Mall, Kincar, Jetview, Ruai, Githunguri, Airways, Zebra, and more areas.</p>
+            <a href="{% url 'contact' %}" class="cta-btn">GET IN TOUCH</a>
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Modern Hero Slideshow
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        const heroSlideContents = document.querySelectorAll('.hero-slide-content');
+        let currentSlide = 0;
+        
+        // Set first slide as active
+        heroSlides[0].classList.add('active');
+        heroSlideContents[0].style.display = 'block';
+        
+        // Function to change slides
+        function nextSlide() {
+            // Remove active class from current slide
+            heroSlides[currentSlide].classList.remove('active');
+            heroSlideContents[currentSlide].style.display = 'none';
+            
+            // Update current slide index
+            currentSlide = (currentSlide + 1) % heroSlides.length;
+            
+            // Add active class to new current slide
+            heroSlides[currentSlide].classList.add('active');
+            
+            // Reset animations by briefly removing content from DOM flow
+            const currentContent = heroSlideContents[currentSlide];
+            const heading = currentContent.querySelector('h1');
+            const paragraph = currentContent.querySelector('p');
+            const buttonsContainer = document.querySelector('.hero-buttons');
+            const primaryBtn = document.querySelector('.hero-btn.primary');
+            const secondaryBtn = document.querySelector('.hero-btn.secondary');
+            
+            // Reset animations
+            heading.style.animation = 'none';
+            paragraph.style.animation = 'none';
+            buttonsContainer.style.animation = 'none';
+            primaryBtn.style.animation = 'none';
+            secondaryBtn.style.animation = 'none';
+            
+            // Force a reflow
+            void heading.offsetWidth;
+            void paragraph.offsetWidth;
+            void buttonsContainer.offsetWidth;
+            void primaryBtn.offsetWidth;
+            void secondaryBtn.offsetWidth;
+            
+            // Restore animations
+            heading.style.animation = 'slideInFromBottom 0.8s ease-out forwards';
+            paragraph.style.animation = 'slideInFromBottom 0.8s ease-out 0.3s forwards';
+            buttonsContainer.style.animation = 'fadeInButtons 0.8s ease-out 0.6s forwards';
+            primaryBtn.style.animation = 'buttonPop 0.5s ease-out 0.9s forwards';
+            secondaryBtn.style.animation = 'buttonPop 0.5s ease-out 1.1s forwards';
+            
+            // Display the content
+            currentContent.style.display = 'block';
+        }
+        
+        // Change slides every 7 seconds
+        setInterval(nextSlide, 7000);
+
+        // Smooth scroll functionality
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            window.scrollTo({
+                top: document.getElementById('quick-connect').offsetTop,
+                behavior: 'smooth'
+            });
+        });
+
+        // Function to check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85
+            );
+        }
+        
+        // Animation on scroll for service boxes
+        const serviceBoxes = document.querySelectorAll('.service-box');
+        function animateServiceBoxes() {
+            serviceBoxes.forEach(box => {
+                if (isInViewport(box) && !box.classList.contains('animated')) {
+                    setTimeout(() => {
+                        box.classList.add('animated');
+                    }, parseInt(box.dataset.delay) || 0);
+                }
+            });
+        }
+
+        // Animation on scroll for value cards
+        const valueCards = document.querySelectorAll('.value-card');
+        function animateValueCards() {
+            valueCards.forEach(card => {
+                if (isInViewport(card) && !card.classList.contains('animated')) {
+                    setTimeout(() => {
+                        card.classList.add('animated');
+                    }, parseInt(card.dataset.delay) || 0);
+                }
+            });
+        }
+
+        // Animation for about section
+        const aboutContent = document.querySelector('.about-content');
+        const aboutImageContainer = document.querySelector('.about-image-container');
+        function animateAboutSection() {
+            if (isInViewport(aboutContent) && !aboutContent.classList.contains('animated')) {
+                aboutContent.classList.add('animated');
+            }
+            if (isInViewport(aboutImageContainer) && !aboutImageContainer.classList.contains('animated')) {
+                aboutImageContainer.classList.add('animated');
+            }
+        }
+        
+        // Animation for preview cards
+        const previewCards = document.querySelectorAll('.preview-card');
+        function animatePreviewCards() {
+            previewCards.forEach(card => {
+                if (isInViewport(card) && !card.classList.contains('animated')) {
+                    setTimeout(() => {
+                        card.classList.add('animated');
+                    }, parseInt(card.dataset.delay) || 0);
+                }
+            });
+        }
+        
+        // Animation for package cards
+        const packageCards = document.querySelectorAll('.package-card');
+        function animatePackageCards() {
+            packageCards.forEach(card => {
+                if (isInViewport(card) && !card.classList.contains('animated')) {
+                    setTimeout(() => {
+                        card.classList.add('animated');
+                    }, parseInt(card.dataset.delay) || 0);
+                }
+            });
+        }
+
+        // Function to animate number counting
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = value;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Run animations on scroll
+        window.addEventListener('scroll', function() {
+            animateServiceBoxes();
+            animateValueCards();
+            animateAboutSection();
+            animatePreviewCards();
+            animatePackageCards();
+            animateSpeedCircles();
+        });
+        
+        // Run once on page load
+        animateServiceBoxes();
+        animateValueCards();
+        animateAboutSection();
+        animatePreviewCards();
+        animatePackageCards();
+        animateSpeedCircles();
+
+        // Animate speed circles and counter
+        function animateSpeedCircles() {
+            packageCards.forEach(card => {
+                if (isInViewport(card)) {
+                    const progress = card.querySelector('.circle-progress');
+                    const speedValue = card.querySelector('.speed-value');
+                    const targetSpeed = parseInt(card.dataset.speed);
+                    
+                    if (!progress.classList.contains('animated')) {
+                        progress.classList.add('animated');
+                        speedValue.classList.add('animated');
+                        animateValue(speedValue, 0, targetSpeed, 2000);
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %} 

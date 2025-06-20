@@ -1,0 +1,44 @@
+WARNING 2025-06-12 00:30:43,357 middleware 6976 24560 Suspicious request from 127.0.0.1: /
+WARNING 2025-06-12 00:30:43,367 middleware 6976 21652 Suspicious request from 127.0.0.1: /
+WARNING 2025-06-12 00:30:43,536 middleware 6976 20368 Suspicious request from 127.0.0.1: /
+WARNING 2025-06-12 00:30:43,665 middleware 6976 7944 Suspicious request from 127.0.0.1: /
+WARNING 2025-06-12 00:30:43,787 middleware 6976 19712 Suspicious request from 127.0.0.1: /
+WARNING 2025-06-12 00:30:43,912 middleware 6976 14860 Suspicious request from 127.0.0.1: /
+WARNING 2025-06-12 00:30:44,022 middleware 6976 21120 Suspicious request from 127.0.0.1: /wp-admin/
+CRITICAL 2025-06-12 00:30:44,033 middleware 6976 788 IP 127.0.0.1 added to blocklist for 3600 seconds
+CRITICAL 2025-06-12 00:30:44,034 middleware 6976 788 IP 127.0.0.1 blocked due to high suspicious activity score: 12
+WARNING 2025-06-12 00:30:44,034 middleware 6976 788 Suspicious request from 127.0.0.1: /admin.php
+CRITICAL 2025-06-12 00:30:44,049 middleware 6976 21616 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:30:44,061 middleware 6976 14332 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,141 middleware 6976 23604 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,151 middleware 6976 21176 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,272 middleware 6976 21064 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,397 middleware 6976 20400 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,509 middleware 6976 8060 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,616 middleware 6976 23692 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,735 middleware 6976 23160 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,749 middleware 6976 8340 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,755 middleware 6976 23312 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,765 middleware 6976 21708 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,773 middleware 6976 18176 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-12 00:31:16,782 middleware 6976 23040 Blocked IP attempted access: 127.0.0.1
+WARNING 2025-06-12 00:32:26,854 middleware 17072 15192 Suspicious request from 127.0.0.1: /wp-admin/
+WARNING 2025-06-12 00:32:26,861 middleware 17072 22860 Suspicious request from 127.0.0.1: /admin.php
+WARNING 2025-06-12 00:32:26,891 middleware 17072 21508 Suspicious request from 127.0.0.1: /index.php
+WARNING 2025-06-12 00:32:26,897 middleware 17072 20588 Suspicious request from 127.0.0.1: /
+WARNING 2025-06-13 07:47:01,484 middleware 16696 16544 Rate limit exceeded for 127.0.0.1, penalty: 30s
+WARNING 2025-06-13 07:47:06,528 middleware 16696 3660 Rate limit exceeded for 127.0.0.1, penalty: 60s
+WARNING 2025-06-13 07:47:10,018 middleware 16696 5836 Rate limit exceeded for 127.0.0.1, penalty: 90s
+WARNING 2025-06-13 07:47:10,498 middleware 16696 10864 Rate limit exceeded for 127.0.0.1, penalty: 120s
+WARNING 2025-06-13 12:17:18,627 middleware 22472 14060 Rate limit exceeded for 127.0.0.1, penalty: 30s
+WARNING 2025-06-13 12:27:28,115 middleware 24308 23440 Rate limit exceeded for 127.0.0.1, penalty: 30s
+WARNING 2025-06-13 12:27:29,790 middleware 24308 23440 Rate limit exceeded for 127.0.0.1, penalty: 60s
+WARNING 2025-06-13 12:28:49,762 middleware 20448 18884 Rate limit exceeded for 127.0.0.1, penalty: 30s
+WARNING 2025-06-13 12:29:44,077 middleware 20448 18884 Rate limit exceeded for 127.0.0.1, penalty: 60s
+WARNING 2025-06-13 12:29:46,655 middleware 20448 18884 Rate limit exceeded for 127.0.0.1, penalty: 90s
+CRITICAL 2025-06-13 12:49:39,385 middleware 23976 24860 IP 127.0.0.1 added to blocklist for 900 seconds
+CRITICAL 2025-06-13 12:49:39,385 middleware 23976 24860 DDoS attack detected from 127.0.0.1 - Pattern anomaly
+CRITICAL 2025-06-13 12:49:40,376 middleware 23976 24860 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-13 12:49:43,415 middleware 23976 24860 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-13 12:49:43,803 middleware 23976 24860 Blocked IP attempted access: 127.0.0.1
+CRITICAL 2025-06-13 12:49:48,516 middleware 23976 23684 Blocked IP attempted access: 127.0.0.1

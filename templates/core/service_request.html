@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Service Request - Hyperwave Networks{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <h1>Service Request</h1>
+    <p>Request installation, support, or maintenance services from our team.</p>
+</section>
+
+<!-- Service Request Form Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Submit Your Service Request</h2>
+            <p>Fill out the form below to request our services, and our team will get back to you promptly.</p>
+        </div>
+        
+        <div class="contact-form">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <form method="post" action="{% url 'service_request' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="service_type">Service Type *</label>
+                    <select id="service_type" name="service_type" class="form-control" required>
+                        <option value="">Select a service...</option>
+                        <option value="Internet Installation">Internet Installation</option>
+                        <option value="Security System Installation">Security System Installation</option>
+                        <option value="Network Setup">Network Setup</option>
+                        <option value="Power Solutions">Power Solutions</option>
+                        <option value="Managed IT Services">Managed IT Services</option>
+                        <option value="Technical Support">Technical Support</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Installation/Service Address *</label>
+                    <input type="text" id="address" name="address" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Additional Details</label>
+                    <textarea id="message" name="message" class="form-control" rows="5"></textarea>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button type="submit" class="btn" style="border: none; cursor: pointer;">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Service Process -->
+<section class="section" style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Service Process</h2>
+            <p>Here's what happens after you submit your service request:</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>1. Request Submission</h3>
+                    <p>Fill out and submit the service request form with your requirements.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>2. Initial Contact</h3>
+                    <p>Our team will contact you within 24 hours to discuss your requirements in detail.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>3. Site Assessment</h3>
+                    <p>If required, we'll schedule a site visit to assess your specific needs and environment.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>4. Proposal & Agreement</h3>
+                    <p>We'll provide a detailed proposal with pricing and timeline for your approval.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>5. Service Delivery</h3>
+                    <p>Our technicians will perform the installation or service according to the agreement.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content">
+                    <h3>6. Quality Check</h3>
+                    <p>We'll verify that everything is working properly and you're satisfied with the service.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency Support -->
+<section class="section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Need Emergency Support?</h2>
+                <p>For urgent technical issues or support, please contact our technical support team directly:</p>
+                
+                <ul style="list-style-type: none; padding: 0; margin-top: 20px;">
+                    <li style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 5px; font-size: 20px;"><i class="fas fa-phone" style="color: var(--primary-color);"></i> Phone Support</h3>
+                        <p>Call us at +254 731 567993 for immediate assistance.</p>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 5px; font-size: 20px;"><i class="fas fa-envelope" style="color: var(--primary-color);"></i> Email Support</h3>
+                        <p>Email support@hyperwave.co.ke with details of your issue.</p>
+                    </li>
+                    <li>
+                        <h3 style="margin-bottom: 5px; font-size: 20px;"><i class="fab fa-whatsapp" style="color: var(--primary-color);"></i> WhatsApp Support</h3>
+                        <p>Send a message to +254 731 567993 via WhatsApp for quick response.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="about-image">
+                <img src="{% static 'images/network.jpg' %}" alt="Hyperwave Networks Support">
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %} 

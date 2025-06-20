@@ -1,0 +1,725 @@
+/*
+==============================================
+HYPERWAVE NETWORKS - RESPONSIVE STYLES
+==============================================
+Enhanced responsive design for optimal viewing 
+across all devices and screen sizes
+==============================================
+*/
+
+/* ==============================================
+   COMMON RESPONSIVE UTILITIES
+   ============================================== */
+
+/* Ensure images are responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive video containers */
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-responsive iframe,
+.video-responsive object,
+.video-responsive embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ==============================================
+   LARGE SCREENS - Desktop (1200px and up)
+   ============================================== */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+    
+    .hero-content h1 {
+        font-size: 4rem;
+    }
+    
+    .section-title h2 {
+        font-size: 2.8rem;
+    }
+}
+
+/* ==============================================
+   MEDIUM-LARGE SCREENS - Desktop (992px to 1199px)
+   ============================================== */
+@media (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+        padding: 0 20px;
+    }
+    
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+    
+    .section-title h2 {
+        font-size: 2.5rem;
+    }
+    
+    /* Service grids adjustment */
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+/* ==============================================
+   MEDIUM SCREENS - Tablet Landscape (768px to 991px)
+   ============================================== */
+@media (max-width: 991px) {
+    .container {
+        max-width: 720px;
+        padding: 0 15px;
+    }
+    
+    /* Typography adjustments */
+    .hero-content h1 {
+        font-size: 3rem;
+        line-height: 1.2;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .section-title h2 {
+        font-size: 2.2rem;
+    }
+    
+    /* Navigation */
+    .nav-links {
+        display: none; /* Will be handled by mobile menu */
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    /* Hero section */
+    .hero-section {
+        height: 80vh;
+        min-height: 500px;
+    }
+    
+    .hero-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+    
+    .hero-btn {
+        min-width: 200px;
+        padding: 1rem 1.5rem;
+    }
+    
+    /* About section */
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .about-image {
+        order: -1;
+        height: 300px;
+    }
+    
+    /* Services */
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .service-box, .package-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Contact form */
+    .contact-form {
+        padding: 2rem;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* ==============================================
+   SMALL-MEDIUM SCREENS - Tablet Portrait (576px to 767px)
+   ============================================== */
+@media (max-width: 767px) {
+    .container {
+        max-width: 540px;
+        padding: 0 15px;
+    }
+    
+    /* Typography */
+    .hero-content h1 {
+        font-size: 2.5rem;
+        line-height: 1.1;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    
+    .section-title p {
+        font-size: 1rem;
+    }
+    
+    /* Hero section */
+    .hero-section {
+        height: 70vh;
+        min-height: 400px;
+        padding: 2rem 0;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+    }
+    
+    .hero-btn {
+        width: 80%;
+        max-width: 280px;
+        text-align: center;
+    }
+    
+    /* Top bar */
+    .top-bar-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .top-contact-info {
+        margin-bottom: 10px;
+    }
+    
+    /* Navigation */
+    .navbar {
+        padding: 1rem 0;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: var(--white-color);
+        flex-direction: column;
+        padding: 80px 0 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        transition: left 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links li {
+        margin: 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .nav-links a {
+        display: block;
+        padding: 15px 25px;
+        font-size: 1rem;
+    }
+    
+    /* Dropdown menus in mobile */
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: none;
+        background-color: #f8f9fa;
+        border-radius: 0;
+        margin: 0;
+    }
+    
+    .has-dropdown.active .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        max-height: 500px;
+    }
+    
+    .dropdown-menu li a {
+        padding-left: 40px;
+        font-size: 0.9rem;
+    }
+    
+    /* Services */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .service-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Contact form improvements */
+    .contact-form {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+    
+    .contact-form .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-control {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    
+    /* Contact form grid layout for mobile */
+    .contact-form div[style*="grid-template-columns"] {
+        display: block !important;
+    }
+    
+    .contact-form .form-group {
+        width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-col {
+        margin-bottom: 2rem;
+    }
+    
+    /* Newsletter form */
+    .newsletter-form {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .newsletter-form input,
+    .newsletter-form button {
+        width: 100%;
+        border-radius: 5px;
+    }
+    
+    /* Chatbot */
+    .chatbot-window {
+        width: calc(100vw - 20px);
+        right: 10px;
+        left: 10px;
+        height: 400px;
+    }
+    
+    .chatbot-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 1.2rem;
+    }
+}
+
+/* ==============================================
+   SMALL SCREENS - Mobile (320px to 575px)
+   ============================================== */
+@media (max-width: 575px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    /* Typography */
+    .hero-content h1 {
+        font-size: 2rem;
+        line-height: 1.1;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    
+    .section-title p {
+        font-size: 0.95rem;
+    }
+    
+    /* Hero section */
+    .hero-section {
+        height: 60vh;
+        min-height: 350px;
+        padding: 1.5rem 0;
+    }
+    
+    .hero-btn {
+        width: 90%;
+        max-width: 250px;
+        padding: 1rem;
+        font-size: 0.95rem;
+    }
+    
+    /* Sections padding */
+    .section {
+        padding: 40px 0;
+    }
+    
+    /* Navigation */
+    .navbar {
+        padding: 0.8rem 0;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .nav-links {
+        width: 90%;
+        max-width: 280px;
+    }
+    
+    .nav-links a {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+    
+    /* Service cards */
+    .service-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .service-card p {
+        font-size: 0.9rem;
+    }
+    
+    /* Contact form */
+    .contact-form {
+        padding: 1.2rem;
+        margin: 0.5rem 0;
+    }
+    
+    .form-control {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+    }
+    
+    /* Button improvements */
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    /* About section image */
+    .about-image {
+        height: 250px;
+    }
+    
+    /* Footer */
+    .footer-content {
+        gap: 1.5rem;
+    }
+    
+    .footer-col h3 {
+        font-size: 1.2rem;
+    }
+    
+    .footer-col a {
+        font-size: 0.9rem;
+    }
+    
+    /* Social links */
+    .social-links a {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    /* Chatbot */
+    .chatbot-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+        bottom: 20px;
+        right: 15px;
+    }
+    
+    .chatbot-window {
+        height: 350px;
+        bottom: 75px;
+    }
+}
+
+/* ==============================================
+   EXTRA SMALL SCREENS - Small Mobile (max 320px)
+   ============================================== */
+@media (max-width: 320px) {
+    .container {
+        padding: 0 8px;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+    
+    .section-title h2 {
+        font-size: 1.6rem;
+    }
+    
+    .hero-btn {
+        width: 95%;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .service-card {
+        padding: 1rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .service-card p {
+        font-size: 0.85rem;
+    }
+    
+    .contact-form {
+        padding: 1rem;
+    }
+    
+    .form-control {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav-links a {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .dropdown-menu li a {
+        padding-left: 30px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ==============================================
+   SPECIFIC RESPONSIVE FIXES
+   ============================================== */
+
+/* Contact form responsive grid */
+@media (max-width: 767px) {
+    .contact-form-grid,
+    .contact-form div[style*="grid-template-columns"] {
+        display: block !important;
+    }
+    
+    .contact-form .form-group {
+        width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+/* Improve table responsiveness */
+@media (max-width: 767px) {
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    table {
+        min-width: 100%;
+        font-size: 0.875rem;
+    }
+    
+    th, td {
+        padding: 0.5rem !important;
+        white-space: nowrap;
+    }
+}
+
+/* Gallery/Image grid responsiveness */
+@media (max-width: 767px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Flexbox utilities for responsive layouts */
+.flex-responsive {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.flex-responsive > * {
+    flex: 1 1 auto;
+}
+
+@media (max-width: 767px) {
+    .flex-responsive {
+        flex-direction: column;
+    }
+    
+    .flex-responsive > * {
+        flex: 1 1 100%;
+    }
+}
+
+/* ==============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================== */
+
+/* Ensure touch targets are large enough */
+@media (max-width: 767px) {
+    a, button, input, select, textarea {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-links a {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* Improve form field spacing on mobile */
+@media (max-width: 767px) {
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    label {
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    .form-control {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* ==============================================
+   PRINT STYLES
+   ============================================== */
+@media print {
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    .no-print,
+    .chatbot-btn,
+    .chatbot-window,
+    .mobile-menu-toggle,
+    button,
+    .btn {
+        display: none !important;
+    }
+    
+    .container {
+        max-width: none !important;
+        padding: 0 !important;
+    }
+    
+    .hero-section {
+        height: auto !important;
+        min-height: auto !important;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+}
+
+/* ==============================================
+   CONTACT FORM SPECIFIC RESPONSIVE FIXES
+   ============================================== */
+
+/* Default desktop layout */
+.contact-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Tablet and mobile layout */
+@media (max-width: 768px) {
+    .contact-form-row {
+        display: block !important;
+        grid-template-columns: none !important;
+    }
+    
+    .contact-form-row .form-group {
+        width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+} 

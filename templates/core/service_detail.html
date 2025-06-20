@@ -1,0 +1,2224 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.title }} - Hyperwave Networks{% endblock %}
+
+{% block nav_services_active %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Professional Page Transitions */
+body.page-transition {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+body.page-loaded {
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Smooth Section Animations */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Elegant Text Animations */
+.fade-in-text {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Professional Feature Row Animations */
+.feature-row {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.feature-row.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered Animation for Feature Images */
+.feature-image img {
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.feature-row.animated .feature-image img {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Professional Button Animations */
+.btn {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  transform: translateY(0);
+}
+.btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* Hero Content Enhancements */
+.hero-text-slide {
+  transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Package Card Enhanced Animations */
+.package-card {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.package-card.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+.package-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Service Links Professional Hover */
+.service-links-section a {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(0);
+}
+.service-links-section a:hover {
+  transform: translateY(-3px);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Enhanced Speed Circle Animations */
+.speed-circle {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.package-card:hover .speed-circle {
+  transform: scale(1.05);
+}
+
+/* Smooth List Item Animations */
+.feature-content ul li {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.feature-row.animated .feature-content ul li {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Staggered List Animation Delays */
+.feature-row.animated .feature-content ul li:nth-child(1) { transition-delay: 0.1s; }
+.feature-row.animated .feature-content ul li:nth-child(2) { transition-delay: 0.2s; }
+.feature-row.animated .feature-content ul li:nth-child(3) { transition-delay: 0.3s; }
+.feature-row.animated .feature-content ul li:nth-child(4) { transition-delay: 0.4s; }
+
+/* Enhanced Section Titles */
+.section-title h2 {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in-section.visible .section-title h2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-title p {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.2s;
+}
+.fade-in-section.visible .section-title p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Professional Image Hover Effects */
+.feature-image img:hover {
+  transform: scale(1.02) translateY(-5px) !important;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15) !important;
+}
+
+/* Smooth Hero Slide Transitions */
+.hero-slide {
+  transition: opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Enhanced Testimonial Animations */
+.testimonial-card {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.fade-in-section.visible .testimonial-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Creative Process Step Styles */
+.creative-process-grid {
+  position: relative;
+  padding: 3rem 0;
+}
+
+.process-step-card {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 2px solid transparent;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.process-step-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  border-color: var(--primary-color);
+}
+
+.process-step-number {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.process-step-number::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+.process-step-card:hover .process-step-number::after {
+  opacity: 0.3;
+  transform: scale(1);
+}
+
+/* Creative Arrow Connectors */
+.arrow-connector {
+  position: absolute;
+  color: var(--primary-color);
+  font-size: 2rem;
+  opacity: 0.7;
+  animation: pulse 2s infinite;
+  z-index: 10;
+}
+
+.arrow-right {
+  right: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow-down {
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+}
+
+.arrow-up-right {
+  top: -1rem;
+  right: -1rem;
+  transform: rotate(-45deg);
+}
+
+.arrow-down-left {
+  bottom: -1rem;
+  left: -1rem;
+  transform: rotate(135deg);
+}
+
+@keyframes pulse {
+  0% { opacity: 0.7; transform: translateY(-50%) scale(1); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.1); }
+  100% { opacity: 0.7; transform: translateY(-50%) scale(1); }
+}
+
+/* Service Navigation Cards */
+.service-nav-card {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.service-nav-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.service-nav-card:hover::before {
+  left: 100%;
+}
+
+.service-nav-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  color: white;
+}
+
+.service-nav-card i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.service-nav-card h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.service-nav-card p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .fade-in-section {
+    transform: translateY(30px);
+  }
+  .feature-row {
+    transform: translateY(20px);
+  }
+  .package-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .creative-process-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  
+  .arrow-connector {
+    display: none;
+  }
+  
+  .process-step-card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-section,
+  .fade-in-text,
+  .feature-row,
+  .package-card,
+  .btn,
+  .hero-text-slide {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+  
+  .arrow-connector {
+    animation: none;
+  }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% if service.title == 'Wifi Network Installation' or service.slug == 'internet-solutions' %}
+<!-- Modern Hero Section -->
+<section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+    <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/network.jpg' %}') center/cover no-repeat; opacity: 1; transition: opacity 1s ease;"></div>
+        <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/network infrastrcture.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1s ease;"></div>
+        <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/service 1.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1s ease;"></div>
+    </div>
+    <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2;">
+        <div class="hero-texts-wrapper" style="position: relative; min-height: 160px;">
+            <div class="hero-text-slide active" style="transition: opacity 1s, transform 1s;">
+                <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700;">Comprehensive Network Solutions</h1>
+                <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">We design, install, and support high-performance networks for homes, businesses, institutions, and public spaces—ensuring seamless connectivity everywhere you need it.</p>
+            </div>
+            <div class="hero-text-slide" style="transition: opacity 1s, transform 1s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%;">
+                <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700;">Enterprise-Grade Infrastructure</h1>
+                <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">From structured cabling to advanced wireless solutions, we build robust networks that scale with your needs.</p>
+            </div>
+            <div class="hero-text-slide" style="transition: opacity 1s, transform 1s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%;">
+                <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700;">24/7 Support & Maintenance</h1>
+                <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Our dedicated team ensures your network stays up and running, with proactive monitoring and rapid response support.</p>
+            </div>
+        </div>
+        <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; position: relative; z-index: 3;">
+            <a href="{% url 'contact' %}" class="btn" style="background: var(--primary-color); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get Connected</a>
+            <a href="#packages" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">See Packages</a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Links Section (Animated) -->
+<section class="service-links-section" style="background: #f8f9fa; padding: 2rem 0 1rem 0;">
+  <div class="container" style="max-width: 1100px; margin: 0 auto;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2.5rem;">
+      <a href="{% url 'service_detail' 'internet-solutions' %}" style="display: flex; align-items: center; gap: 0.7rem; color: var(--primary-color); text-decoration: none; font-weight: 600; font-size: 1.1rem;">
+        <i class="fas fa-wifi" style="font-size: 1.5rem;"></i> Internet Solutions
+      </a>
+      <a href="{% url 'service_detail' 'security-systems' %}" style="display: flex; align-items: center; gap: 0.7rem; color: var(--primary-color); text-decoration: none; font-weight: 600; font-size: 1.1rem;">
+        <i class="fas fa-shield-alt" style="font-size: 1.5rem;"></i> Security Systems
+      </a>
+      <a href="{% url 'service_detail' 'network-infrastructure' %}" style="display: flex; align-items: center; gap: 0.7rem; color: var(--primary-color); text-decoration: none; font-weight: 600; font-size: 1.1rem;">
+        <i class="fas fa-network-wired" style="font-size: 1.5rem;"></i> Network Infrastructure
+      </a>
+      <a href="{% url 'service_detail' 'power-solutions' %}" style="display: flex; align-items: center; gap: 0.7rem; color: var(--primary-color); text-decoration: none; font-weight: 600; font-size: 1.1rem;">
+        <i class="fas fa-bolt" style="font-size: 1.5rem;"></i> Power Solutions
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Network Solutions Info Section -->
+<section class="section fade-in-section" style="padding: 80px 0; background: #f8f9fa;">
+    <div class="container">
+        <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Where We Install Networks</h2>
+            <p style="font-size: 1.1rem; color: #666; max-width: 800px; margin: 0 auto;">From public hotspots to corporate offices, we deliver reliable connectivity everywhere.</p>
+        </div>
+        <!-- Block 1: Public Hotspots -->
+        <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 3rem;">
+            <div class="feature-image" style="flex: 1;">
+                <img src="{% static 'images/Public wifi hotspot.png' %}" alt="Public Hotspots" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+            </div>
+            <div class="feature-content" style="flex: 2;">
+                <h3 style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem;">Public WiFi Hotspots</h3>
+                <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">We deploy secure, high-capacity WiFi hotspots in malls, parks, transport hubs, and other public spaces—keeping communities connected and businesses thriving.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>High-speed, secure public WiFi networks</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Custom splash pages and branding options</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Usage analytics and monitoring</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Block 2: Institutions -->
+        <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 3rem;">
+            <div class="feature-image" style="flex: 1;">
+                <img src="{% static 'images/institution.jpg' %}" alt="Institutions & Campuses" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+            </div>
+            <div class="feature-content" style="flex: 2;">
+                <h3 style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem;">Institutions & Campuses</h3>
+                <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">We provide robust, scalable WiFi and network solutions for schools, universities, and training centers—enabling digital learning and campus-wide connectivity.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Seamless campus-wide WiFi coverage</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Secure access for students and staff</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Centralized management and reporting</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Block 3: Apartments -->
+        <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 3rem;">
+            <div class="feature-image" style="flex: 1;">
+                <img src="{% static 'images/apartment service page.jpg' %}" alt="Apartments" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+            </div>
+            <div class="feature-content" style="flex: 2;">
+                <h3 style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem;">Apartments & Residences</h3>
+                <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">We install fast, reliable internet in apartment blocks and gated communities—ensuring every resident enjoys uninterrupted streaming, work, and play.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Individual unit connectivity with shared infrastructure</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Common area WiFi for lounges and amenities</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Property management portal for billing and support</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Block 4: Corporate & Offices -->
+        <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 3rem;">
+            <div class="feature-image" style="flex: 1;">
+                <img src="{% static 'images/Coporate offices Service page.jpg' %}" alt="Corporate Offices" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+            </div>
+            <div class="feature-content" style="flex: 2;">
+                <h3 style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem;">Corporate Offices</h3>
+                <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Enterprise-grade connectivity and network security for corporate offices—supporting productivity, collaboration, and secure business operations.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Dedicated, high-speed internet</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Advanced network security</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Scalable solutions for growing teams</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Block 5: Hospitals & Healthcare -->
+        <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 3rem;">
+            <div class="feature-image" style="flex: 1;">
+                <img src="{% static 'images/Hospital Service page.jpg' %}" alt="Hospitals" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+            </div>
+            <div class="feature-content" style="flex: 2;">
+                <h3 style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem;">Hospitals & Healthcare</h3>
+                <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">We deliver mission-critical connectivity for hospitals and clinics—supporting patient care, telemedicine, and secure health records access.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>HIPAA-compliant network security</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Medical device network integration</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Patient and visitor WiFi networks</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Block 6: Custom Solutions -->
+        <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem;">
+            <div class="feature-image" style="flex: 1;">
+                <img src="{% static 'images/empowering digital transformation.jpg' %}" alt="Custom Solutions" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+            </div>
+            <div class="feature-content" style="flex: 2;">
+                <h3 style="font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem;">Custom Network Solutions</h3>
+                <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">No matter your location or requirements, our team can design and implement a network that fits your needs—indoors or outdoors, temporary or permanent, large or small.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Custom network design and implementation</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Outdoor and industrial environments</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                        <i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span>Specialized equipment and protocols</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Overview Section -->
+<section class="section fade-in-section" style="padding: 80px 0; background: white;">
+    <div class="container">
+        <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+            <div class="content">
+                <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;">Professional WiFi Solutions</h2>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #333; margin-bottom: 1.5rem;">At Hyperwave Networks, we specialize in designing and implementing high-performance WiFi networks that deliver seamless connectivity for homes and businesses across Nairobi.</p>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #333;">Our expert team ensures optimal coverage, security, and performance through careful planning and professional installation.</p>
+            </div>
+            <div class="image">
+                <img src="{% static 'images/network.jpg' %}" alt="Professional WiFi Solutions" style="width: 100%; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section fade-in-section" style="padding: 80px 0; background: #f8f9fa;">
+    <div class="container">
+        <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Why Choose Our WiFi Solutions?</h2>
+            <p style="font-size: 1.1rem; color: #666;">Experience the difference with our comprehensive approach to wireless networking</p>
+        </div>
+        
+        <!-- Revamped Card Grid Layout -->
+        <div class="features-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; justify-items: center;">
+            <!-- Card 1 -->
+            <div class="feature-card" style="background: #fff; border-radius: 18px; box-shadow: 0 5px 24px rgba(0,0,0,0.08); padding: 2.5rem 2rem 2rem 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: box-shadow 0.3s; height: 100%;">
+                <img src="{% static 'images/Public wifi hotspot.png' %}" alt="Expert Network Design" style="width: 90%; max-width: 220px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
+                <h3 style="font-size: 1.25rem; color: var(--primary-color); margin-bottom: 1rem;">Expert Network Design</h3>
+                <p style="font-size: 1.08rem; color: #333;">Our team conducts thorough site surveys and creates custom network designs that ensure optimal coverage and performance for your specific space.</p>
+            </div>
+            <!-- Card 2 -->
+            <div class="feature-card" style="background: #fff; border-radius: 18px; box-shadow: 0 5px 24px rgba(0,0,0,0.08); padding: 2.5rem 2rem 2rem 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: box-shadow 0.3s; height: 100%;">
+                <img src="{% static 'images/High speed internet.jpg' %}" alt="Cutting-Edge Technology" style="width: 90%; max-width: 220px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
+                <h3 style="font-size: 1.25rem; color: var(--primary-color); margin-bottom: 1rem;">Cutting-Edge Technology</h3>
+                <p style="font-size: 1.08rem; color: #333;">We use the latest WiFi technology and high-quality equipment to deliver fast, reliable, and secure connections. Our solutions are scalable and future-proof, so your network can grow with your needs.</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="feature-card" style="background: #fff; border-radius: 18px; box-shadow: 0 5px 24px rgba(0,0,0,0.08); padding: 2.5rem 2rem 2rem 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: box-shadow 0.3s; height: 100%;">
+                <img src="{% static 'images/apartment service page.jpg' %}" alt="Custom Network Design" style="width: 90%; max-width: 220px; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
+                <h3 style="font-size: 1.25rem; color: var(--primary-color); margin-bottom: 1rem;">Custom Network Design</h3>
+                <p style="font-size: 1.08rem; color: #333;">Every space is unique. We design your WiFi network to fit your specific requirements, whether it's for a home, office, or large commercial space. Our tailored approach guarantees optimal performance and coverage.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Business Solutions -->
+<section class="section fade-in-section" style="padding: 80px 0; background: white;">
+    <div class="container">
+        <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+            <div class="content">
+                <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;">Business Solutions</h2>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #333; margin-bottom: 1.5rem;">Our business WiFi solutions are designed to support your organization's unique needs with enterprise-grade equipment and dedicated support.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span style="font-size: 1.1rem;">Dedicated bandwidth with guaranteed uptime</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span style="font-size: 1.1rem;">Advanced security features and monitoring</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span style="font-size: 1.1rem;">24/7 technical support and maintenance</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="image">
+                <img src="{% static 'images/network infrastrcture.jpg' %}" alt="Business Solutions" style="width: 100%; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section -->
+<section class="section fade-in-section" style="padding: 80px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <div class="container" style="max-width: 900px;">
+        <div class="testimonial-card" style="background: white; border-radius: 20px; padding: 3rem; box-shadow: 0 5px 30px rgba(0,0,0,0.1); text-align: center;">
+            <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1.5rem;"><i class="fas fa-quote-left"></i></div>
+            <p style="font-size: 1.25rem; color: #333; font-style: italic; line-height: 1.6; margin-bottom: 2rem;">"Hyperwave Networks transformed our office connectivity. The WiFi is fast, reliable, and covers every corner. The installation was quick and the team was very professional!"</p>
+            <div style="font-weight: 600; color: var(--secondary-color); font-size: 1.1rem;">— Jane M., Nairobi Business Owner</div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section fade-in-section" style="padding: 80px 0; background: var(--primary-color); color: white; text-align: center;">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Ready to Upgrade Your WiFi?</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Contact us today to schedule a free site survey and discover how our Wifi Network Installation can transform your connectivity experience.</p>
+        <a href="{% url 'contact' %}" class="btn" style="display: inline-block; background: white; color: var(--primary-color); padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Contact Us</a>
+    </div>
+</section>
+
+<!-- Add JavaScript for hero slider -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Hero slider with text sync
+    const slides = document.querySelectorAll('.hero-slide');
+    const textSlides = document.querySelectorAll('.hero-text-slide');
+    let currentSlide = 0;
+    function showSlide(idx) {
+        slides.forEach((slide, i) => {
+            slide.style.opacity = (i === idx) ? '1' : '0';
+        });
+        textSlides.forEach((txt, i) => {
+            if (i === idx) {
+                txt.classList.add('active');
+                txt.style.opacity = '1';
+                txt.style.transform = 'translateY(0)';
+            } else {
+                txt.classList.remove('active');
+                txt.style.opacity = '0';
+                txt.style.transform = 'translateY(30px)';
+            }
+        });
+    }
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+    showSlide(0);
+    setInterval(nextSlide, 5000);
+
+    // Animate on scroll for sections
+    function animateOnScroll() {
+        document.querySelectorAll('.section, .package-card, .feature-row').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.85) {
+                el.classList.add('animated');
+            }
+        });
+    }
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll();
+
+    // Fade in on load
+    document.body.classList.add('page-loaded');
+
+    // Fade out on navigation
+    document.querySelectorAll('a').forEach(function(link) {
+        // Only apply to internal links (not anchors or external)
+        const href = link.getAttribute('href');
+        if (href && !href.startsWith('http') && !href.startsWith('#') && !link.hasAttribute('target')) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.remove('page-loaded');
+                document.body.classList.add('page-transition');
+                setTimeout(function() {
+                    window.location = href;
+                }, 400);
+            });
+        }
+    });
+});
+</script>
+{% elif service.slug == 'security-systems' %}
+<!-- Modern Hero Section for Security Systems -->
+<section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+    <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/security systems.jpg' %}') center/cover no-repeat; opacity: 1; transition: opacity 1s ease;"></div>
+    </div>
+    <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2;">
+        <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700;">Comprehensive Security Solutions</h1>
+        <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Professional security systems to protect your property, assets, and people with cutting-edge technology and reliable monitoring.</p>
+        <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+            <a href="{% url 'contact' %}" class="btn" style="background: var(--primary-color); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get Secure</a>
+            <a href="#security-services" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Our Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Overview -->
+<section class="section fade-in-section" style="padding: 60px 0 30px 0; background: #fff;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 2rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Security Systems We Offer</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 800px; margin: 0 auto;">Hyperwave Networks provides comprehensive security solutions for homes, businesses, and institutions across Nairobi. Our systems are designed to protect your property and provide peace of mind through advanced technology and professional monitoring.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Our Security Services -->
+<section id="security-services" class="section fade-in-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    
+    <!-- Electric Fencing -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/electric fencing.jpg' %}" alt="Electric Fencing" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Electric Fencing Systems</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Our electric fencing solutions provide a strong perimeter security barrier that deters intruders while ensuring the safety of authorized personnel. These systems are ideal for residential properties, commercial buildings, and industrial facilities.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> High-voltage, low-amperage systems for maximum deterrent with safety</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Solar-powered options for remote locations and eco-friendly operation</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Alarm integration with instant alerts for fence tampering or cuts</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Weather-resistant components built for Kenya's climate</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Professional installation with ongoing maintenance support</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- CCTV Systems -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/advanced CCT Surveillance.jpg' %}" alt="CCTV Systems" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Advanced CCTV Surveillance</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">State-of-the-art CCTV systems providing 24/7 monitoring and recording capabilities. Our cameras deliver crystal-clear footage day and night, with remote viewing capabilities for complete peace of mind.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> 4K Ultra HD cameras for exceptional image clarity</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Night vision capabilities up to 50 meters range</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Mobile app access for live viewing from anywhere</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Motion detection with instant alerts and notifications</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Cloud storage and local recording options available</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- RFID Access Control -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/RFID.jpg' %}" alt="RFID Access Control" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">RFID Card Access Control</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Modern RFID card systems that provide secure, convenient access control for offices, residential buildings, and institutions. Easily manage who has access to specific areas with comprehensive tracking and reporting.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Contactless RFID cards for hygienic, convenient access</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Multi-level access control for different security zones</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Real-time access logs and detailed reporting</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Easy card management - add, remove, or modify access instantly</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Integration with time and attendance systems</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Biometric Doors and Gates -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Biometric.jpg' %}" alt="Biometric Access Control" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Biometric Doors & Gates for Institutions</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Advanced biometric systems using fingerprint and facial recognition technology, specifically designed for institutions like schools, hospitals, and government buildings where high-security access control is essential.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Fingerprint recognition with 99.9% accuracy rate</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Facial recognition technology for touchless access</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Anti-tailgating systems for high-security areas</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Emergency override capabilities for safety compliance</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Visitor management integration for institutional security</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Intrusion Detection Systems -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/intrution detection.jpg' %}" alt="Intrusion Detection" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Intrusion Detection Systems</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Comprehensive intrusion detection systems that provide early warning of unauthorized entry attempts. Our systems combine multiple detection technologies to minimize false alarms while ensuring maximum security coverage.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> PIR motion sensors with pet-immune technology</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Door and window magnetic contacts</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Glass break sensors for window protection</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> 24/7 monitoring with immediate response protocols</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> SMS and app notifications for instant alerts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Our Security Systems -->
+<section class="section fade-in-section" style="padding: 60px 0; background: #fff;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Why Choose Hyperwave Security</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 800px; margin: 0 auto;">Our security systems are trusted by homes, businesses, and institutions across Nairobi for their reliability, advanced features, and professional support.</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Proven Reliability</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Our systems have protected hundreds of properties across Nairobi with 99.9% uptime and rapid response times.</p>
+      </div>
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-tools" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Professional Installation</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Our certified technicians ensure proper installation and provide comprehensive training on system operation.</p>
+      </div>
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-headset" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">24/7 Support</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Round-the-clock monitoring and technical support to ensure your security systems are always operational.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Installation Process -->
+<section class="section fade-in-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Our Installation Process</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto;">From consultation to ongoing support, we ensure your security system is perfectly tailored to your needs.</p>
+    </div>
+    
+    <div class="creative-process-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; position: relative;">
+      <!-- Step 1 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">1</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">Security Assessment</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6;">We conduct a thorough security evaluation of your property to identify vulnerabilities and recommend the best solutions.</p>
+        <div class="arrow-connector arrow-right" style="display: none;">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">2</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">Custom Design</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6;">Our experts design a security system tailored to your specific requirements and budget constraints.</p>
+        <div class="arrow-connector arrow-down" style="display: none;">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">3</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">Professional Installation</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6;">Certified technicians install your system with minimal disruption to your daily operations.</p>
+        <div class="arrow-connector arrow-down-left" style="display: none;">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      
+      <!-- Step 4 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">4</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem; text-align: center;">Testing & Training</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6;">We thoroughly test all components and provide comprehensive training on system operation and maintenance.</p>
+      </div>
+    </div>
+    
+    <!-- Related Services Navigation -->
+    <div style="margin-top: 4rem;">
+      <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-size: 1.8rem;">Complete Your Security with Our Other Services</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+        
+        <a href="{% url 'service_detail' 'network-infrastructure' %}" class="service-nav-card">
+          <i class="fas fa-network-wired"></i>
+          <h4>Network Infrastructure</h4>
+          <p>Secure your network backbone with professional infrastructure solutions</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="{% url 'service_detail' 'internet-solutions' %}" class="service-nav-card">
+          <i class="fas fa-wifi"></i>
+          <h4>Internet Solutions</h4>
+          <p>High-speed connectivity to power your security monitoring systems</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="{% url 'service_detail' 'power-solutions' %}" class="service-nav-card">
+          <i class="fas fa-bolt"></i>
+          <h4>Power Solutions</h4>
+          <p>Backup power systems to keep your security running 24/7</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section fade-in-section" style="padding: 80px 0; background: var(--primary-color); color: white; text-align: center;">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Secure Your Property Today</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Contact Hyperwave Networks for a free security consultation and discover how our comprehensive security systems can protect what matters most to you.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'contact' %}" class="btn" style="display: inline-block; background: white; color: var(--primary-color); padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get Free Consultation</a>
+            <a href="tel:+254700000000" class="btn" style="display: inline-block; background: transparent; color: white; padding: 1rem 2.5rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Call Now</a>
+        </div>
+    </div>
+</section>
+{% elif service.slug == 'network-infrastructure' %}
+<!-- Modern Hero Section for Network Infrastructure -->
+<section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+    <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/Professional Rack Setup & Server Room Design.jpg' %}') center/cover no-repeat; opacity: 1; transition: opacity 1s ease;"></div>
+    </div>
+    <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2;">
+        <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700;">Network Infrastructure Solutions</h1>
+        <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Professional network infrastructure design, installation, and management for businesses, institutions, and data centers across Kenya.</p>
+        <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+            <a href="{% url 'contact' %}" class="btn" style="background: var(--primary-color); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Build Network</a>
+            <a href="#network-services" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Our Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Overview -->
+<section class="section fade-in-section" style="padding: 60px 0 30px 0; background: #fff;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 2rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Network Infrastructure Services</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 800px; margin: 0 auto;">Hyperwave Networks provides complete network infrastructure solutions for businesses, institutions, and data centers. Our services ensure your network is reliable, scalable, and built to support your organization's growth and digital transformation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Our Network Infrastructure Services -->
+<section id="network-services" class="section fade-in-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    
+    <!-- Cable Management Systems -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Structured Cable Management.jpg' %}" alt="Cable Management" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Structured Cable Management</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Professional cable management systems that organize and protect your network infrastructure. Our structured approach ensures easy maintenance, reduces downtime, and provides a clean, professional appearance for your server rooms and network closets.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Cat6/Cat6a structured cabling for high-speed data transmission</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Fiber optic backbone cabling for ultra-fast connectivity</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Cable labeling and documentation for easy identification</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Professional cable trays and conduits for protection</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Future-ready design allowing for easy upgrades and expansions</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Rack Setup & Server Room Organization -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Professional Rack Setup & Server Room Design.jpg' %}" alt="Rack Setup" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Professional Rack Setup & Server Room Design</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Complete server room and data center setup with proper equipment organization, power distribution, and cooling systems. Our professional rack installations ensure optimal equipment performance and easy maintenance access.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> 19-inch standard server racks with proper weight distribution</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Power distribution units (PDUs) with surge protection</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Cooling and ventilation systems for optimal equipment temperature</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Cable management arms and organizational tools</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Environmental monitoring and access control integration</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- ISP POP Setup -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/ISP POP (Point of Presence) Setup.jpg' %}" alt="ISP POP Setup" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">ISP POP (Point of Presence) Setup</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Professional ISP Point of Presence installation and configuration for reliable internet connectivity. We work with major ISPs to establish redundant connections and ensure maximum uptime for your business operations.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Multiple ISP connectivity for redundancy and failover</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Fiber optic and microwave connectivity options</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Bandwidth management and traffic shaping</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> 24/7 connectivity monitoring and automatic failover</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Service level agreement (SLA) management and reporting</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Private Network Configurations -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Private Network Configurations.jpg' %}" alt="Private Network Config" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Private Network Configurations</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Secure private network design and implementation including VLANs, VPNs, and internal communication systems. We configure networks to ensure data security, optimal performance, and controlled access across your organization.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> VLAN segmentation for department and security isolation</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Site-to-site VPN connections for branch offices</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Remote access VPN for secure work-from-home connectivity</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Network access control (NAC) and user authentication</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Quality of Service (QoS) configuration for priority traffic</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Optical Fiber Layout -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Optical Fiber Layout & Installation.jpg' %}" alt="Optical Fiber" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Optical Fiber Layout & Installation</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">High-speed fiber optic network design and installation for backbone connectivity. Our fiber optic solutions provide ultra-fast data transmission speeds and future-proof your network infrastructure for growing bandwidth demands.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Single-mode and multi-mode fiber optic cable installation</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Outdoor and indoor fiber routing with proper protection</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Fiber optic splicing and termination services</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Optical distribution frames (ODF) and patch panel installation</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Fiber testing and certification for guaranteed performance</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Data Center Infrastructure -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Data Center Infrastructure.jpg' %}" alt="Data Center" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Data Center Infrastructure</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Complete data center design and implementation including power systems, cooling, monitoring, and security. We build scalable data center environments that support your critical applications and ensure maximum uptime.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Redundant power systems with UPS and generator backup</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Precision cooling systems for optimal equipment temperature</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Fire suppression and environmental monitoring systems</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Physical security with access control and surveillance</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Scalable design for future expansion and upgrades</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Network Monitoring & Management -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Network Monitoring & Management.png' %}" alt="Network Monitoring" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Network Monitoring & Management</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Advanced network monitoring and management systems that provide 24/7 visibility into your network performance. Our solutions detect issues before they impact operations and provide detailed analytics for capacity planning.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Real-time network performance monitoring and alerting</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Bandwidth utilization tracking and reporting</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Automated backup configuration and change management</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Network security monitoring and threat detection</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Detailed reporting and analytics for decision making</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Our Network Infrastructure -->
+<section class="section fade-in-section" style="padding: 60px 0; background: #fff;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Why Choose Hyperwave for Network Infrastructure</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 800px; margin: 0 auto;">Our network infrastructure solutions are trusted by businesses, institutions, and data centers across Kenya for their reliability, scalability, and professional implementation.</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-award" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Certified Engineers</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Our team includes certified network engineers with years of experience in enterprise network design and implementation.</p>
+      </div>
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-tools" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Future-Proof Design</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">We design networks with scalability in mind, ensuring your infrastructure can adapt to growing business needs and new technologies.</p>
+      </div>
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">24/7 Support</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Round-the-clock monitoring and support to ensure your network infrastructure operates at peak performance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Implementation Process -->
+<section class="section fade-in-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Our Implementation Process</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto;">From initial assessment to ongoing support, we ensure your network infrastructure is designed and implemented to meet your specific requirements.</p>
+    </div>
+    
+    <div class="creative-process-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1400px; margin: 0 auto; position: relative;">
+      <!-- Step 1 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">1</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.2rem; text-align: center;">Assessment & Planning</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6; font-size: 0.95rem;">Comprehensive site survey and requirements analysis to design the optimal network infrastructure for your organization.</p>
+        <div class="arrow-connector arrow-right" style="display: none;">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">2</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.2rem; text-align: center;">Design & Documentation</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6; font-size: 0.95rem;">Detailed network design with complete documentation, including cable layouts, equipment specifications, and configuration plans.</p>
+        <div class="arrow-connector arrow-right" style="display: none;">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">3</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.2rem; text-align: center;">Professional Installation</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6; font-size: 0.95rem;">Certified technicians handle the complete installation with minimal disruption to your operations.</p>
+        <div class="arrow-connector arrow-down" style="display: none;">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      
+      <!-- Step 4 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">4</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.2rem; text-align: center;">Testing & Optimization</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6; font-size: 0.95rem;">Comprehensive testing and performance optimization to ensure your network meets all requirements and performs optimally.</p>
+        <div class="arrow-connector arrow-right" style="display: none;">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      
+      <!-- Step 5 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">5</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.2rem; text-align: center;">Training & Handover</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6; font-size: 0.95rem;">Complete training for your IT team and comprehensive documentation handover for ongoing management.</p>
+        <div class="arrow-connector arrow-right" style="display: none;">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+      </div>
+      
+      <!-- Step 6 -->
+      <div class="process-step-card" style="position: relative;">
+        <div class="process-step-number">6</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.2rem; text-align: center;">Ongoing Support</h4>
+        <p style="color: #333; text-align: center; line-height: 1.6; font-size: 0.95rem;">24/7 monitoring and support services to maintain optimal network performance and rapid issue resolution.</p>
+      </div>
+    </div>
+    
+    <!-- Related Services Navigation -->
+    <div style="margin-top: 4rem;">
+      <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-size: 1.8rem;">Enhance Your Infrastructure with Related Services</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+        
+        <a href="{% url 'service_detail' 'security-systems' %}" class="service-nav-card">
+          <i class="fas fa-shield-alt"></i>
+          <h4>Security Systems</h4>
+          <p>Protect your network infrastructure with comprehensive security solutions</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="{% url 'service_detail' 'internet-solutions' %}" class="service-nav-card">
+          <i class="fas fa-wifi"></i>
+          <h4>Internet Solutions</h4>
+          <p>High-speed connectivity to maximize your infrastructure investment</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="{% url 'service_detail' 'power-solutions' %}" class="service-nav-card">
+          <i class="fas fa-bolt"></i>
+          <h4>Power Solutions</h4>
+          <p>Reliable power systems to keep your network running continuously</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section fade-in-section" style="padding: 80px 0; background: var(--primary-color); color: white; text-align: center;">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Build Your Network Infrastructure Today</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Contact Hyperwave Networks for a free infrastructure assessment and discover how our professional network solutions can transform your business operations.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'contact' %}" class="btn" style="display: inline-block; background: white; color: var(--primary-color); padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get Free Assessment</a>
+            <a href="tel:+254700000000" class="btn" style="display: inline-block; background: transparent; color: white; padding: 1rem 2.5rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Call Now</a>
+        </div>
+    </div>
+</section>
+{% elif service.slug == 'power-solutions' %}
+<!-- Modern Hero Section for Power Solutions -->
+<section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+    <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/power solutions.jpg' %}') center/cover no-repeat; opacity: 1; transition: opacity 1s ease;"></div>
+    </div>
+    <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2;">
+        <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700;">Power Solutions & Backup Systems</h1>
+        <p class="fade-in-text" style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Comprehensive power backup and energy solutions to ensure uninterrupted operations with reliable UPS, solar, and generator systems.</p>
+        <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+            <a href="{% url 'contact' %}" class="btn" style="background: var(--primary-color); color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get Powered</a>
+            <a href="#power-systems" class="btn" style="background: transparent; color: white; padding: 1rem 2rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Our Systems</a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Overview -->
+<section class="section fade-in-section" style="padding: 60px 0 30px 0; background: #fff;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 2rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Power Backup Solutions We Offer</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 900px; margin: 0 auto;">Hyperwave Networks provides comprehensive power solutions for homes, businesses, and institutions across Kenya. Our systems ensure your operations never stop, whether it's a brief power interruption or extended outage.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Our Power Systems -->
+<section id="power-systems" class="section fade-in-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    
+    <!-- UPS Systems -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/power solutions.jpg' %}" alt="UPS Systems" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Uninterruptible Power Supply (UPS) Systems</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Our UPS systems provide instant backup power when the main supply fails, protecting your equipment from power surges and ensuring smooth operation. Perfect for computers, servers, and sensitive electronic devices.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Pure sine wave output for sensitive equipment protection</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Automatic voltage regulation to handle power fluctuations</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> LCD displays and monitoring software for real-time status</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Hot-swappable batteries for minimal downtime</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Capacities from 1KVA to 1000KVA for any application</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Solar Power Systems -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Solar Power Installations.jpg' %}" alt="Solar Power Systems" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Solar Power Systems</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Harness the power of the sun with our high-quality solar installations. We design and install complete solar power systems for homes, businesses, and institutions, providing clean, renewable energy and significant cost savings.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> High-efficiency monocrystalline solar panels with 25-year warranty</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> MPPT charge controllers for maximum energy harvest</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Lithium and AGM battery storage options</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Grid-tie capability with net metering support</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Remote monitoring and smartphone app control</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Generator Systems -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Diesel & Petrol Generators.jpg' %}" alt="Generator Systems" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Generator Systems</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Reliable backup power for extended outages with our range of diesel and petrol generators. We provide complete generator solutions from installation to maintenance, ensuring your power needs are met during any situation.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Automatic start and transfer within 10 seconds of power loss</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Weather-resistant enclosures for outdoor installation</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Digital controllers with remote monitoring capabilities</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Fuel monitoring systems with low-level alerts</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Regular maintenance schedules and 24/7 support</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Hybrid Power Systems -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Hybrid Power Solutions.jpg' %}" alt="Hybrid Systems" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Hybrid Power Solutions</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Combine multiple power sources for ultimate reliability and efficiency. Our hybrid systems integrate solar, battery storage, generators, and grid power to optimize energy costs and ensure continuous operation.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Intelligent power management prioritizing renewable energy</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Seamless switching between power sources</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Peak shaving and load shifting for reduced electricity costs</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Energy analytics and consumption optimization</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Scalable design for future expansion</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Our Power Solutions -->
+<section class="section fade-in-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Why Choose Hyperwave for Power Solutions</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 800px; margin: 0 auto;">Our power solutions are trusted by businesses, institutions, and homes across Kenya for their reliability, efficiency, and professional support.</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #fff; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-certificate" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Certified Installation</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Our technicians are certified by leading manufacturers and follow all Kenya electrical safety standards.</p>
+      </div>
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #fff; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-wrench" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Comprehensive Maintenance</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Regular maintenance schedules and emergency support to keep your power systems running optimally.</p>
+      </div>
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #fff; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-chart-line" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Energy Optimization</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">We help reduce your energy costs through efficient system design and smart power management.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Implementation Process -->
+<section class="section fade-in-section" style="padding: 60px 0; background: #fff;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Our Power Solutions Implementation Process</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto;">From initial energy audit to ongoing maintenance, we ensure your power solution is perfectly designed for your needs.</p>
+    </div>
+    
+    <div class="creative-process-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; position: relative;">
+      <!-- Step 1 -->
+      <div class="process-step-card" style="position: relative; text-align: center; padding: 1.5rem 1rem;">
+        <div class="process-step-number" style="width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">1</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.1rem;">Energy Audit</h4>
+        <p style="color: #333; line-height: 1.4; font-size: 0.9rem;">Comprehensive energy audit to understand power consumption patterns.</p>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="process-step-card" style="position: relative; text-align: center; padding: 1.5rem 1rem;">
+        <div class="process-step-number" style="width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">2</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.1rem;">System Design</h4>
+        <p style="color: #333; line-height: 1.4; font-size: 0.9rem;">Custom power solution design tailored to your requirements and budget.</p>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="process-step-card" style="position: relative; text-align: center; padding: 1.5rem 1rem;">
+        <div class="process-step-number" style="width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">3</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.1rem;">Installation</h4>
+        <p style="color: #333; line-height: 1.4; font-size: 0.9rem;">Professional installation following safety standards and specifications.</p>
+      </div>
+      
+      <!-- Step 4 -->
+      <div class="process-step-card" style="position: relative; text-align: center; padding: 1.5rem 1rem;">
+        <div class="process-step-number" style="width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">4</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.1rem;">Testing & Support</h4>
+        <p style="color: #333; line-height: 1.4; font-size: 0.9rem;">Thorough testing, team training, and comprehensive documentation.</p>
+      </div>
+    </div>
+    
+    <!-- Related Services Navigation -->
+    <div style="margin-top: 4rem;">
+      <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-size: 1.8rem;">Maximize Your Power Investment with Related Services</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+        
+        <a href="{% url 'service_detail' 'network-infrastructure' %}" class="service-nav-card">
+          <i class="fas fa-network-wired"></i>
+          <h4>Network Infrastructure</h4>
+          <p>Power your network equipment with reliable backup systems for 24/7 connectivity</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="{% url 'service_detail' 'security-systems' %}" class="service-nav-card">
+          <i class="fas fa-shield-alt"></i>
+          <h4>Security Systems</h4>
+          <p>Ensure your security systems never go down with integrated power backup</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="{% url 'service_detail' 'internet-solutions' %}" class="service-nav-card">
+          <i class="fas fa-wifi"></i>
+          <h4>Internet Solutions</h4>
+          <p>Keep your internet and WiFi running during power outages</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section fade-in-section" style="padding: 80px 0; background: var(--primary-color); color: white; text-align: center;">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Never Lose Power Again</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Contact Hyperwave Networks for a free energy audit and discover how our power solutions can keep your operations running smoothly 24/7.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'contact' %}" class="btn" style="display: inline-block; background: white; color: var(--primary-color); padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get Free Energy Audit</a>
+            <a href="tel:+254700000000" class="btn" style="display: inline-block; background: transparent; color: white; padding: 1rem 2.5rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Call Now</a>
+        </div>
+    </div>
+</section>
+{% elif service.slug == 'managed-it' %}
+<!-- Managed IT Services Template -->
+<section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+    <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/it services.jpg' %}') center/cover no-repeat; opacity: 1; transition: opacity 1s ease;"></div>
+    </div>
+    <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2;">
+        <h1 class="fade-in-text" style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700;">Comprehensive Managed IT Services</h1>
+        <p class="fade-in-text" style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">Your complete technology partner for digital transformation, security, and business growth</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'contact' %}" class="btn fade-in-text" style="display: inline-block; background: var(--primary-color); color: white; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get IT Assessment</a>
+            <a href="tel:+254700000000" class="btn fade-in-text" style="display: inline-block; background: transparent; color: white; padding: 1rem 2.5rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Call Expert</a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Overview -->
+<section class="section fade-in-section" style="padding: 60px 0 30px 0; background: #fff;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 2rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Complete IT Solutions for Modern Businesses</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 900px; margin: 0 auto;">From monitoring and maintenance to custom development and creative design, we provide comprehensive technology services to help your business thrive in the digital age.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Our IT Services -->
+<section id="it-services" class="section fade-in-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    
+    <!-- IT Monitoring & Support -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/it services.jpg' %}" alt="IT Monitoring" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">24/7 IT Monitoring & Support</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Round-the-clock monitoring of your IT infrastructure with proactive maintenance and rapid response to issues. Our experienced technicians ensure your systems stay running smoothly.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Real-time server and network monitoring with instant alerts</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Remote troubleshooting and resolution within 15 minutes</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Performance optimization and system tuning</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Monthly performance reports and improvement recommendations</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- VPN & Network Security -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/VPN & Network Security.jpg' %}" alt="VPN Security" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">VPN & Network Security</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Secure virtual private networks and comprehensive security solutions to protect your data and enable safe remote work for your team.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Enterprise VPN setup with multi-factor authentication</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Network firewall management and intrusion detection</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Secure remote access for employees and contractors</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Regular security audits and vulnerability assessments</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Cloud Services -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Cloud Services & Data Management.jpg' %}" alt="Cloud Services" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Cloud Services & Data Management</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Complete cloud migration and management services to help you leverage the power of cloud computing for scalability, cost savings, and enhanced collaboration.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Cloud migration planning and seamless execution</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Automated backup and disaster recovery solutions</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Microsoft 365 and Google Workspace setup and management</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Cloud cost optimization and resource management</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- IT Consultancy -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/IT Consultancy & Strategic Planning.jpg' %}" alt="IT Consultancy" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">IT Consultancy & Strategic Planning</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Expert technology consulting to help you make informed decisions, develop effective IT strategies, and align technology with your business objectives for sustainable growth.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Technology assessment and digital transformation roadmaps</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> IT budget planning and cost optimization strategies</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Vendor selection and procurement guidance</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Compliance and regulatory consulting for data protection</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Software Development -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Custom Software Development.jpg' %}" alt="Software Development" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Custom Software Development</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Bespoke software solutions designed to meet your unique business requirements, automate processes, and provide competitive advantages through technology innovation.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Business process automation and workflow systems</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Customer relationship management (CRM) solutions</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Mobile application development for iOS and Android</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> API development and third-party system integrations</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Web Development -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row-reverse; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Web Development & E-commerce.jpg' %}" alt="Web Development" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Web Development & E-commerce</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Professional website development and e-commerce solutions to establish and grow your online presence, attract customers, and drive business growth through digital channels.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Responsive website design optimized for all devices</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> E-commerce platforms with payment gateway integration</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Content management systems for easy updates</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Search engine optimization and digital marketing</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Graphic Design -->
+    <div class="feature-row animated" style="display: flex; flex-direction: row; align-items: center; gap: 2rem; margin-bottom: 4rem;">
+      <div class="feature-image" style="flex: 1;">
+        <img src="{% static 'images/Graphic Design & Branding.jpg' %}" alt="Graphic Design" style="width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+      </div>
+      <div class="feature-content" style="flex: 2;">
+        <h3 style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem;">Graphic Design & Branding</h3>
+        <p style="font-size: 1.1rem; color: #333; margin-bottom: 1rem;">Creative design services to build strong brand identity and effective marketing materials that communicate your message clearly and help your business stand out in the market.</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Logo design and complete brand identity development</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Marketing materials including brochures, flyers, and banners</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Social media graphics and digital marketing assets</li>
+          <li style="margin-bottom: 0.7rem; padding-left: 1.5rem; position: relative;"><i class="fas fa-check" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i> Business cards, corporate stationery, and packaging design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Our IT Services -->
+<section class="section fade-in-section" style="padding: 60px 0; background: #fff;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Why Choose Hyperwave for IT Services</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 800px; margin: 0 auto;">Our comprehensive IT services are trusted by businesses across Kenya for their reliability, innovation, and professional expertise.</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">24/7 Expert Support</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Round-the-clock monitoring and support from certified IT professionals to ensure your business never stops.</p>
+      </div>
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-code" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Custom Solutions</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Tailored technology solutions designed specifically for your business needs and growth objectives.</p>
+      </div>
+      <div style="flex: 1 1 280px; min-width: 280px; max-width: 350px; background: #f8f9fa; border-radius: 15px; padding: 2.5rem 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.06); text-align: center;">
+        <i class="fas fa-users" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1.5rem;"></i>
+        <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.3rem;">Dedicated Team</h4>
+        <p style="font-size: 1rem; color: #333; line-height: 1.6;">Experienced team of developers, designers, and IT specialists working as your extended technology department.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Implementation Process -->
+<section class="section fade-in-section" style="padding: 60px 0; background: #f8f9fa;">
+  <div class="container">
+    <div class="section-title" style="text-align: center; margin-bottom: 3rem;">
+      <h2 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;">Our IT Implementation Process</h2>
+      <p style="font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto;">From initial assessment to ongoing support, we follow a proven methodology to deliver successful IT solutions.</p>
+    </div>
+    
+    <div class="creative-process-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; position: relative;">
+      <!-- Step 1 -->
+      <div class="process-step-card" style="position: relative; text-align: center; padding: 1.5rem 1rem;">
+        <div class="process-step-number" style="width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">1</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.1rem;">Assessment</h4>
+        <p style="color: #333; line-height: 1.4; font-size: 0.9rem;">Comprehensive technology assessment and business requirements analysis.</p>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="process-step-card" style="position: relative; text-align: center; padding: 1.5rem 1rem;">
+        <div class="process-step-number" style="width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">2</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.1rem;">Planning</h4>
+        <p style="color: #333; line-height: 1.4; font-size: 0.9rem;">Strategic planning and solution design tailored to your business.</p>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="process-step-card" style="position: relative; text-align: center; padding: 1.5rem 1rem;">
+        <div class="process-step-number" style="width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">3</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.1rem;">Implementation</h4>
+        <p style="color: #333; line-height: 1.4; font-size: 0.9rem;">Professional deployment with minimal disruption to operations.</p>
+      </div>
+      
+      <!-- Step 4 -->
+      <div class="process-step-card" style="position: relative; text-align: center; padding: 1.5rem 1rem;">
+        <div class="process-step-number" style="width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: bold;">4</div>
+        <h4 style="color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.1rem;">Support</h4>
+        <p style="color: #333; line-height: 1.4; font-size: 0.9rem;">Ongoing support, training, and continuous improvement.</p>
+      </div>
+    </div>
+    
+    <!-- Related Services Navigation -->
+    <div style="margin-top: 4rem;">
+      <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-size: 1.8rem;">Enhance Your IT Infrastructure with Related Services</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 900px; margin: 0 auto;">
+        
+        <a href="{% url 'service_detail' 'network-infrastructure' %}" class="service-nav-card">
+          <i class="fas fa-network-wired"></i>
+          <h4>Network Infrastructure</h4>
+          <p>Build robust network foundations for reliable IT operations</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="{% url 'service_detail' 'power-solutions' %}" class="service-nav-card">
+          <i class="fas fa-battery-full"></i>
+          <h4>Power Solutions</h4>
+          <p>Ensure your IT systems never go down with reliable power backup</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="{% url 'service_detail' 'internet-solutions' %}" class="service-nav-card">
+          <i class="fas fa-wifi"></i>
+          <h4>Internet Solutions</h4>
+          <p>High-speed connectivity for all your business applications</p>
+          <div style="position: absolute; top: 10px; right: 15px; font-size: 1.2rem;">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section fade-in-section" style="padding: 80px 0; background: var(--primary-color); color: white; text-align: center;">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Transform Your Business with Expert IT Services</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Contact Hyperwave Networks for a free IT assessment and discover how our comprehensive technology services can drive your business forward.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'contact' %}" class="btn" style="display: inline-block; background: white; color: var(--primary-color); padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Get Free Assessment</a>
+            <a href="tel:+254700000000" class="btn" style="display: inline-block; background: transparent; color: white; padding: 1rem 2.5rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Call IT Expert</a>
+        </div>
+    </div>
+</section>
+{% else %}
+<!-- Default Service Template -->
+<section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/'|add:service.image %}') center/cover no-repeat;">
+    <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">{{ service.title }}</h1>
+        <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">{{ service.description }}</p>
+    </div>
+</section>
+
+<!-- Service Content -->
+<section class="section fade-in-section" style="padding: 80px 0;">
+    <div class="container">
+        <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+            <div class="content" style="flex: 1;">
+                <h2 style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1.5rem;">Service Overview</h2>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #333; margin-bottom: 2rem;">{{ service.description }}</p>
+                
+                <h3 style="font-size: 1.5rem; color: var(--primary-color); margin: 2rem 0 1rem;">Key Features</h3>
+                <ul style="list-style: none; padding: 0;">
+                    {% for feature in service.features %}
+                    <li style="margin-bottom: 1rem; padding-left: 2rem; position: relative;">
+                        <i class="fas fa-check-circle" style="color: var(--primary-color); position: absolute; left: 0; top: 0.2rem;"></i>
+                        <span style="font-size: 1.1rem;">{{ feature }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="image" style="flex: 1;">
+                <img src="{% static 'images/'|add:service.image %}" alt="{{ service.title }}" style="width: 100%; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section fade-in-section" style="padding: 80px 0; background: var(--primary-color); color: white; text-align: center;">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Ready to Get Started?</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">Contact us today to schedule a consultation and discover how our {{ service.title }} can transform your business.</p>
+        <a href="{% url 'contact' %}" class="btn" style="display: inline-block; background: white; color: var(--primary-color); padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">Contact Us</a>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Page fade-in on load
+  document.body.classList.add('page-loaded');
+
+  // Page fade-out on navigation
+  document.querySelectorAll('a').forEach(function(link) {
+    const href = link.getAttribute('href');
+    if (href && !href.startsWith('http') && !href.startsWith('#') && !link.hasAttribute('target')) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.body.classList.remove('page-loaded');
+        document.body.classList.add('page-transition');
+        setTimeout(function() {
+          window.location = href;
+        }, 400);
+      });
+    }
+  });
+
+  // Intersection Observer for fade-in-section and fade-in-text
+  const observer = new window.IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in-section, .fade-in-text').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Animate speed circles and counter
+  function animateSpeedCircles() {
+    const packageCards = document.querySelectorAll('.package-card');
+    packageCards.forEach(card => {
+      const progress = card.querySelector('.circle-progress');
+      const speedValue = card.querySelector('.speed-value');
+      const targetSpeed = parseInt(card.dataset.speed);
+      const maxSpeed = 30; // Highest package speed
+      const targetProgress = Math.round((targetSpeed / maxSpeed) * 100);
+      if (!progress.classList.contains('animated')) {
+        progress.classList.add('animated');
+        speedValue.classList.add('animated');
+        // Animate the number
+        let startTimestamp = null;
+        function animateNumber(ts) {
+          if (!startTimestamp) startTimestamp = ts;
+          const pct = Math.min((ts - startTimestamp) / 1500, 1);
+          const value = Math.floor(pct * targetSpeed);
+          speedValue.textContent = value;
+          if (pct < 1) {
+            window.requestAnimationFrame(animateNumber);
+          } else {
+            speedValue.textContent = targetSpeed;
+          }
+        }
+        window.requestAnimationFrame(animateNumber);
+        // Animate the gauge arc
+        let arcStart = 0;
+        let arcTimestamp = null;
+        function animateArc(ts) {
+          if (!arcTimestamp) arcTimestamp = ts;
+          const pct = Math.min((ts - arcTimestamp) / 1500, 1);
+          const current = Math.floor(pct * targetProgress);
+          progress.style.setProperty('--progress', current + '%');
+          if (pct < 1) {
+            window.requestAnimationFrame(animateArc);
+          } else {
+            progress.style.setProperty('--progress', targetProgress + '%');
+          }
+        }
+        window.requestAnimationFrame(animateArc);
+      }
+    });
+  }
+  animateSpeedCircles();
+});
+</script>
+
+<!-- Add JavaScript for enhanced professional animations -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Professional page fade-in on load
+    document.body.classList.add('page-loaded');
+
+    // Enhanced Intersection Observer with professional timing
+    const observerOptions = {
+        threshold: [0, 0.1, 0.25],
+        rootMargin: '-10% 0px -10% 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+                // Staggered animation timing for professional feel
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in-section, .fade-in-text').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Enhanced feature row animations with stagger
+    const featureObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Stagger animations for professional sequential reveal
+                setTimeout(() => {
+                    entry.target.classList.add('animated');
+                }, index * 150);
+                featureObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2, rootMargin: '-5%' });
+
+    document.querySelectorAll('.feature-row').forEach(el => {
+        featureObserver.observe(el);
+    });
+
+    // Enhanced package card animations
+    const packageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('animated');
+                    // Trigger speed animations after card is visible
+                    setTimeout(() => {
+                        animateSpeedCircles();
+                    }, 300);
+                }, index * 120);
+                packageObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.package-card').forEach(el => {
+        packageObserver.observe(el);
+    });
+
+    // Professional hero slider with enhanced transitions
+    if (document.querySelector('.hero-slide')) {
+        const slides = document.querySelectorAll('.hero-slide');
+        const textSlides = document.querySelectorAll('.hero-text-slide');
+        let currentSlide = 0;
+        
+        function showSlide(idx) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = (i === idx) ? '1' : '0';
+            });
+            
+            textSlides.forEach((txt, i) => {
+                if (i === idx) {
+                    txt.classList.add('active');
+                    txt.style.opacity = '1';
+                    txt.style.transform = 'translateY(0)';
+                } else {
+                    txt.classList.remove('active');
+                    txt.style.opacity = '0';
+                    txt.style.transform = 'translateY(30px)';
+                }
+            });
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        showSlide(0);
+        setInterval(nextSlide, 6000); // Slower, more professional timing
+    }
+
+    // Enhanced speed circle animations
+    function animateSpeedCircles() {
+        const packageCards = document.querySelectorAll('.package-card.animated');
+        packageCards.forEach((card, index) => {
+            const progress = card.querySelector('.circle-progress');
+            const speedValue = card.querySelector('.speed-value');
+            const targetSpeed = parseInt(card.dataset.speed);
+            const maxSpeed = 30;
+            const targetProgress = Math.round((targetSpeed / maxSpeed) * 100);
+            
+            if (!progress.classList.contains('animated')) {
+                progress.classList.add('animated');
+                speedValue.classList.add('animated');
+                
+                // Staggered start times for professional sequential animation
+                setTimeout(() => {
+                    // Smooth number animation with easing
+                    let startTimestamp = null;
+                    function animateNumber(ts) {
+                        if (!startTimestamp) startTimestamp = ts;
+                        const progress = Math.min((ts - startTimestamp) / 2000, 1);
+                        // Professional easing function
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const value = Math.floor(eased * targetSpeed);
+                        speedValue.textContent = value;
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animateNumber);
+                        } else {
+                            speedValue.textContent = targetSpeed;
+                        }
+                    }
+                    requestAnimationFrame(animateNumber);
+                    
+                    // Smooth gauge arc animation
+                    let arcTimestamp = null;
+                    function animateArc(ts) {
+                        if (!arcTimestamp) arcTimestamp = ts;
+                        const progress = Math.min((ts - arcTimestamp) / 2000, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.floor(eased * targetProgress);
+                        progress.style.setProperty('--progress', current + '%');
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animateArc);
+                        } else {
+                            progress.style.setProperty('--progress', targetProgress + '%');
+                        }
+                    }
+                    requestAnimationFrame(animateArc);
+                }, index * 200);
+            }
+        });
+    }
+
+    // Professional page transition on navigation
+    document.querySelectorAll('a').forEach(function(link) {
+        const href = link.getAttribute('href');
+        if (href && !href.startsWith('http') && !href.startsWith('#') && !link.hasAttribute('target')) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.remove('page-loaded');
+                document.body.classList.add('page-transition');
+                setTimeout(function() {
+                    window.location = href;
+                }, 500);
+            });
+        }
+    });
+
+    // Professional scroll-triggered micro-animations
+    let ticking = false;
+    function updateAnimations() {
+        // Parallax effect for hero section
+        const hero = document.querySelector('.hero-section');
+        if (hero) {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translateY(${rate}px)`;
+        }
+
+        // Progressive blur for performance
+        const sections = document.querySelectorAll('.fade-in-section:not(.visible)');
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.9) {
+                section.classList.add('visible');
+            }
+        });
+
+        ticking = false;
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateAnimations);
+            ticking = true;
+        }
+    }
+
+    window.addEventListener('scroll', requestTick, { passive: true });
+
+    // Enhanced button interactions
+    document.querySelectorAll('.btn, .package-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.02)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Creative Arrow Connectors Animation
+    function initializeArrowConnectors() {
+        // Show arrows on desktop screens only
+        if (window.innerWidth > 768) {
+            const arrows = document.querySelectorAll('.arrow-connector');
+            arrows.forEach((arrow, index) => {
+                setTimeout(() => {
+                    arrow.style.display = 'block';
+                    arrow.style.opacity = '0';
+                    arrow.style.animation = 'none';
+                    
+                    // Fade in with delay
+                    setTimeout(() => {
+                        arrow.style.opacity = '0.7';
+                        arrow.style.animation = 'pulse 2s infinite';
+                    }, 300);
+                }, index * 200);
+            });
+        }
+    }
+
+    // Initialize arrows after process cards are visible
+    const processObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    initializeArrowConnectors();
+                }, 1000); // Wait for cards to animate in
+                processObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.creative-process-grid').forEach(grid => {
+        processObserver.observe(grid);
+    });
+
+    // Enhanced service nav card interactions
+    document.querySelectorAll('.service-nav-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+            this.style.boxShadow = '0 20px 40px rgba(0,0,0,0.25)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
+        });
+    });
+
+    // Process step card enhanced interactions
+    document.querySelectorAll('.process-step-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-12px) scale(1.02)';
+            this.style.boxShadow = '0 25px 50px rgba(0,0,0,0.18)';
+            this.style.borderColor = 'var(--primary-color)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 5px 20px rgba(0,0,0,0.08)';
+            this.style.borderColor = 'transparent';
+        });
+    });
+
+    // Power Package Card Enhanced Interactions
+    document.querySelectorAll('.power-package-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+            this.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+            this.style.borderColor = 'var(--primary-color)';
+            
+            // Animate the icon
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'scale(1.1)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 5px 20px rgba(0,0,0,0.08)';
+            this.style.borderColor = 'transparent';
+            
+            // Reset icon
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'scale(1)';
+            }
+        });
+        
+        // Enhanced button hover in power cards
+        const button = card.querySelector('a[href*="contact"]');
+        if (button) {
+            button.addEventListener('mouseenter', function() {
+                this.style.background = 'var(--secondary-color)';
+                this.style.transform = 'scale(1.05)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.background = 'var(--primary-color)';
+                this.style.transform = 'scale(1)';
+            });
+        }
+    });
+
+    // Professional loading sequence
+    setTimeout(() => {
+        document.querySelectorAll('.fade-in-text').forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, index * 100);
+        });
+    }, 200);
+});
+</script>
+{% endblock %} 

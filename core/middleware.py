@@ -7,7 +7,7 @@ import logging
 from collections import defaultdict
 import re
 from datetime import datetime, timedelta
-import sys
+from .security_scanner import SecurityScanner
 
 logger = logging.getLogger('django.security')
 
@@ -17,13 +17,14 @@ class HttpResponseTooManyRequests(HttpResponse):
 
 class DDoSProtectionMiddleware:
     """
-    Comprehensive DDoS Protection Middleware
+    Comprehensive DDoS Protection Middleware with Advanced Threat Detection
     Features:
     - Connection rate limiting with progressive delays
     - Pattern-based attack detection
     - IP reputation tracking
     - Automated threat response
-    - Geographic blocking capabilities
+    - Malware and trojan detection
+    - Advanced persistent threat detection
     """
     
     def __init__(self, get_response):
@@ -32,45 +33,43 @@ class DDoSProtectionMiddleware:
         self.connection_tracker = defaultdict(list)
         self.pattern_tracker = defaultdict(int)
         self.blocked_ips = set()
+        # Initialize security scanner
+        self.security_scanner = SecurityScanner()
         
     def __call__(self, request):
-        # Skip all protection in development mode or during testing
-        if settings.DEBUG or 'test' in sys.argv:
+        # Skip protection in development mode but still log for testing
+        if settings.DEBUG:
+            # Still perform security scanning in debug mode for testing
+            self._perform_security_scan(request)
             return self.get_response(request)
             
         ip = self.get_client_ip(request)
         
-        # Whitelist legitimate paths that should never be blocked
-        safe_paths = ['/contact/', '/service-request/', '/static/', '/media/', '/favicon.ico', '/robots.txt']
-        if any(request.path.startswith(path) for path in safe_paths):
-            # Still add security headers but skip aggressive filtering
-            response = self.get_response(request)
-            return self.add_security_headers(response)
-        
         # Check if IP is permanently blocked
         if self.is_ip_blocked(ip):
             logger.critical(f"Blocked IP attempted access: {ip}")
-            return HttpResponseForbidden("Access denied. IP has been blocked.")
+            return HttpResponseForbidden("Access denied. IP has been blocked due to security violations.")
         
-        # DDoS Detection and Response (but be more lenient for legitimate users)
+        # Advanced Security Scanning
+        security_response = self._perform_comprehensive_security_scan(request)
+        if security_response:
+            return security_response
+        
+        # DDoS Detection and Response
         ddos_response = self.detect_ddos_attack(request)
         if ddos_response:
             return ddos_response
         
-        # Rate limiting with progressive delays (more lenient for contact forms)
+        # Rate limiting with progressive delays
         rate_limit_response = self.advanced_rate_limiting(request)
         if rate_limit_response:
             return rate_limit_response
         
-        # Suspicious pattern detection (but allow legitimate contact form data)
+        # Suspicious pattern detection (legacy - now enhanced by security scanner)
         if self.is_suspicious_request(request):
-            # Don't block contact form submissions even if they contain suspicious patterns
-            if request.path in ['/contact/', '/service-request/'] and request.method == 'POST':
-                logger.warning(f"Suspicious patterns in contact form from {ip}: {request.path} - ALLOWING")
-            else:
-                self.track_suspicious_activity(ip, request)
-                logger.warning(f"Suspicious request from {ip}: {request.path}")
-                return HttpResponseForbidden("Request blocked for security reasons.")
+            self.track_suspicious_activity(ip, request)
+            logger.warning(f"Suspicious request from {ip}: {request.path}")
+            return HttpResponseForbidden("Request blocked for security reasons.")
         
         # Track legitimate requests
         self.track_connection(ip, request)
@@ -79,6 +78,76 @@ class DDoSProtectionMiddleware:
         response = self.add_security_headers(response)
         
         return response
+
+    def _perform_comprehensive_security_scan(self, request):
+        """Perform comprehensive security scanning including malware and trojan detection"""
+        ip = self.get_client_ip(request)
+        
+        # Scan request content for malware and trojans
+        content_threats = self.security_scanner.scan_request_content(request)
+        
+        # Detect advanced threats
+        advanced_threats = self.security_scanner.detect_advanced_threats(request)
+        
+        # Analyze IP reputation
+        ip_reputation = self.security_scanner.analyze_ip_reputation(ip)
+        
+        # Combine all threats
+        all_threats = content_threats + advanced_threats
+        
+        if all_threats:
+            # Generate comprehensive threat report
+            threat_report = self.security_scanner.generate_threat_report(all_threats, request)
+            
+            # Take action based on threat severity
+            action = threat_report.get('recommended_action', 'LOG_ONLY')
+            
+            if action == 'BLOCK_IMMEDIATELY':
+                self.add_to_blocklist(ip, duration=86400)  # 24 hours
+                logger.critical(f"CRITICAL THREAT DETECTED - IP {ip} blocked immediately: {threat_report}")
+                return HttpResponseForbidden("Critical security threat detected. Access denied.")
+            
+            elif action == 'BLOCK_AND_MONITOR':
+                self.add_to_blocklist(ip, duration=3600)  # 1 hour
+                logger.error(f"HIGH THREAT DETECTED - IP {ip} blocked: {threat_report}")
+                return HttpResponseForbidden("High-risk security threat detected. Access temporarily denied.")
+            
+            elif action == 'MONITOR_CLOSELY':
+                # Increase monitoring for this IP
+                self._increase_monitoring(ip)
+                logger.warning(f"MEDIUM THREAT DETECTED - IP {ip} under increased monitoring: {threat_report}")
+        
+        # Check IP reputation
+        if ip_reputation['reputation'] == 'malicious':
+            self.add_to_blocklist(ip, duration=7200)  # 2 hours
+            logger.error(f"Malicious IP detected: {ip} - {ip_reputation['reason']}")
+            return HttpResponseForbidden("Access denied due to malicious activity.")
+        
+        return None
+
+    def _perform_security_scan(self, request):
+        """Perform security scan in debug mode for testing"""
+        ip = self.get_client_ip(request)
+        
+        # Scan for threats (but don't block in debug mode)
+        content_threats = self.security_scanner.scan_request_content(request)
+        advanced_threats = self.security_scanner.detect_advanced_threats(request)
+        
+        if content_threats or advanced_threats:
+            all_threats = content_threats + advanced_threats
+            threat_report = self.security_scanner.generate_threat_report(all_threats, request)
+            logger.info(f"[DEBUG MODE] Security scan result for {ip}: {threat_report}")
+
+    def _increase_monitoring(self, ip):
+        """Increase monitoring level for suspicious IPs"""
+        monitoring_key = f"monitoring:{ip}"
+        current_level = cache.get(monitoring_key, 0)
+        cache.set(monitoring_key, current_level + 1, 3600)  # 1 hour
+        
+        # If monitoring level gets too high, consider blocking
+        if current_level > 5:
+            self.add_to_blocklist(ip, duration=1800)  # 30 minutes
+            logger.warning(f"IP {ip} blocked due to repeated suspicious activity")
 
     def get_client_ip(self, request):
         """Get the real client IP address with proxy support"""
@@ -210,26 +279,12 @@ class DDoSProtectionMiddleware:
         logger.critical("Emergency DDoS protection mode activated")
 
     def advanced_rate_limiting(self, request):
-        """Advanced rate limiting with progressive delays and contact form exceptions"""
+        """Advanced rate limiting with progressive delays"""
         # Skip rate limiting in development
         if settings.DEBUG:
             return None
             
         ip = self.get_client_ip(request)
-        
-        # Special handling for contact forms - more lenient
-        if request.path in ['/contact/', '/service-request/'] and request.method == 'POST':
-            cache_key = f"contact_rate:{ip}"
-            contact_requests = cache.get(cache_key, 0)
-            
-            if contact_requests >= 3:  # Allow 3 contact form submissions per hour
-                logger.warning(f"Contact form rate limit exceeded for {ip}")
-                return HttpResponseTooManyRequests(
-                    "Too many contact form submissions. Please wait an hour before submitting again."
-                )
-            
-            cache.set(cache_key, contact_requests + 1, 3600)  # Track for 1 hour
-            return None
         
         # Check if in emergency mode
         if cache.get("emergency_mode", False):
@@ -241,10 +296,10 @@ class DDoSProtectionMiddleware:
                 limit = 5
                 window = 60
             elif request.method == 'POST':
-                limit = 10  # Increased from 3 to 10 for better user experience
+                limit = 3  # Stricter for POST requests
                 window = 60
             else:
-                limit = 50  # Increased from 30 to 50 for better user experience
+                limit = 30  # Reduced from 60 for better DDoS protection
                 window = 60
         
         cache_key = f"rate_limit:{ip}"

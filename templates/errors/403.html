@@ -1,58 +1,39 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends 'base.html' %}
 
-{% block title %}{{ error_code }} - {{ error_title }} | Hyperwave Networks{% endblock %}
+{% block title %}Access Denied - Hyperwave Networks{% endblock %}
 
 {% block content %}
-<div class="error-page">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <div class="error-content">
-                    <div class="error-code">
-                        <h1>{{ error_code }}</h1>
-                        <i class="fas fa-shield-alt error-icon"></i>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <div class="error-page">
+                <h1 class="display-1 text-danger">403</h1>
+                <h2 class="mb-4">Access Denied</h2>
+                
+                {% if error_message %}
+                    <div class="alert alert-warning">
+                        {{ error_message }}
                     </div>
-                    <div class="error-details">
-                        <h2>{{ error_title }}</h2>
-                        <p class="error-message">{{ error_message }}</p>
-                        
-                        {% if show_refresh_guidance %}
-                        <div class="help-section">
-                            <h4><i class="fas fa-info-circle"></i> What can you do?</h4>
-                            <ul class="help-list">
-                                <li><i class="fas fa-refresh"></i> Refresh the page and try again</li>
-                                <li><i class="fas fa-home"></i> Go back to the homepage</li>
-                                <li><i class="fas fa-envelope"></i> Contact us if the problem persists</li>
-                            </ul>
-                        </div>
-                        {% else %}
-                        <p class="error-description">
-                            This request has been blocked by our security system. If you believe this is an error, 
-                            please contact our support team for assistance.
-                        </p>
-                        {% endif %}
-                        
-                        <div class="security-info">
-                            <div class="alert alert-warning">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <strong>Security Notice:</strong> This incident has been logged for security purposes.
-                            </div>
-                        </div>
-                        
-                        <div class="error-actions">
-                            <button onclick="location.reload()" class="btn btn-success">
-                                <i class="fas fa-refresh"></i> Refresh Page
-                            </button>
-                            <a href="{% url 'home' %}" class="btn btn-primary">
-                                <i class="fas fa-home"></i> Back to Home
-                            </a>
-                            <a href="{% url 'contact' %}" class="btn btn-outline-primary">
-                                <i class="fas fa-envelope"></i> Contact Support
-                            </a>
-                        </div>
-                    </div>
+                {% else %}
+                    <p class="lead mb-4">
+                        Sorry, you don't have permission to access this resource.
+                    </p>
+                {% endif %}
+                
+                <div class="mt-4">
+                    <a href="{% url 'home' %}" class="btn btn-primary me-3">
+                        <i class="fas fa-home"></i> Go Home
+                    </a>
+                    <a href="{% url 'contact' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-envelope"></i> Contact Support
+                    </a>
                 </div>
+                
+                {% if error_code %}
+                    <div class="mt-4">
+                        <small class="text-muted">Error Code: {{ error_code }}</small>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -60,128 +41,36 @@
 
 <style>
 .error-page {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    padding: 80px 0;
+    padding: 60px 0;
 }
 
-.error-content {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.error-code {
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.error-code h1 {
+.error-page h1 {
     font-size: 8rem;
     font-weight: 700;
-    color: #f39c12;
-    margin-bottom: 0;
+    color: #dc3545;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-.error-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    color: rgba(243, 156, 18, 0.3);
-    z-index: -1;
-}
-
-.error-details h2 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin: 20px 0;
-}
-
-.error-message {
-    font-size: 1.2rem;
-    color: #7f8c8d;
+.error-page h2 {
+    color: #333;
     margin-bottom: 20px;
 }
 
-.error-description {
-    color: #95a5a6;
-    margin-bottom: 30px;
-    line-height: 1.6;
+.error-page .lead {
+    color: #666;
+    font-size: 1.1rem;
 }
 
-.security-info {
-    margin: 30px 0;
-}
-
-.security-info .alert {
-    border-radius: 10px;
-    border: none;
-    background: rgba(243, 156, 18, 0.1);
-    color: #d68910;
-    padding: 15px 20px;
-}
-
-.error-actions {
-    margin-top: 30px;
-}
-
-.help-section {
-    background: rgba(52, 152, 219, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px 0;
-    text-align: left;
-}
-
-.help-section h4 {
-    color: #3498db;
-    margin-bottom: 15px;
-}
-
-.help-list {
-    list-style: none;
-    padding: 0;
-}
-
-.help-list li {
-    padding: 8px 0;
-    color: #2c3e50;
-}
-
-.help-list li i {
-    color: #3498db;
-    margin-right: 10px;
-    width: 20px;
-}
-
-.error-actions .btn {
-    margin: 5px;
+.error-page .btn {
     padding: 12px 30px;
     font-weight: 500;
     border-radius: 25px;
+    transition: all 0.3s ease;
 }
 
-@media (max-width: 768px) {
-    .error-code h1 {
-        font-size: 5rem;
-    }
-    
-    .error-icon {
-        font-size: 2rem;
-    }
-    
-    .error-details h2 {
-        font-size: 2rem;
-    }
-    
-    .error-actions .btn {
-        display: block;
-        margin: 10px 0;
-        width: 100%;
-    }
+.error-page .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 </style>
 {% endblock %} 

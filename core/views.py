@@ -6,157 +6,15 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from django.http import Http404, HttpResponseForbidden, HttpResponse
+from django.http import Http404
 from django.utils.html import escape
-from django.core.cache import cache
-from django.views.decorators.csrf import requires_csrf_token
 import logging
-import time
+from django.core.cache import cache
 
 from .forms import ContactForm, ServiceRequestForm
 from .models import Product, InternetPackage, ServiceArea
 
 logger = logging.getLogger('core')
-security_logger = logging.getLogger('django.security')
-
-# Security Views
-# ==============
-
-def csrf_failure(request, reason=""):
-    """Custom CSRF failure view with security logging and user-friendly guidance"""
-    client_ip = get_client_ip(request)
-    user_agent = request.META.get('HTTP_USER_AGENT', 'Unknown')
-    
-    security_logger.warning(
-        f"CSRF failure from {client_ip} - Reason: {reason} - User Agent: {user_agent[:100]} - Path: {request.path}"
-    )
-    
-    # Track CSRF failures for potential attack detection (but be more lenient)
-    cache_key = f"csrf_failures:{client_ip}"
-    failures = cache.get(cache_key, 0)
-    cache.set(cache_key, failures + 1, 3600)  # Track for 1 hour
-    
-    # Only flag as critical if many failures (increased threshold)
-    if failures > 10:  # Increased from 5 to 10
-        security_logger.critical(f"Multiple CSRF failures from {client_ip} - Possible attack")
-    
-    # Provide user-friendly error message with guidance
-    context = {
-        'error_title': 'Security Verification Failed',
-        'error_code': '403',
-        'show_refresh_guidance': True,
-    }
-    
-    # Customize message based on the reason
-    if 'token' in reason.lower():
-        context['error_message'] = 'Your security token has expired. Please refresh the page and try again.'
-    elif 'referer' in reason.lower():
-        context['error_message'] = 'This form must be submitted from our website. Please navigate to our contact page directly.'
-    else:
-        context['error_message'] = 'Your request could not be verified for security reasons. Please refresh the page and try again.'
-    
-    return render(request, 'errors/403.html', context, status=403)
-
-def ratelimited(request, exception=None):
-    """Custom rate limit exceeded view"""
-    client_ip = get_client_ip(request)
-    
-    security_logger.warning(f"Rate limit exceeded for {client_ip}")
-    
-    return render(request, 'errors/429.html', {
-        'error_title': 'Too Many Requests',
-        'error_message': 'You have made too many requests. Please wait a moment and try again.',
-        'error_code': '429'
-    }, status=429)
-
-def get_client_ip(request):
-    """Get the real client IP address"""
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0].strip()
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-
-def security_check(request):
-    """Security health check endpoint"""
-    if not request.user.is_staff:
-        return HttpResponseForbidden("Access denied")
-    
-    # Basic security status
-    status = {
-        'timestamp': time.time(),
-        'ddos_protection': 'ACTIVE',
-        'rate_limiting': 'ACTIVE',
-        'csrf_protection': 'ACTIVE',
-        'ssl_redirect': getattr(settings, 'SECURE_SSL_REDIRECT', False),
-        'hsts_enabled': getattr(settings, 'SECURE_HSTS_SECONDS', 0) > 0,
-    }
-    
-    return HttpResponse(f"Security Status: {status}", content_type='text/plain')
-
-# Custom Error Views
-# ==================
-
-@requires_csrf_token
-def custom_400(request, exception=None):
-    """Custom 400 Bad Request view"""
-    client_ip = get_client_ip(request)
-    security_logger.warning(f"400 Bad Request from {client_ip}")
-    
-    return render(request, 'errors/400.html', {
-        'error_title': 'Bad Request',
-        'error_message': 'Your request could not be understood by the server.',
-        'error_code': '400'
-    }, status=400)
-
-@requires_csrf_token
-def custom_403(request, exception=None):
-    """Custom 403 Forbidden view"""
-    client_ip = get_client_ip(request)
-    security_logger.warning(f"403 Forbidden access attempt from {client_ip}")
-    
-    return render(request, 'errors/403.html', {
-        'error_title': 'Access Forbidden',
-        'error_message': 'You do not have permission to access this resource.',
-        'error_code': '403'
-    }, status=403)
-
-@requires_csrf_token
-def custom_404(request, exception=None):
-    """Custom 404 Not Found view with security logging"""
-    client_ip = get_client_ip(request)
-    path = request.get_full_path()
-    
-    # Log suspicious 404s (potential scanning attempts)
-    suspicious_patterns = [
-        'wp-admin', 'phpmyadmin', 'admin.php', '.env', 'config.php',
-        'wp-login', 'administrator', 'cpanel', 'plesk'
-    ]
-    
-    if any(pattern in path.lower() for pattern in suspicious_patterns):
-        security_logger.warning(f"Suspicious 404 from {client_ip}: {path}")
-    
-    return render(request, 'errors/404.html', {
-        'error_title': 'Page Not Found',
-        'error_message': 'The page you are looking for does not exist.',
-        'error_code': '404'
-    }, status=404)
-
-@requires_csrf_token
-def custom_500(request):
-    """Custom 500 Internal Server Error view"""
-    client_ip = get_client_ip(request)
-    security_logger.error(f"500 Internal Server Error for {client_ip}")
-    
-    return render(request, 'errors/500.html', {
-        'error_title': 'Server Error',
-        'error_message': 'An internal server error occurred. Please try again later.',
-        'error_code': '500'
-    }, status=500)
-
-# Existing Views with Enhanced Security
-# ====================================
 
 @cache_page(60 * 5)  # Cache for 5 minutes
 def home(request):
@@ -998,4 +856,23 @@ def custom_500(request):
     """Custom 500 error handler"""
     logger.error(f"500 error for path: {request.path} from IP: {request.META.get('REMOTE_ADDR', 'Unknown')}")
     return render(request, 'errors/500.html', status=500)
+
+def csrf_failure(request, reason=""):
+    """Handle CSRF failures with security logging"""
+    logger.warning(f"CSRF failure from {request.META.get('REMOTE_ADDR', 'unknown')}: {reason}")
+    
+    # Track CSRF failures for potential attack detection
+    ip = request.META.get('REMOTE_ADDR', 'unknown')
+    cache_key = f"csrf_failures:{ip}"
+    failures = cache.get(cache_key, 0)
+    cache.set(cache_key, failures + 1, 3600)  # Track for 1 hour
+    
+    # If too many CSRF failures, it might be an attack
+    if failures > 10:
+        logger.error(f"Multiple CSRF failures from {ip} - possible attack")
+    
+    return render(request, 'errors/403.html', {
+        'error_message': 'Security token verification failed. Please try again.',
+        'error_code': 'CSRF_FAILURE'
+    }, status=403)
 

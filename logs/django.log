@@ -8124,3 +8124,93 @@ INFO 2025-06-21 04:51:33,586 autoreload 24572 9872 D:\Websites\Hyperwave\core\mi
 INFO 2025-06-21 04:51:35,199 autoreload 19692 28008 Watching for file changes with StatReloader
 INFO 2025-06-21 04:52:07,409 autoreload 19692 28008 D:\Websites\Hyperwave\core\middleware.py changed, reloading.
 INFO 2025-06-21 04:52:09,442 autoreload 26244 22860 Watching for file changes with StatReloader
+WARNING 2025-06-21 04:57:17,343 basehttp 26244 8176 "HEAD /contact/ HTTP/1.1" 405 0
+INFO 2025-06-21 04:58:28,110 basehttp 26244 8176 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 04:58:47,974 basehttp 26244 29636 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 04:58:48,245 basehttp 26244 29636 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-21 04:59:05,059 views 26244 32300 Contact form submission from harrisoniduyo@gmail.com - Subject: Net
+INFO 2025-06-21 04:59:06,708 views 26244 32300 Contact form email sent successfully to harrisoniduyo@gmail.com
+INFO 2025-06-21 04:59:06,730 basehttp 26244 32300 "POST /contact/ HTTP/1.1" 302 0
+INFO 2025-06-21 04:59:06,766 basehttp 26244 32300 "GET /contact/ HTTP/1.1" 200 68705
+INFO 2025-06-21 05:03:43,290 autoreload 26244 22860 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 05:03:45,228 autoreload 19220 8960 Watching for file changes with StatReloader
+INFO 2025-06-21 05:10:40,048 basehttp 19220 21192 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:10:40,165 basehttp 19220 21192 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-21 05:11:01,561 autoreload 19220 8960 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 05:11:12,199 autoreload 10816 2720 Watching for file changes with StatReloader
+INFO 2025-06-21 05:11:38,382 views 10816 30140 Contact form submission from harrisoniduyo@gmail.com - Subject: Net
+INFO 2025-06-21 05:11:40,133 views 10816 30140 Contact form email sent successfully to harrisoniduyo@gmail.com
+INFO 2025-06-21 05:11:40,232 basehttp 10816 30140 "POST /contact/ HTTP/1.1" 302 0
+INFO 2025-06-21 05:11:40,730 basehttp 10816 30140 "GET /contact/ HTTP/1.1" 200 68705
+INFO 2025-06-21 05:22:02,507 basehttp 10816 25108 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:22:02,578 basehttp 10816 30296 "GET /contact/ HTTP/1.1" 200 68201
+WARNING 2025-06-21 05:22:02,609 basehttp 10816 30296 "POST /contact/ HTTP/1.1" 403 50113
+INFO 2025-06-21 05:26:24,319 basehttp 10816 24964 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:26:24,925 basehttp 10816 24964 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-21 05:28:39,862 views 10816 29512 Contact form submission from harrisoniduyo@gmail.com - Subject: Net
+INFO 2025-06-21 05:28:39,882 views 10816 29512 Contact form email sent successfully to harrisoniduyo@gmail.com
+INFO 2025-06-21 05:28:39,943 basehttp 10816 29512 "POST /contact/ HTTP/1.1" 302 0
+INFO 2025-06-21 05:28:39,995 basehttp 10816 29512 "GET /contact/ HTTP/1.1" 200 68705
+INFO 2025-06-21 05:29:04,900 basehttp 10816 5216 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:29:05,031 basehttp 10816 5216 "GET /static/css/style.css HTTP/1.1" 200 20849
+INFO 2025-06-21 05:29:05,063 basehttp 10816 5216 "GET /static/js/main.js HTTP/1.1" 200 4423
+INFO 2025-06-21 05:29:05,207 basehttp 10816 32572 "GET /static/css/responsive.css HTTP/1.1" 200 14772
+INFO 2025-06-21 05:29:05,249 basehttp 10816 32676 "GET /static/images/logo.png HTTP/1.1" 200 91155
+INFO 2025-06-21 05:29:05,261 basehttp 10816 31616 "GET /static/images/about%20us%201.jpg HTTP/1.1" 200 85719
+INFO 2025-06-21 05:29:05,282 basehttp 10816 26828 "GET /static/js/mobile-menu.js HTTP/1.1" 200 8013
+INFO 2025-06-21 05:29:06,359 basehttp 10816 26828 "GET /static/images/home1.jpg HTTP/1.1" 200 170805
+INFO 2025-06-21 05:29:06,462 basehttp 10816 26828 "GET /static/images/mission.jpg HTTP/1.1" 200 26066
+INFO 2025-06-21 05:29:09,880 basehttp 10816 26828 "GET /static/images/logo.png HTTP/1.1" 200 91155
+INFO 2025-06-21 05:29:26,178 views 10816 22516 Contact form submission from harrisoniduyo@gmail.com - Subject: PAYMENT
+INFO 2025-06-21 05:29:26,185 views 10816 22516 Contact form email sent successfully to harrisoniduyo@gmail.com
+INFO 2025-06-21 05:29:26,201 basehttp 10816 22516 "POST /contact/ HTTP/1.1" 302 0
+INFO 2025-06-21 05:29:26,245 basehttp 10816 22516 "GET /contact/ HTTP/1.1" 200 68705
+INFO 2025-06-21 05:33:18,475 basehttp 10816 16984 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:33:32,594 basehttp 10816 2836 "POST /contact/ HTTP/1.1" 200 68936
+INFO 2025-06-21 05:33:45,543 views 10816 26912 Contact form submission from harrisoniduyo@gmail.com - Subject: TEST THE SITE
+INFO 2025-06-21 05:33:45,578 views 10816 26912 Contact form email sent successfully to harrisoniduyo@gmail.com
+INFO 2025-06-21 05:33:45,680 basehttp 10816 26912 "POST /contact/ HTTP/1.1" 302 0
+INFO 2025-06-21 05:33:45,758 basehttp 10816 26912 "GET /contact/ HTTP/1.1" 200 68696
+INFO 2025-06-21 05:36:46,355 basehttp 10816 23724 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:37:03,445 basehttp 10816 27112 "POST /contact/ HTTP/1.1" 200 69011
+INFO 2025-06-21 05:37:17,598 views 10816 32068 Contact form submission from harrisoniduyo@gmail.com - Subject: Net
+INFO 2025-06-21 05:37:17,606 views 10816 32068 Contact form email sent successfully to harrisoniduyo@gmail.com
+INFO 2025-06-21 05:37:17,635 basehttp 10816 32068 "POST /contact/ HTTP/1.1" 302 0
+INFO 2025-06-21 05:37:17,663 basehttp 10816 32068 "GET /contact/ HTTP/1.1" 200 68703
+INFO 2025-06-21 05:38:47,023 autoreload 10816 2720 D:\Websites\Hyperwave\core\views.py changed, reloading.
+INFO 2025-06-21 05:38:53,743 autoreload 32344 18796 Watching for file changes with StatReloader
+INFO 2025-06-21 05:39:02,452 basehttp 32344 2520 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:39:02,731 basehttp 32344 2520 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-21 05:39:03,671 basehttp 32344 2520 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:39:05,260 basehttp 32344 2520 "GET / HTTP/1.1" 200 107347
+INFO 2025-06-21 05:39:07,408 basehttp 32344 2520 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:39:09,955 basehttp 32344 10072 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 05:39:10,038 basehttp 32344 10072 "GET /static/css/style.css HTTP/1.1" 200 20849
+INFO 2025-06-21 05:39:10,062 basehttp 32344 8584 "GET /static/images/logo.png HTTP/1.1" 200 91155
+INFO 2025-06-21 05:39:10,076 basehttp 32344 14696 "GET /static/css/responsive.css HTTP/1.1" 200 14772
+INFO 2025-06-21 05:39:10,095 basehttp 32344 14744 "GET /static/js/mobile-menu.js HTTP/1.1" 200 8013
+INFO 2025-06-21 05:39:10,107 basehttp 32344 16312 "GET /static/images/about%20us%201.jpg HTTP/1.1" 200 85719
+INFO 2025-06-21 05:39:10,111 basehttp 32344 13212 "GET /static/js/main.js HTTP/1.1" 200 4423
+INFO 2025-06-21 05:39:11,392 basehttp 32344 13212 "GET /static/images/home1.jpg HTTP/1.1" 200 170805
+INFO 2025-06-21 05:39:11,491 basehttp 32344 13212 "GET /static/images/about%20us%202.jpg HTTP/1.1" 200 2106036
+INFO 2025-06-21 05:39:12,746 basehttp 32344 13212 "GET /static/images/logo.png HTTP/1.1" 200 91155
+INFO 2025-06-21 05:39:26,960 views 32344 13212 Contact form submission from harrisoniduyo@gmail.com - Subject: Net
+INFO 2025-06-21 05:39:39,956 views 32344 13212 Contact form email sent successfully to harrisoniduyo@gmail.com
+INFO 2025-06-21 05:39:39,960 basehttp 32344 13212 "POST /contact/ HTTP/1.1" 302 0
+INFO 2025-06-21 05:39:39,977 basehttp 32344 13212 "GET /contact/ HTTP/1.1" 200 68705
+INFO 2025-06-21 05:44:30,774 basehttp 32344 13860 "GET /blog/ HTTP/1.1" 200 69310
+WARNING 2025-06-21 05:44:30,990 basehttp 32344 13860 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+WARNING 2025-06-21 05:44:31,160 basehttp 32344 1076 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+INFO 2025-06-21 05:44:34,402 basehttp 32344 18780 "GET /products/ HTTP/1.1" 200 66642
+INFO 2025-06-21 05:44:34,491 basehttp 32344 18780 "GET /media/products/MikroTik_hAP_Lite_RB941-2nD.png HTTP/1.1" 304 0
+INFO 2025-06-21 05:44:37,707 basehttp 32344 18780 "GET /products/ HTTP/1.1" 200 66642
+INFO 2025-06-21 05:46:39,602 autoreload 32344 18796 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 05:47:54,507 autoreload 17316 18600 Watching for file changes with StatReloader
+INFO 2025-06-21 05:56:57,677 autoreload 17316 18600 D:\Websites\Hyperwave\core\views.py changed, reloading.
+INFO 2025-06-21 05:57:00,308 autoreload 1656 9732 Watching for file changes with StatReloader
+INFO 2025-06-21 06:13:18,034 autoreload 1656 9732 D:\Websites\Hyperwave\core\views.py changed, reloading.
+INFO 2025-06-21 06:13:20,071 autoreload 26872 23812 Watching for file changes with StatReloader
+INFO 2025-06-21 06:21:07,846 basehttp 26872 24020 "GET /products/ HTTP/1.1" 200 66642
+INFO 2025-06-21 06:21:07,971 basehttp 26872 24020 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-21 06:21:08,096 basehttp 26872 32696 "GET /media/products/MikroTik_hAP_Lite_RB941-2nD.png HTTP/1.1" 304 0
+INFO 2025-06-21 06:21:17,423 basehttp 26872 32660 "GET /contact/ HTTP/1.1" 200 68201

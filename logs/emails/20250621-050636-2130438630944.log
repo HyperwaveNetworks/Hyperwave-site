@@ -1,0 +1,21 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Test Email from Hyperwave - 2025-06-21 05:06
+From: info@hyperwave.co.ke
+To: harrisoniduyo@gmail.com
+Date: Sat, 21 Jun 2025 02:06:36 -0000
+Message-ID: <175047159658.7368.12489817408511511832@Trojan>
+
+This is a test email from the Hyperwave Networks website.
+
+If you receive this email, the email system is working correctly!
+
+Test Details:
+- Sent from: Django email system
+- Backend: django.core.mail.backends.filebased.EmailBackend
+- Time: 2025-06-21 05:06:36
+
+Best regards,
+Hyperwave Networks Team
+-------------------------------------------------------------------------------

@@ -23,27 +23,39 @@ security_logger = logging.getLogger('django.security')
 # ==============
 
 def csrf_failure(request, reason=""):
-    """Custom CSRF failure view with security logging"""
+    """Custom CSRF failure view with security logging and user-friendly guidance"""
     client_ip = get_client_ip(request)
     user_agent = request.META.get('HTTP_USER_AGENT', 'Unknown')
     
     security_logger.warning(
-        f"CSRF failure from {client_ip} - Reason: {reason} - User Agent: {user_agent[:100]}"
+        f"CSRF failure from {client_ip} - Reason: {reason} - User Agent: {user_agent[:100]} - Path: {request.path}"
     )
     
-    # Track CSRF failures for potential attack detection
+    # Track CSRF failures for potential attack detection (but be more lenient)
     cache_key = f"csrf_failures:{client_ip}"
     failures = cache.get(cache_key, 0)
     cache.set(cache_key, failures + 1, 3600)  # Track for 1 hour
     
-    if failures > 5:  # More than 5 CSRF failures in an hour
+    # Only flag as critical if many failures (increased threshold)
+    if failures > 10:  # Increased from 5 to 10
         security_logger.critical(f"Multiple CSRF failures from {client_ip} - Possible attack")
     
-    return render(request, 'errors/403.html', {
+    # Provide user-friendly error message with guidance
+    context = {
         'error_title': 'Security Verification Failed',
-        'error_message': 'Your request could not be verified. Please try again.',
-        'error_code': '403'
-    }, status=403)
+        'error_code': '403',
+        'show_refresh_guidance': True,
+    }
+    
+    # Customize message based on the reason
+    if 'token' in reason.lower():
+        context['error_message'] = 'Your security token has expired. Please refresh the page and try again.'
+    elif 'referer' in reason.lower():
+        context['error_message'] = 'This form must be submitted from our website. Please navigate to our contact page directly.'
+    else:
+        context['error_message'] = 'Your request could not be verified for security reasons. Please refresh the page and try again.'
+    
+    return render(request, 'errors/403.html', context, status=403)
 
 def ratelimited(request, exception=None):
     """Custom rate limit exceeded view"""

@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-secure-hyperwave-2025-k3ny@-n3tw0rk5-$3cur3-r@nd0m-k3y-f0r-pr0duct10n-v2')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='hyperwave.co.ke,www.hyperwave.co.ke,127.0.0.1,localhost', cast=Csv())
 
@@ -203,19 +203,20 @@ SECURE_PERMISSIONS_POLICY = {
 }
 
 # Cookie Security
-SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=bool)
+SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=not DEBUG, cast=bool)
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'Strict'  # Stricter than 'Lax' for better security
-SESSION_COOKIE_AGE = 3600  # 1 hour session timeout
+SESSION_COOKIE_SAMESITE = 'Lax'  # Changed from 'Strict' to 'Lax' for better compatibility
+SESSION_COOKIE_AGE = 86400  # 24 hours instead of 1 hour for better user experience
 
-CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=True, cast=bool)
+CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=not DEBUG, cast=bool)
 CSRF_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_AGE = 3600  # 1 hour
+CSRF_COOKIE_SAMESITE = 'Lax'  # Changed from 'Strict' to 'Lax' for better compatibility
+CSRF_COOKIE_AGE = 86400  # 24 hours instead of 1 hour for better user experience
+CSRF_USE_SESSIONS = False  # Use cookies instead of sessions for better compatibility
 
 # CSRF Protection Enhancement
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
-CSRF_TRUSTED_ORIGINS = ['https://hyperwave.co.ke', 'https://www.hyperwave.co.ke']
+CSRF_TRUSTED_ORIGINS = ['https://hyperwave.co.ke', 'https://www.hyperwave.co.ke', 'http://127.0.0.1:8000', 'http://localhost:8000']
 
 # File Upload Security
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5MB

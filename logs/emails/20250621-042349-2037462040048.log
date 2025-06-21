@@ -1,0 +1,30 @@
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Hyperwave Networks - HTML Email Test
+From: info@hyperwave.co.ke
+To: admin@hyperwave.co.ke
+Date: Sat, 21 Jun 2025 01:23:49 -0000
+Message-ID: <175046902995.28380.2763180656646793794@Trojan>
+
+
+        <html>
+        <body>
+            <h2>🛡️ Hyperwave Networks Security Test</h2>
+            <p>This is an HTML email test from your security system.</p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 5px;">
+                <h3>Security Status</h3>
+                <ul>
+                    <li>✅ DDoS Protection: Active</li>
+                    <li>✅ Rate Limiting: Active</li>
+                    <li>✅ Admin Security: Active</li>
+                    <li>✅ Email System: Testing...</li>
+                </ul>
+            </div>
+            <p><strong>Timestamp:</strong> 2025-06-21 04:23:49</p>
+            <hr>
+            <p><em>Hyperwave Networks - Leading ICT Solutions in Kenya</em></p>
+        </body>
+        </html>
+        
+-------------------------------------------------------------------------------

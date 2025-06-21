@@ -1,0 +1,11 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: File-based Email Test
+From: info@hyperwave.co.ke
+To: test@example.com
+Date: Sat, 21 Jun 2025 01:25:26 -0000
+Message-ID: <175046912664.29868.12516030104685084918@Trojan>
+
+This email should be saved to a file.
+-------------------------------------------------------------------------------

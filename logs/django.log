@@ -8055,3 +8055,72 @@ INFO 2025-06-21 04:03:47,254 autoreload 16436 17512 D:\Websites\Hyperwave\core\v
 INFO 2025-06-21 04:03:48,992 autoreload 25216 26008 Watching for file changes with StatReloader
 INFO 2025-06-21 04:08:48,445 autoreload 25216 26008 D:\Websites\Hyperwave\hyperwave\urls.py changed, reloading.
 INFO 2025-06-21 04:08:50,640 autoreload 11180 28080 Watching for file changes with StatReloader
+INFO 2025-06-21 04:20:02,778 autoreload 30760 18896 Watching for file changes with StatReloader
+INFO 2025-06-21 04:20:09,648 basehttp 30760 6608 "GET / HTTP/1.1" 200 107347
+INFO 2025-06-21 04:20:09,897 basehttp 30760 6608 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-21 04:20:13,929 basehttp 30760 6608 "GET /blog/ HTTP/1.1" 200 69310
+WARNING 2025-06-21 04:20:14,067 basehttp 30760 6608 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+WARNING 2025-06-21 04:20:14,199 basehttp 30760 24316 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 04:21:28,475 basehttp 30760 15620 "GET /static/images/ISP%20POP%20(Point%20of%20Presence)%20Setup.jpg HTTP/1.1" 200 99338
+INFO 2025-06-21 04:21:28,483 basehttp 30760 10116 "GET /static/images/Professional%20Rack%20Setup%20&%20Server%20Room%20Design.jpg HTTP/1.1" 200 99943
+INFO 2025-06-21 04:21:28,503 basehttp 30760 26228 "GET /static/images/Private%20Network%20Configurations.jpg HTTP/1.1" 200 812143
+INFO 2025-06-21 04:21:28,524 basehttp 30760 11328 "GET /static/images/Optical%20Fiber%20Layout%20&%20Installation.jpg HTTP/1.1" 200 34287
+INFO 2025-06-21 04:21:28,776 basehttp 30760 9292 "GET /static/images/Network%20Monitoring%20&%20Management.png HTTP/1.1" 200 2528844
+WARNING 2025-06-21 04:21:28,838 basehttp 30760 9292 "GET /static/sw.js HTTP/1.1" 404 1875
+INFO 2025-06-21 04:27:22,341 basehttp 30760 24100 "GET / HTTP/1.1" 200 107347
+INFO 2025-06-21 04:27:22,390 basehttp 30760 10428 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 04:27:22,466 basehttp 30760 27592 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 04:27:51,160 basehttp 30760 23944 "GET /static/css/style.css HTTP/1.1" 304 0
+WARNING 2025-06-21 04:27:51,370 basehttp 30760 23944 "GET /static/sw.js HTTP/1.1" 404 1875
+WARNING 2025-06-21 04:28:03,123 basehttp 30760 24292 "POST /contact/ HTTP/1.1" 403 49127
+WARNING 2025-06-21 04:28:39,196 basehttp 30760 25100 "GET /static/sw.js HTTP/1.1" 404 1875
+WARNING 2025-06-21 04:28:55,218 basehttp 30760 28360 "POST /contact/ HTTP/1.1" 403 49127
+INFO 2025-06-21 04:29:49,767 autoreload 30760 18896 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:29:51,744 autoreload 17512 25768 Watching for file changes with StatReloader
+INFO 2025-06-21 04:30:03,705 autoreload 17512 25768 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:30:06,258 autoreload 4960 11336 Watching for file changes with StatReloader
+INFO 2025-06-21 04:30:55,569 autoreload 4960 11336 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:30:59,236 autoreload 27160 31692 Watching for file changes with StatReloader
+INFO 2025-06-21 04:32:38,460 autoreload 27160 31692 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:32:39,770 autoreload 30260 23448 Watching for file changes with StatReloader
+INFO 2025-06-21 04:33:01,267 autoreload 30260 23448 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:33:02,989 autoreload 29940 18044 Watching for file changes with StatReloader
+WARNING 2025-06-21 04:34:23,826 basehttp 29940 22888 "POST /contact/ HTTP/1.1" 403 49127
+INFO 2025-06-21 04:34:23,997 basehttp 29940 22888 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-21 04:34:27,709 basehttp 29940 1588 "GET / HTTP/1.1" 200 107347
+WARNING 2025-06-21 04:34:30,762 basehttp 29940 1588 "GET /static/sw.js HTTP/1.1" 404 1875
+INFO 2025-06-21 04:34:34,058 basehttp 29940 9380 "GET / HTTP/1.1" 200 107347
+INFO 2025-06-21 04:34:34,095 basehttp 29940 10380 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 04:34:34,130 basehttp 29940 20916 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 04:35:45,805 autoreload 29940 18044 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:35:51,124 autoreload 19732 18556 Watching for file changes with StatReloader
+INFO 2025-06-21 04:38:30,736 autoreload 19732 18556 D:\Websites\Hyperwave\core\middleware.py changed, reloading.
+INFO 2025-06-21 04:38:32,868 autoreload 26956 23696 Watching for file changes with StatReloader
+INFO 2025-06-21 04:40:36,943 autoreload 26956 23696 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:40:39,286 autoreload 14656 17240 Watching for file changes with StatReloader
+INFO 2025-06-21 04:41:10,211 autoreload 14656 17240 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:41:12,537 autoreload 15892 14984 Watching for file changes with StatReloader
+INFO 2025-06-21 04:41:20,281 autoreload 15892 14984 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:41:22,206 autoreload 31492 27488 Watching for file changes with StatReloader
+INFO 2025-06-21 04:41:29,923 autoreload 31492 27488 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:41:31,786 autoreload 15044 1576 Watching for file changes with StatReloader
+INFO 2025-06-21 04:42:01,442 autoreload 15044 1576 D:\Websites\Hyperwave\core\views.py changed, reloading.
+INFO 2025-06-21 04:42:03,459 autoreload 9364 28968 Watching for file changes with StatReloader
+INFO 2025-06-21 04:42:17,607 autoreload 9364 28968 D:\Websites\Hyperwave\core\views.py changed, reloading.
+INFO 2025-06-21 04:42:19,531 autoreload 9292 14188 Watching for file changes with StatReloader
+INFO 2025-06-21 04:45:36,590 autoreload 9292 14188 D:\Websites\Hyperwave\core\middleware.py changed, reloading.
+INFO 2025-06-21 04:45:38,690 autoreload 8840 22600 Watching for file changes with StatReloader
+INFO 2025-06-21 04:46:30,427 autoreload 8840 22600 D:\Websites\Hyperwave\core\middleware.py changed, reloading.
+INFO 2025-06-21 04:46:33,034 autoreload 22508 9800 Watching for file changes with StatReloader
+INFO 2025-06-21 04:46:37,242 autoreload 22508 9800 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:46:39,761 autoreload 24372 18728 Watching for file changes with StatReloader
+INFO 2025-06-21 04:46:42,489 basehttp 24372 19808 "GET / HTTP/1.1" 200 107347
+INFO 2025-06-21 04:46:43,270 basehttp 24372 19808 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 04:46:43,644 basehttp 24372 19808 "GET /static/css/style.css HTTP/1.1" 304 0
+INFO 2025-06-21 04:46:48,241 autoreload 24372 18728 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:46:51,013 autoreload 24572 9872 Watching for file changes with StatReloader
+INFO 2025-06-21 04:51:16,794 basehttp 24572 1424 "GET /contact/ HTTP/1.1" 200 68201
+INFO 2025-06-21 04:51:33,586 autoreload 24572 9872 D:\Websites\Hyperwave\core\middleware.py changed, reloading.
+INFO 2025-06-21 04:51:35,199 autoreload 19692 28008 Watching for file changes with StatReloader
+INFO 2025-06-21 04:52:07,409 autoreload 19692 28008 D:\Websites\Hyperwave\core\middleware.py changed, reloading.
+INFO 2025-06-21 04:52:09,442 autoreload 26244 22860 Watching for file changes with StatReloader

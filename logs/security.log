@@ -42,3 +42,44 @@ CRITICAL 2025-06-13 12:49:40,376 middleware 23976 24860 Blocked IP attempted acc
 CRITICAL 2025-06-13 12:49:43,415 middleware 23976 24860 Blocked IP attempted access: 127.0.0.1
 CRITICAL 2025-06-13 12:49:43,803 middleware 23976 24860 Blocked IP attempted access: 127.0.0.1
 CRITICAL 2025-06-13 12:49:48,516 middleware 23976 23684 Blocked IP attempted access: 127.0.0.1
+SECURITY WARNING 2025-06-21 04:20:09,599 base Session data corrupted
+SECURITY WARNING 2025-06-21 04:25:26,502 views CSRF failure from 127.0.0.1 - Reason: CSRF cookie not set. - User Agent: Unknown
+SECURITY WARNING 2025-06-21 04:28:03,045 views CSRF failure from 127.0.0.1 - Reason: CSRF token from POST incorrect. - User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Sa
+SECURITY WARNING 2025-06-21 04:28:03,076 log Forbidden (CSRF token from POST incorrect.): /contact/
+SECURITY WARNING 2025-06-21 04:28:55,163 views CSRF failure from 127.0.0.1 - Reason: CSRF token from POST incorrect. - User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Sa
+SECURITY WARNING 2025-06-21 04:28:55,180 log Forbidden (CSRF token from POST incorrect.): /contact/
+SECURITY WARNING 2025-06-21 04:34:23,591 views CSRF failure from 127.0.0.1 - Reason: CSRF token from POST incorrect. - User Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Sa
+SECURITY WARNING 2025-06-21 04:34:23,805 log Forbidden (CSRF token from POST incorrect.): /contact/
+SECURITY ERROR 2025-06-21 04:51:16,305 exception Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+SECURITY ERROR 2025-06-21 04:51:16,522 exception Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+SECURITY ERROR 2025-06-21 04:55:20,015 exception Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "D:\Websites\Hyperwave\env\lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.

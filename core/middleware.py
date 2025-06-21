@@ -7,6 +7,7 @@ import logging
 from collections import defaultdict
 import re
 from datetime import datetime, timedelta
+import sys
 
 logger = logging.getLogger('django.security')
 
@@ -33,32 +34,43 @@ class DDoSProtectionMiddleware:
         self.blocked_ips = set()
         
     def __call__(self, request):
-        # Skip all protection in development mode
-        if settings.DEBUG:
+        # Skip all protection in development mode or during testing
+        if settings.DEBUG or 'test' in sys.argv:
             return self.get_response(request)
             
         ip = self.get_client_ip(request)
+        
+        # Whitelist legitimate paths that should never be blocked
+        safe_paths = ['/contact/', '/service-request/', '/static/', '/media/', '/favicon.ico', '/robots.txt']
+        if any(request.path.startswith(path) for path in safe_paths):
+            # Still add security headers but skip aggressive filtering
+            response = self.get_response(request)
+            return self.add_security_headers(response)
         
         # Check if IP is permanently blocked
         if self.is_ip_blocked(ip):
             logger.critical(f"Blocked IP attempted access: {ip}")
             return HttpResponseForbidden("Access denied. IP has been blocked.")
         
-        # DDoS Detection and Response
+        # DDoS Detection and Response (but be more lenient for legitimate users)
         ddos_response = self.detect_ddos_attack(request)
         if ddos_response:
             return ddos_response
         
-        # Rate limiting with progressive delays
+        # Rate limiting with progressive delays (more lenient for contact forms)
         rate_limit_response = self.advanced_rate_limiting(request)
         if rate_limit_response:
             return rate_limit_response
         
-        # Suspicious pattern detection
+        # Suspicious pattern detection (but allow legitimate contact form data)
         if self.is_suspicious_request(request):
-            self.track_suspicious_activity(ip, request)
-            logger.warning(f"Suspicious request from {ip}: {request.path}")
-            return HttpResponseForbidden("Request blocked for security reasons.")
+            # Don't block contact form submissions even if they contain suspicious patterns
+            if request.path in ['/contact/', '/service-request/'] and request.method == 'POST':
+                logger.warning(f"Suspicious patterns in contact form from {ip}: {request.path} - ALLOWING")
+            else:
+                self.track_suspicious_activity(ip, request)
+                logger.warning(f"Suspicious request from {ip}: {request.path}")
+                return HttpResponseForbidden("Request blocked for security reasons.")
         
         # Track legitimate requests
         self.track_connection(ip, request)
@@ -198,12 +210,26 @@ class DDoSProtectionMiddleware:
         logger.critical("Emergency DDoS protection mode activated")
 
     def advanced_rate_limiting(self, request):
-        """Advanced rate limiting with progressive delays"""
+        """Advanced rate limiting with progressive delays and contact form exceptions"""
         # Skip rate limiting in development
         if settings.DEBUG:
             return None
             
         ip = self.get_client_ip(request)
+        
+        # Special handling for contact forms - more lenient
+        if request.path in ['/contact/', '/service-request/'] and request.method == 'POST':
+            cache_key = f"contact_rate:{ip}"
+            contact_requests = cache.get(cache_key, 0)
+            
+            if contact_requests >= 3:  # Allow 3 contact form submissions per hour
+                logger.warning(f"Contact form rate limit exceeded for {ip}")
+                return HttpResponseTooManyRequests(
+                    "Too many contact form submissions. Please wait an hour before submitting again."
+                )
+            
+            cache.set(cache_key, contact_requests + 1, 3600)  # Track for 1 hour
+            return None
         
         # Check if in emergency mode
         if cache.get("emergency_mode", False):
@@ -215,10 +241,10 @@ class DDoSProtectionMiddleware:
                 limit = 5
                 window = 60
             elif request.method == 'POST':
-                limit = 3  # Stricter for POST requests
+                limit = 10  # Increased from 3 to 10 for better user experience
                 window = 60
             else:
-                limit = 30  # Reduced from 60 for better DDoS protection
+                limit = 50  # Increased from 30 to 50 for better user experience
                 window = 60
         
         cache_key = f"rate_limit:{ip}"

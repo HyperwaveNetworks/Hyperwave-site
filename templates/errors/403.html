@@ -16,10 +16,22 @@
                     <div class="error-details">
                         <h2>{{ error_title }}</h2>
                         <p class="error-message">{{ error_message }}</p>
+                        
+                        {% if show_refresh_guidance %}
+                        <div class="help-section">
+                            <h4><i class="fas fa-info-circle"></i> What can you do?</h4>
+                            <ul class="help-list">
+                                <li><i class="fas fa-refresh"></i> Refresh the page and try again</li>
+                                <li><i class="fas fa-home"></i> Go back to the homepage</li>
+                                <li><i class="fas fa-envelope"></i> Contact us if the problem persists</li>
+                            </ul>
+                        </div>
+                        {% else %}
                         <p class="error-description">
                             This request has been blocked by our security system. If you believe this is an error, 
                             please contact our support team for assistance.
                         </p>
+                        {% endif %}
                         
                         <div class="security-info">
                             <div class="alert alert-warning">
@@ -29,6 +41,9 @@
                         </div>
                         
                         <div class="error-actions">
+                            <button onclick="location.reload()" class="btn btn-success">
+                                <i class="fas fa-refresh"></i> Refresh Page
+                            </button>
                             <a href="{% url 'home' %}" class="btn btn-primary">
                                 <i class="fas fa-home"></i> Back to Home
                             </a>
@@ -113,8 +128,37 @@
     margin-top: 30px;
 }
 
+.help-section {
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.help-section h4 {
+    color: #3498db;
+    margin-bottom: 15px;
+}
+
+.help-list {
+    list-style: none;
+    padding: 0;
+}
+
+.help-list li {
+    padding: 8px 0;
+    color: #2c3e50;
+}
+
+.help-list li i {
+    color: #3498db;
+    margin-right: 10px;
+    width: 20px;
+}
+
 .error-actions .btn {
-    margin: 0 10px;
+    margin: 5px;
     padding: 12px 30px;
     font-weight: 500;
     border-radius: 25px;

@@ -3,6 +3,7 @@
 [![Django](https://img.shields.io/badge/Django-4.2.21-green.svg)](https://www.djangoproject.com/)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Security](https://img.shields.io/badge/Security-Enhanced-red.svg)](SECURITY_IMPLEMENTATION.md)
 
 A modern, responsive Django website for **Hyperwave Networks**, a leading ICT solutions provider in Kenya specializing in network infrastructure, internet connectivity, security systems, and digital transformation services.
 
@@ -18,7 +19,7 @@ A modern, responsive Django website for **Hyperwave Networks**, a leading ICT so
 - **Blog System** - Dynamic content management with CKEditor
 - **Contact Forms** - Lead generation with email integration
 - **SEO Optimized** - Meta tags, sitemaps, and search engine friendly URLs
-- **Security Enhanced** - Custom middleware and security headers
+- **Advanced Security System** - Comprehensive threat protection and monitoring
 - **Multi-page Architecture** - Home, About, Services, Blog, Contact pages
 
 ### Technical Features
@@ -58,7 +59,7 @@ A modern, responsive Django website for **Hyperwave Networks**, a leading ICT so
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Code001deyo/Hyperwave-site.git
+git clone https://github.com/HyperwaveNetworks/Hyperwave-site.git
 cd Hyperwave-site
 ```
 
@@ -118,12 +119,14 @@ Hyperwave/
 ├── core/                   # Main application
 │   ├── management/
 │   │   └── commands/
-│   │       └── ddos_monitor.py
-│   │
+│   │       ├── ddos_monitor.py
+│   │       └── security_monitor.py
 │   ├── migrations/
 │   ├── middleware.py       # Custom security middleware
 │   ├── models.py          # Database models
 │   ├── views.py           # View functions
+│   ├── security_scanner.py # Security scanning utilities
+│   ├── ddos_monitor.py    # DDoS monitoring system
 │   └── urls.py            # URL patterns
 ├── hyperwave/             # Project settings
 │   ├── settings.py        # Django settings
@@ -140,6 +143,7 @@ Hyperwave/
 ├── media/               # User uploaded files
 ├── logs/                # Application logs
 ├── requirements.txt     # Python dependencies
+├── SECURITY_IMPLEMENTATION.md # Security documentation
 └── manage.py           # Django management script
 ```
 
@@ -163,13 +167,26 @@ Hyperwave/
 - **Blog Management** - Create and edit blog posts
 - **Contact Form Submissions** - View and manage inquiries
 
-## 🔐 Security Features
+## 🛡 Advanced Security Features
 
-- **Custom Security Middleware** - DDoS protection and admin security
+### Comprehensive Security System
+- **DDoS Protection** - Rate limiting and traffic analysis
+- **Malware Detection** - Real-time threat scanning
+- **Trojan Prevention** - Advanced attack pattern recognition
+- **Security Monitoring** - Continuous threat analysis
+- **Custom Security Middleware** - Multi-layered protection
 - **CSRF Protection** - Cross-site request forgery protection
 - **Secure Headers** - Security headers configuration
 - **Input Validation** - Form validation and sanitization
 - **Error Handling** - Custom error pages and logging
+- **Admin Security** - Enhanced admin panel protection
+
+### Security Monitoring
+- **Real-time DDoS Monitoring** - Automated threat detection
+- **Security Logging** - Comprehensive security event logging
+- **Threat Analysis** - Advanced pattern recognition
+- **Email Delivery Protection** - Preserved email functionality
+- **Production-ready Configuration** - Enterprise-grade security
 
 ## 📧 Email Configuration
 

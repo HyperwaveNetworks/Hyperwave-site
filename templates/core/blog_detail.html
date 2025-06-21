@@ -280,34 +280,34 @@
     
     .hero-badge {
         display: inline-block;
-        padding: 10px 20px;
+        padding: 8px 16px;
         background-color: rgba(145, 215, 245, 0.2);
         border: 1px solid rgba(145, 215, 245, 0.4);
         border-radius: 50px;
-        font-size: 1rem;
+        font-size: 0.85rem;
         font-weight: 600;
         color: var(--secondary-color);
         letter-spacing: 1px;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         backdrop-filter: blur(5px);
     }
     
     .hero-title {
-        font-size: 3.5rem;
-        margin-bottom: 1.5rem;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
         font-weight: 700;
         text-shadow: 2px 4px 12px rgba(0,0,0,0.7);
         line-height: 1.2;
     }
     
     .hero-description {
-        font-size: 1.4rem;
-        margin-bottom: 2rem;
-        max-width: 900px;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        max-width: 700px;
         margin-left: auto;
         margin-right: auto;
         text-shadow: 1px 2px 8px rgba(0,0,0,0.6);
-        line-height: 1.6;
+        line-height: 1.5;
     }
     
     .hero-buttons {
@@ -345,26 +345,26 @@
         }
         
         .blog-detail-meta h1 {
-            font-size: 32px;
+            font-size: 28px;
         }
         
         .hero-title {
-            font-size: 3rem;
+            font-size: 2.2rem;
         }
         
         .hero-description {
-            font-size: 1.3rem;
+            font-size: 1rem;
         }
         
         .hero-badge {
-            font-size: 0.95rem;
-            padding: 9px 18px;
+            font-size: 0.8rem;
+            padding: 7px 14px;
         }
     }
     
     @media screen and (max-width: 768px) {
         .blog-detail-meta h1 {
-            font-size: 28px;
+            font-size: 24px;
         }
         
         .blog-detail-content {
@@ -372,17 +372,17 @@
         }
         
         .hero-title {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
         }
         
         .hero-description {
-            font-size: 1.2rem;
+            font-size: 0.95rem;
             max-width: 95%;
         }
         
         .hero-badge {
-            font-size: 0.9rem;
-            padding: 8px 16px;
+            font-size: 0.75rem;
+            padding: 6px 12px;
         }
         
         .hero-buttons {
@@ -394,23 +394,24 @@
         .hero-btn {
             padding: 0.875rem 1.75rem;
             min-width: 200px;
+            font-size: 0.95rem;
         }
     }
     
     @media screen and (max-width: 480px) {
         .hero-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             line-height: 1.3;
         }
         
         .hero-description {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             max-width: 90%;
         }
         
         .hero-badge {
-            font-size: 0.85rem;
-            padding: 7px 14px;
+            font-size: 0.7rem;
+            padding: 5px 10px;
         }
     }
 </style>
@@ -419,20 +420,73 @@
 {% block content %}
 <div class="site-wrapper">
     <!-- Hero Section -->
-    <section class="hero-section fade-in-section">
-        <div class="hero-slider">
-            <div class="hero-slide active" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/'|add:post.image %}') center/cover no-repeat;"></div>
+    <section class="hero-section fade-in-section" style="position: relative; height: 60vh; min-height: 400px; overflow: hidden;">
+        <div class="hero-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+            <div class="hero-slide active" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static 'images/'|add:post.image %}') center/cover no-repeat; opacity: 1; transition: opacity 1.5s ease-in-out;"></div>
+            <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static 'images/advanced CCT Surveillance.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out;"></div>
+            <div class="hero-slide" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static 'images/security systems.jpg' %}') center/cover no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out;"></div>
         </div>
-        <div class="hero-content">
-            <div class="hero-badge">{{ post.category }}</div>
-            <h1 class="hero-title fade-in-text">{{ post.title }}</h1>
-            <p class="hero-description fade-in-text">{{ post.excerpt }}</p>
-            <div class="meta-info fade-in-text">
-                <span><i class="far fa-calendar"></i> {{ post.date }}</span>
-                <span><i class="far fa-user"></i> {{ post.author }}</span>
+        <div class="hero-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; width: 90%; max-width: 1200px; z-index: 2; min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div class="hero-texts-wrapper" style="position: relative; min-height: 140px; width: 100%;">
+                <div class="hero-text-slide active" style="transition: opacity 1.5s, transform 1.5s; opacity: 1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 8px 16px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 15px; backdrop-filter: blur(5px);">{{ post.category }}</div>
+                    <h1 class="fade-in-text" style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7); line-height: 1.2;">{{ post.title }}</h1>
+                    <p class="fade-in-text" style="font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 700px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6); line-height: 1.5;">{{ post.excerpt }}</p>
+                    <div class="meta-info fade-in-text" style="display: flex; align-items: center; font-size: 0.95rem; color: rgba(255,255,255,0.9);">
+                        <span style="margin-right: 20px;"><i class="far fa-calendar" style="margin-right: 5px; color: var(--primary-color);"></i> {{ post.date }}</span>
+                        <span><i class="far fa-user" style="margin-right: 5px; color: var(--primary-color);"></i> {{ post.author }}</span>
+                    </div>
+                </div>
+                <div class="hero-text-slide" style="transition: opacity 1.5s, transform 1.5s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 8px 16px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 15px; backdrop-filter: blur(5px);">EXPERT INSIGHTS</div>
+                    <h1 class="fade-in-text" style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7); line-height: 1.2;">Security Solutions</h1>
+                    <p class="fade-in-text" style="font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 700px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6); line-height: 1.5;">Comprehensive protection strategies for modern businesses in Kenya's digital landscape.</p>
+                </div>
+                <div class="hero-text-slide" style="transition: opacity 1.5s, transform 1.5s; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="hero-badge" style="display: inline-block; padding: 8px 16px; background-color: rgba(145, 215, 245, 0.2); border: 1px solid rgba(145, 215, 245, 0.4); border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--secondary-color); letter-spacing: 1px; margin-bottom: 15px; backdrop-filter: blur(5px);">TECHNOLOGY TRENDS</div>
+                    <h1 class="fade-in-text" style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 2px 4px 12px rgba(0,0,0,0.7); line-height: 1.2;">Future-Ready Systems</h1>
+                    <p class="fade-in-text" style="font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 700px; margin-left: auto; margin-right: auto; text-shadow: 1px 2px 8px rgba(0,0,0,0.6); line-height: 1.5;">Stay ahead with cutting-edge technology solutions and industry best practices.</p>
+                </div>
+            </div>
+            <div class="hero-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; position: relative; z-index: 3; flex-wrap: wrap;">
+                <a href="{% url 'blog' %}" class="btn" style="background: var(--secondary-color); color: white; padding: 0.875rem 1.75rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; font-size: 0.95rem;">More Articles</a>
+                <a href="{% url 'contact' %}" class="btn" style="background: transparent; color: white; padding: 0.875rem 1.75rem; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; font-size: 0.95rem;">Get Consultation</a>
             </div>
         </div>
     </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.hero-slide');
+        const textSlides = document.querySelectorAll('.hero-text-slide');
+        let currentSlide = 0;
+        
+        function showSlide(idx) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = (i === idx) ? '1' : '0';
+            });
+            textSlides.forEach((txt, i) => {
+                if (i === idx) {
+                    txt.classList.add('active');
+                    txt.style.opacity = '1';
+                    txt.style.transform = 'translateY(0)';
+                } else {
+                    txt.classList.remove('active');
+                    txt.style.opacity = '0';
+                    txt.style.transform = 'translateY(30px)';
+                }
+            });
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        showSlide(0);
+        setInterval(nextSlide, 5000);
+    });
+    </script>
 
     <section class="section">
         <div class="container">

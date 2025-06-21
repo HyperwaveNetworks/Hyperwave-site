@@ -5,11 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- Performance Optimization -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="theme-color" content="#383a76">
-    
     <!-- SEO Meta Tags -->
     <title>{% block title %}Hyperwave Networks - Leading Internet Solutions & Network Infrastructure in Kenya{% endblock %}</title>
     <meta name="description" content="{% block description %}Leading provider of internet solutions, network infrastructure, security systems and ICT consultancy in Kenya. Serving Nairobi and beyond with fiber internet, wireless connectivity, CCTV installation and managed IT services.{% endblock %}">
@@ -43,111 +38,19 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/logo.png' %}">
     <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}">
     
-    <!-- Performance: DNS Prefetch and Preconnect -->
+    <!-- DNS Prefetch for Performance -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="//kit.fontawesome.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Critical CSS Inline -->
-    <style>
-        /* Critical CSS - Above the fold content only */
-        :root {
-            --primary-color: #383a76;
-            --secondary-color: #91d7f5;
-            --white-color: #ffffff;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: var(--white-color);
-            -webkit-font-smoothing: antialiased;
-        }
-        header {
-            background-color: var(--white-color);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-        }
-        .logo img {
-            height: 60px;
-            width: auto;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        .nav-links li {
-            margin-left: 30px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .hero, .hero-section {
-            position: relative;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white-color);
-        }
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-            z-index: 2;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-    </style>
-    
-    <!-- Non-critical CSS Preload -->
-    <link rel="preload" href="{% static 'css/style.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{% static 'css/style.css' %}"></noscript>
-    
-    <!-- Font Preload with Display Swap -->
+    <!-- Preload Critical Resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"></noscript>
     
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" media="screen">
-    
-    <!-- FontAwesome with defer loading -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -1231,45 +1134,6 @@ Could you be more specific about what you need? Or would you like me to explain 
                 typingTimeout = setTimeout(() => {
                     // Clear typing indicator
                 }, 1000);
-            });
-        });
-    </script>
-    
-    <!-- Optimize JavaScript Loading -->
-    <script>
-        // Lazy load non-critical JavaScript
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(function() {
-                // Load non-critical scripts here
-            });
-        }
-        
-        // Service Worker for caching
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/static/sw.js')
-                    .then(registration => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(registrationError => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
-        
-        // Preload next page on hover (for better UX)
-        document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('a[href^="/"]');
-            links.forEach(link => {
-                link.addEventListener('mouseenter', function() {
-                    const href = this.getAttribute('href');
-                    if (href && !document.querySelector(`link[rel="prefetch"][href="${href}"]`)) {
-                        const prefetchLink = document.createElement('link');
-                        prefetchLink.rel = 'prefetch';
-                        prefetchLink.href = href;
-                        document.head.appendChild(prefetchLink);
-                    }
-                });
             });
         });
     </script>

@@ -7,10 +7,6 @@ import logging
 from collections import defaultdict
 import re
 from datetime import datetime, timedelta
-from django.shortcuts import render
-from django.urls import reverse
-from django.utils.deprecation import MiddlewareMixin
-from django.middleware.gzip import GZipMiddleware
 
 logger = logging.getLogger('django.security')
 
@@ -538,60 +534,3 @@ class AdminSecurityMiddleware:
         
         cache.set(cache_key, current_requests + 1, 60)
         return False 
-
-class PerformanceMiddleware(MiddlewareMixin):
-    """Middleware to optimize performance and add caching headers"""
-    
-    def process_request(self, request):
-        # Start timing
-        request._start_time = time.time()
-        
-        # Add cache control for static content
-        if request.path.startswith('/static/') or request.path.startswith('/media/'):
-            # These will be handled by WhiteNoise, but we can add headers
-            pass
-    
-    def process_response(self, request, response):
-        # Add timing header
-        if hasattr(request, '_start_time'):
-            duration = time.time() - request._start_time
-            response['X-Response-Time'] = f"{duration:.3f}s"
-        
-        # Add cache headers for static content
-        if request.path.startswith('/static/') or request.path.startswith('/media/'):
-            # Cache static files for 1 year
-            response['Cache-Control'] = 'public, max-age=31536000, immutable'
-        elif request.path.startswith('/api/'):
-            # Cache API responses for 5 minutes
-            response['Cache-Control'] = 'public, max-age=300'
-        else:
-            # Cache pages for 1 hour
-            response['Cache-Control'] = 'public, max-age=3600'
-        
-        # Add compression hint
-        if response.get('Content-Type', '').startswith(('text/', 'application/json', 'application/javascript')):
-            response['Vary'] = 'Accept-Encoding'
-        
-        return response
-
-class CompressionMiddleware(GZipMiddleware):
-    """Enhanced compression middleware"""
-    
-    def process_response(self, request, response):
-        # Only compress if content is compressible
-        content_type = response.get('Content-Type', '').lower()
-        compressible_types = [
-            'text/html',
-            'text/css',
-            'text/javascript',
-            'application/javascript',
-            'application/json',
-            'text/xml',
-            'application/xml',
-            'text/plain'
-        ]
-        
-        if any(ct in content_type for ct in compressible_types):
-            response = super().process_response(request, response)
-        
-        return response 

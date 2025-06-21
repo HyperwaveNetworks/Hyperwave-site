@@ -22,13 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-w7wk(ix_8q(bb$zcw3sr#3vjmfdzmpe_ecu0o5=(_@n9=el(62')
+# Generate a new secure key for production
+SECRET_KEY = config('SECRET_KEY', default='django-secure-hyperwave-2025-k3ny@-n3tw0rk5-$3cur3-r@nd0m-k3y-f0r-pr0duct10n-v2')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='hyperwave.co.ke,www.hyperwave.co.ke,127.0.0.1,localhost', cast=Csv())
 
+# Security: Additional host validation
+ALLOWED_HOSTS_STRICT = True
 
 # Application definition
 
@@ -45,14 +48,12 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'core.middleware.CompressionMiddleware',  # Custom compression middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',  # For static files in production
-    'core.middleware.PerformanceMiddleware',  # Performance optimization middleware
+    'core.middleware.SecurityMiddleware',  # Custom security middleware - moved up for early protection
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'core.middleware.SecurityMiddleware',  # Custom security middleware
     'core.middleware.AdminSecurityMiddleware',  # Admin security middleware
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -72,7 +73,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.seo_context',  # Custom SEO context
             ],
-
         },
     },
 ]
@@ -88,12 +88,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
         'OPTIONS': {
-            'timeout': 20,
-            'check_same_thread': False,
+            'timeout': 20,  # Prevent database locks
         }
     }
 }
 
+# Database security settings
+DATABASE_OPTIONS = {
+    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    'charset': 'utf8mb4',
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -105,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {
-            'min_length': 12,  # Increased minimum length
+            'min_length': 14,  # Increased minimum length for better security
         }
     },
     {
@@ -116,6 +120,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Custom password validation
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',  # Most secure hasher
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
+
+# Session security
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'  # More secure than pure cache
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -155,43 +171,97 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='Hyp3rw@V3N3t')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='info@hyperwave.co.ke')
 SERVER_EMAIL = config('SERVER_EMAIL', default='info@hyperwave.co.ke')
 
-# SECURITY SETTINGS
-# =================
+# COMPREHENSIVE SECURITY SETTINGS
+# ================================
 
-# HTTPS Settings
-SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=False, cast=bool)
+# HTTPS Settings - Force HTTPS in production
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Security Headers
-SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=0, cast=int)  # 31536000 for production (1 year)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=False, cast=bool)
-SECURE_HSTS_PRELOAD = config('SECURE_HSTS_PRELOAD', default=False, cast=bool)
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=31536000, cast=int)  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=True, cast=bool)
+SECURE_HSTS_PRELOAD = config('SECURE_HSTS_PRELOAD', default=True, cast=bool)
 
-# Content Security Policy
+# Content Security Policy and Security Headers
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'
-
-# Cookie Security
-SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=False, cast=bool)
-SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_AGE = 86400  # 24 hours
-
-CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False, cast=bool)
-CSRF_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE = 'Lax'
-
-# Additional Security Settings
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
 SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
 
-# Logging Configuration
+# Additional security headers
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+SECURE_PERMISSIONS_POLICY = {
+    'accelerometer': [],
+    'camera': [],
+    'geolocation': [],
+    'gyroscope': [],
+    'magnetometer': [],
+    'microphone': [],
+    'payment': [],
+    'usb': [],
+}
+
+# Cookie Security
+SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=bool)
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Strict'  # Stricter than 'Lax' for better security
+SESSION_COOKIE_AGE = 3600  # 1 hour session timeout
+
+CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=True, cast=bool)
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_AGE = 3600  # 1 hour
+
+# CSRF Protection Enhancement
+CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
+CSRF_TRUSTED_ORIGINS = ['https://hyperwave.co.ke', 'https://www.hyperwave.co.ke']
+
+# File Upload Security
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5MB
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 100  # Reduced from 1000
+FILE_UPLOAD_PERMISSIONS = 0o644
+
+# Allowed file types for uploads
+ALLOWED_UPLOAD_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.pdf', '.doc', '.docx']
+MAX_UPLOAD_SIZE = 2621440  # 2.5MB
+
+# Admin Security
+ADMIN_URL = config('ADMIN_URL', default='secure-admin-hyperwave-2025/')
+ADMIN_FORCE_ALLAUTH = False
+ADMIN_LOGIN_ATTEMPTS_LIMIT = 3
+ADMIN_LOGIN_ATTEMPTS_TIMEOUT = 3600  # 1 hour lockout
+
+# Rate Limiting and DDoS Protection
+RATELIMIT_ENABLE = config('RATELIMIT_ENABLE', default=True, cast=bool)
+RATELIMIT_USE_CACHE = 'default'
+RATELIMIT_VIEW = 'core.views.ratelimited'
+
+# Cache Configuration with security considerations
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'hyperwave-cache',
+        'TIMEOUT': 300,  # 5 minutes
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+            'CULL_FREQUENCY': 3,
+        }
+    }
+}
+
+# Logging Configuration with Security Focus
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'security': {
+            'format': 'SECURITY {levelname} {asctime} {module} {message}',
             'style': '{',
         },
         'simple': {
@@ -214,7 +284,7 @@ LOGGING = {
             'filename': BASE_DIR / 'logs' / 'security.log',
             'maxBytes': 1024*1024*15,  # 15MB
             'backupCount': 10,
-            'formatter': 'verbose',
+            'formatter': 'security',
         },
         'console': {
             'level': 'INFO',
@@ -238,54 +308,32 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
+        'django.request': {
+            'handlers': ['security_file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
     },
 }
 
-# Rate Limiting Settings (for future implementation)
-RATELIMIT_ENABLE = config('RATELIMIT_ENABLE', default=True, cast=bool)
+# Content Security Policy (CSP)
+CSP_DEFAULT_SRC = ["'self'"]
+CSP_SCRIPT_SRC = ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"]
+CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"]
+CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com"]
+CSP_IMG_SRC = ["'self'", "data:", "https:"]
+CSP_CONNECT_SRC = ["'self'"]
+CSP_FRAME_SRC = ["'none'"]
+CSP_OBJECT_SRC = ["'none'"]
+CSP_BASE_URI = ["'self'"]
+CSP_FORM_ACTION = ["'self'"]
 
-# Cache Configuration
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-        'TIMEOUT': 300,  # 5 minutes
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000,
-        }
-    }
-}
+# IP Whitelisting for admin (optional - uncomment and configure for production)
+# ADMIN_IP_WHITELIST = ['127.0.0.1', '::1']  # Add your admin IPs
 
-# PERFORMANCE OPTIMIZATION SETTINGS
-# =================================
-
-# Enable template caching (only in production)
-if not DEBUG:
-    TEMPLATES[0]['APP_DIRS'] = False
-    TEMPLATES[0]['OPTIONS']['loaders'] = [
-        ('django.template.loaders.cached.Loader', [
-            'django.template.loaders.filesystem.Loader',
-            'django.template.loaders.app_directories.Loader',
-        ]),
-    ]
-
-# Static files optimization
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Session optimization
-SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
-SESSION_CACHE_ALIAS = 'default'
-
-# Enable GZip compression
-USE_GZIP = True
-
-# File Upload Security
-FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
-
-# Admin URL (can be changed for security)
-ADMIN_URL = config('ADMIN_URL', default='admin/')
+# Honeypot settings (trap for bots)
+HONEYPOT_FIELD_NAME = 'website_url'  # Hidden field name
+HONEYPOT_VALUE = ''
 
 # SEO Settings
 # ============
@@ -294,17 +342,23 @@ SITE_NAME = 'Hyperwave Networks'
 SITE_DESCRIPTION = 'Leading provider of internet solutions, network infrastructure, and security systems in Kenya'
 SITE_KEYWORDS = 'internet solutions Kenya, network infrastructure Nairobi, CCTV installation, fiber internet, wireless internet, ICT consultancy'
 
-# For development - use file-based email backend to save emails locally
+# Development vs Production Settings
 if DEBUG:
+    # Development settings - more permissive for testing
+    SECURE_SSL_REDIRECT = False
+    SECURE_HSTS_SECONDS = 0
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    
+    # Use file-based email backend for development
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-    EMAIL_FILE_PATH = 'logs/emails'  # Save emails to logs/emails directory
+    EMAIL_FILE_PATH = 'logs/emails'
+    
+    # Add development-specific allowed hosts
+    ALLOWED_HOSTS.extend(['127.0.0.1', 'localhost', '0.0.0.0'])
+    
 else:
-    # Production - use real SMTP
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# Production specific settings
-if not DEBUG and not config('LOCAL_DEVELOPMENT', default=False, cast=bool):
-    # Force HTTPS in production (but not in local development)
+    # Production settings - maximum security
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 31536000  # 1 year
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -313,12 +367,70 @@ if not DEBUG and not config('LOCAL_DEVELOPMENT', default=False, cast=bool):
     # Secure cookies in production
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    
+    # Use real SMTP in production
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    
+    # Additional production security
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    
+    # Database backup settings (implement with your backup solution)
+    # DATABASE_BACKUP_ENABLED = True
+    # DATABASE_BACKUP_SCHEDULE = '0 2 * * *'  # Daily at 2 AM
 
-# Email backend configuration
-# Override to always use SMTP for testing email delivery
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Override for local development testing
+if config('LOCAL_DEVELOPMENT', default=False, cast=bool):
+    DEBUG = True
+    SECURE_SSL_REDIRECT = False
+    SECURE_HSTS_SECONDS = 0
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
-# For development - save emails locally (commented out for email testing)
-# if DEBUG:
-#     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-#     EMAIL_FILE_PATH = 'logs/emails'
+# Security Monitoring and Alerting
+SECURITY_MONITORING = {
+    'FAILED_LOGIN_THRESHOLD': 5,
+    'FAILED_LOGIN_WINDOW': 300,  # 5 minutes
+    'SUSPICIOUS_REQUEST_THRESHOLD': 10,
+    'SUSPICIOUS_REQUEST_WINDOW': 60,  # 1 minute
+    'EMAIL_ALERTS': True,
+    'ALERT_RECIPIENTS': ['admin@hyperwave.co.ke'],
+}
+
+# Backup and Recovery Settings
+BACKUP_SETTINGS = {
+    'ENABLED': not DEBUG,
+    'SCHEDULE': '0 2 * * *',  # Daily at 2 AM
+    'RETENTION_DAYS': 30,
+    'ENCRYPTION_ENABLED': True,
+}
+
+# Performance and Security Optimization
+SECURE_PERFORMANCE = {
+    'ENABLE_GZIP': True,
+    'ENABLE_CACHING': True,
+    'CACHE_TIMEOUT': 300,  # 5 minutes
+    'STATIC_FILE_CACHING': True,
+}
+
+# Additional security middleware settings
+SECURITY_MIDDLEWARE_SETTINGS = {
+    'BLOCK_SUSPICIOUS_USER_AGENTS': True,
+    'BLOCK_TOR_EXITS': False,  # Set to True if you want to block Tor
+    'ENABLE_GEOBLOCKING': False,  # Set to True and configure countries to block
+    'BLOCKED_COUNTRIES': [],  # ISO country codes to block
+    'ENABLE_REPUTATION_CHECKING': True,
+}
+
+# Force HTTPS redirect for specific paths
+SECURE_REDIRECT_EXEMPT = []  # Paths that don't need HTTPS redirect
+
+# Custom error pages
+CUSTOM_ERROR_PAGES = {
+    '400': 'errors/400.html',
+    '403': 'errors/403.html', 
+    '404': 'errors/404.html',
+    '500': 'errors/500.html',
+    '502': 'errors/502.html',
+    '503': 'errors/503.html',
+}

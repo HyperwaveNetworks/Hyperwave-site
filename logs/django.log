@@ -7943,3 +7943,115 @@ INFO 2025-06-21 03:38:16,785 basehttp 30516 19900 "GET /static/admin/js/change_f
 INFO 2025-06-21 03:38:16,786 basehttp 30516 6532 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11921
 INFO 2025-06-21 03:39:51,439 basehttp 30516 19968 "POST /admin/core/product/add/ HTTP/1.1" 302 0
 INFO 2025-06-21 03:39:51,474 basehttp 30516 19968 "GET /admin/core/product/ HTTP/1.1" 200 3553
+INFO 2025-06-21 03:40:03,785 basehttp 30516 19264 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:40:03,824 basehttp 30516 19264 "GET /static/css/critical.css HTTP/1.1" 304 0
+INFO 2025-06-21 03:40:03,931 basehttp 30516 19264 - Broken pipe from ('127.0.0.1', 50150)
+INFO 2025-06-21 03:40:04,825 basehttp 30516 23252 "GET /blog/ HTTP/1.1" 200 13663
+INFO 2025-06-21 03:40:06,408 basehttp 30516 30060 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:40:09,825 basehttp 30516 30060 "GET /products/ HTTP/1.1" 200 14585
+INFO 2025-06-21 03:40:09,915 basehttp 30516 30060 "GET /media/products/MikroTik_hAP_Lite_RB941-2nD.png HTTP/1.1" 200 12149
+INFO 2025-06-21 03:40:10,284 basehttp 30516 30060 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:40:13,526 basehttp 30516 18028 "GET /contact/?inquiry=product&name=Mikrotik%20Haplite HTTP/1.1" 200 14549
+INFO 2025-06-21 03:40:14,733 basehttp 30516 18028 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:40:16,500 basehttp 30516 18028 "GET /static/sw.js HTTP/1.1" 304 0
+WARNING 2025-06-21 03:42:11,727 basehttp 30516 3108 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+WARNING 2025-06-21 03:42:11,773 basehttp 30516 11152 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 03:42:11,845 basehttp 30516 13468 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:42:11,904 basehttp 30516 13468 "GET /static/css/critical.css HTTP/1.1" 304 0
+INFO 2025-06-21 03:42:16,135 basehttp 30516 13468 "GET /blog/ HTTP/1.1" 200 13700
+WARNING 2025-06-21 03:42:16,239 basehttp 30516 13468 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+WARNING 2025-06-21 03:42:16,280 basehttp 30516 24964 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 03:42:16,330 basehttp 30516 15528 "GET /static/sw.js HTTP/1.1" 304 0
+WARNING 2025-06-21 03:42:17,543 basehttp 30516 15528 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+WARNING 2025-06-21 03:42:17,612 basehttp 30516 17100 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+INFO 2025-06-21 03:42:17,665 basehttp 30516 16448 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:42:23,054 basehttp 30516 16448 "GET /static/images/vision.jpg HTTP/1.1" 200 30175
+INFO 2025-06-21 03:42:23,379 basehttp 30516 16448 "GET /static/sw.js HTTP/1.1" 304 0
+WARNING 2025-06-21 03:42:26,055 basehttp 30516 16448 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+WARNING 2025-06-21 03:42:26,543 basehttp 30516 19824 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 03:42:26,757 basehttp 30516 17868 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:42:27,964 basehttp 30516 17868 "GET /services/internet-solutions/ HTTP/1.1" 200 19181
+INFO 2025-06-21 03:42:28,232 basehttp 30516 17868 "GET /services/security-systems/ HTTP/1.1" 200 18782
+INFO 2025-06-21 03:42:28,310 basehttp 30516 17868 "GET /services/network-infrastructure/ HTTP/1.1" 200 19403
+INFO 2025-06-21 03:42:28,393 basehttp 30516 17868 "GET /services/power-solutions/ HTTP/1.1" 200 18598
+INFO 2025-06-21 03:42:28,853 basehttp 30516 31996 "GET /static/images/Diesel%20&%20Petrol%20Generators.jpg HTTP/1.1" 200 74915
+INFO 2025-06-21 03:42:28,857 basehttp 30516 17868 "GET /static/images/Solar%20Power%20Installations.jpg HTTP/1.1" 200 197876
+INFO 2025-06-21 03:42:29,025 basehttp 30516 17868 "GET /static/sw.js HTTP/1.1" 304 0
+WARNING 2025-06-21 03:42:31,393 basehttp 30516 31996 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+WARNING 2025-06-21 03:42:31,395 basehttp 30516 17868 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+INFO 2025-06-21 03:42:31,566 basehttp 30516 1140 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:43:19,043 basehttp 30516 1140 "GET /blog/ HTTP/1.1" 200 13698
+WARNING 2025-06-21 03:43:19,567 basehttp 30516 1140 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+WARNING 2025-06-21 03:43:19,802 basehttp 30516 27872 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 03:43:20,252 basehttp 30516 29364 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:43:22,036 basehttp 30516 29364 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:43:22,133 basehttp 30516 29364 "GET /blog/ HTTP/1.1" 200 13657
+INFO 2025-06-21 03:43:22,721 basehttp 30516 29364 "GET /blog/ HTTP/1.1" 200 13657
+INFO 2025-06-21 03:43:23,930 basehttp 30516 29364 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:46:05,650 basehttp 30516 25568 "GET /products/ HTTP/1.1" 200 14566
+INFO 2025-06-21 03:46:06,421 basehttp 30516 25568 "GET /blog/ HTTP/1.1" 200 13744
+INFO 2025-06-21 03:46:06,572 basehttp 30516 21088 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:46:07,074 basehttp 30516 1588 "GET /static/images/logo.png HTTP/1.1" 200 91155
+WARNING 2025-06-21 03:46:07,207 basehttp 30516 4808 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+INFO 2025-06-21 03:46:07,258 basehttp 30516 24380 - Broken pipe from ('127.0.0.1', 53479)
+WARNING 2025-06-21 03:46:07,270 basehttp 30516 14808 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 03:46:07,339 basehttp 30516 1588 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:46:07,387 basehttp 30516 1588 "GET /static/css/critical.css HTTP/1.1" 200 2734
+WARNING 2025-06-21 03:46:08,542 basehttp 30516 1588 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+WARNING 2025-06-21 03:46:08,743 basehttp 30516 19012 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 03:46:08,823 basehttp 30516 21516 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:46:19,307 basehttp 30516 21516 "GET /blog/? HTTP/1.1" 200 13738
+WARNING 2025-06-21 03:46:19,393 basehttp 30516 21516 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+WARNING 2025-06-21 03:46:19,468 basehttp 30516 14528 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 03:46:19,489 basehttp 30516 12912 "GET /static/sw.js HTTP/1.1" 304 0
+WARNING 2025-06-21 03:48:31,251 basehttp 30516 12912 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+WARNING 2025-06-21 03:48:31,910 basehttp 30516 22732 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+INFO 2025-06-21 03:48:31,963 basehttp 30516 24116 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:48:31,994 basehttp 30516 24116 "GET /static/css/critical.css HTTP/1.1" 304 0
+INFO 2025-06-21 03:52:34,003 basehttp 30516 24116 "GET /blog/ HTTP/1.1" 200 13717
+WARNING 2025-06-21 03:52:34,255 basehttp 30516 24116 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+WARNING 2025-06-21 03:52:34,828 basehttp 30516 23812 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+INFO 2025-06-21 03:52:35,257 basehttp 30516 31120 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:52:35,378 basehttp 30516 31120 "GET /static/css/critical.css HTTP/1.1" 304 0
+INFO 2025-06-21 03:52:38,381 basehttp 30516 31120 "GET /blog/ HTTP/1.1" 200 13659
+INFO 2025-06-21 03:52:38,503 basehttp 30516 31120 "GET /static/css/style.css HTTP/1.1" 200 21512
+INFO 2025-06-21 03:52:38,553 basehttp 30516 15356 "GET /static/css/responsive.css HTTP/1.1" 200 14772
+INFO 2025-06-21 03:52:38,602 basehttp 30516 31120 "GET /static/js/main.js HTTP/1.1" 200 4423
+INFO 2025-06-21 03:52:38,603 basehttp 30516 15356 "GET /static/images/logo.png HTTP/1.1" 200 91155
+INFO 2025-06-21 03:52:38,886 basehttp 30516 10208 "GET /static/js/mobile-menu.js HTTP/1.1" 200 8013
+INFO 2025-06-21 03:52:38,926 basehttp 30516 26524 "GET /static/images/security%20systems.jpg HTTP/1.1" 200 30218
+INFO 2025-06-21 03:52:39,043 basehttp 30516 10208 "GET /static/images/home1.jpg HTTP/1.1" 200 170805
+WARNING 2025-06-21 03:52:39,160 basehttp 30516 12912 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+WARNING 2025-06-21 03:52:39,816 basehttp 30516 24696 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+INFO 2025-06-21 03:52:40,405 basehttp 30516 10208 "GET /static/sw.js HTTP/1.1" 304 0
+INFO 2025-06-21 03:52:40,539 basehttp 30516 10208 "GET /static/images/logo.png HTTP/1.1" 200 91155
+INFO 2025-06-21 03:53:30,890 autoreload 30516 2528 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 03:53:34,875 autoreload 27228 14972 Watching for file changes with StatReloader
+INFO 2025-06-21 03:53:36,536 basehttp 27228 12032 "GET /blog/ HTTP/1.1" 200 69310
+WARNING 2025-06-21 03:53:36,830 basehttp 27228 12032 "GET /static/images/network%20infrastructure.jpg HTTP/1.1" 404 1961
+WARNING 2025-06-21 03:53:36,927 basehttp 27228 31716 "GET /static/images/tech%20insights.jpg HTTP/1.1" 404 1934
+INFO 2025-06-21 03:58:59,688 basehttp 27228 20976 "GET /static/css/style.css HTTP/1.1" 200 20849
+WARNING 2025-06-21 03:59:00,949 basehttp 27228 20976 "GET /static/sw.js HTTP/1.1" 404 1875
+INFO 2025-06-21 03:59:02,760 basehttp 27228 6192 "GET /products/ HTTP/1.1" 200 66642
+INFO 2025-06-21 03:59:08,105 basehttp 27228 6468 "GET /products/ HTTP/1.1" 200 66642
+INFO 2025-06-21 03:59:08,148 basehttp 27228 6468 "GET /static/css/style.css HTTP/1.1" 200 20849
+INFO 2025-06-21 03:59:08,158 basehttp 27228 6468 "GET /media/products/Tenda_N300_Wireless_Router_UZFLA8a.jpg HTTP/1.1" 200 27607
+INFO 2025-06-21 03:59:08,162 basehttp 27228 2672 "GET /static/images/logo.png HTTP/1.1" 200 91155
+INFO 2025-06-21 03:59:08,168 basehttp 27228 23648 "GET /static/css/responsive.css HTTP/1.1" 200 14772
+INFO 2025-06-21 03:59:08,178 basehttp 27228 6468 "GET /static/js/main.js HTTP/1.1" 200 4423
+INFO 2025-06-21 03:59:08,182 basehttp 27228 23648 "GET /static/js/mobile-menu.js HTTP/1.1" 200 8013
+INFO 2025-06-21 03:59:08,189 basehttp 27228 31652 "GET /media/products/MikroTik_hAP_Lite_RB941-2nD.png HTTP/1.1" 200 12149
+INFO 2025-06-21 03:59:08,195 basehttp 27228 29552 "GET /static/images/home1.jpg HTTP/1.1" 200 170805
+INFO 2025-06-21 03:59:08,198 basehttp 27228 11152 "GET /media/products/LIGHT_BEAM_5_AC_cvf5exz.jpg HTTP/1.1" 200 386299
+INFO 2025-06-21 03:59:09,745 basehttp 27228 31652 "GET /static/images/Public%20wifi%20hotspot.png HTTP/1.1" 200 1544928
+INFO 2025-06-21 03:59:09,761 basehttp 27228 11152 "GET /static/images/High%20speed%20internet.jpg HTTP/1.1" 200 1254557
+INFO 2025-06-21 03:59:09,797 basehttp 27228 29552 "GET /static/images/network%20infrastrcture.jpg HTTP/1.1" 200 2806027
+INFO 2025-06-21 03:59:10,788 basehttp 27228 29552 "GET /static/images/logo.png HTTP/1.1" 200 91155
+INFO 2025-06-21 03:59:23,429 basehttp 27228 29552 "GET /admin/core/product/ HTTP/1.1" 200 14700
+INFO 2025-06-21 04:00:21,565 basehttp 27228 29552 "GET /admin/auth/group/ HTTP/1.1" 200 8972
+INFO 2025-06-21 04:02:44,860 autoreload 27228 14972 D:\Websites\Hyperwave\hyperwave\settings.py changed, reloading.
+INFO 2025-06-21 04:02:46,416 autoreload 16436 17512 Watching for file changes with StatReloader
+INFO 2025-06-21 04:03:47,254 autoreload 16436 17512 D:\Websites\Hyperwave\core\views.py changed, reloading.
+INFO 2025-06-21 04:03:48,992 autoreload 25216 26008 Watching for file changes with StatReloader
+INFO 2025-06-21 04:08:48,445 autoreload 25216 26008 D:\Websites\Hyperwave\hyperwave\urls.py changed, reloading.
+INFO 2025-06-21 04:08:50,640 autoreload 11180 28080 Watching for file changes with StatReloader

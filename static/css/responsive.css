@@ -327,6 +327,15 @@ img {
         margin-bottom: 2rem;
     }
     
+    /* Override text wrapping prevention on mobile for better readability */
+    .footer-col ul li a {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
     /* Newsletter form */
     .newsletter-form {
         flex-direction: column;

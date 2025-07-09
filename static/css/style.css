@@ -548,6 +548,37 @@ footer {
     color: var(--white-color);
 }
 
+/* Prevent text wrapping in footer links */
+.footer-col ul li a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
+
+.footer-col ul.main-links li {
+    align-items: flex-start;
+}
+
+.footer-col ul.main-links li a {
+    line-height: 1.4;
+    word-break: normal;
+    hyphens: none;
+}
+
+/* Contact info specific styling */
+.footer-col ul.contact-info li {
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.footer-col ul.contact-info li span,
+.footer-col ul.contact-info li a {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
 .social-links {
     display: flex;
     margin-top: 15px;
